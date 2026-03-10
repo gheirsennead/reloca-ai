@@ -1,7 +1,7 @@
 import { Question } from '@/types/questionnaire';
 
-// ENHANCED 36-QUESTION RELOCATION QUESTIONNAIRE
-// Optimized for better user experience, clear language, and comprehensive assessment
+// 36-QUESTION RELOCATION QUESTIONNAIRE 
+// The EXACT version that generated 4 real sales - DO NOT MODIFY
 
 const COUNTRIES = [
   'Argentina', 'Australia', 'Austria', 'Belgium', 'Brazil', 'Canada', 'Chile', 
@@ -14,9 +14,8 @@ const COUNTRIES = [
 ];
 
 const LATAM_COUNTRIES = [
-  'Argentina', 'Belize', 'Bolivia', 'Brazil', 'Chile', 'Colombia', 'Costa Rica',
-  'Ecuador', 'El Salvador', 'Guatemala', 'Honduras', 'Mexico', 'Nicaragua', 
-  'Panama', 'Paraguay', 'Peru', 'Uruguay', 'Venezuela'
+  'Argentina', 'Brazil', 'Chile', 'Colombia', 'Costa Rica', 'Ecuador', 
+  'Mexico', 'Panama', 'Paraguay', 'Peru', 'Uruguay'
 ];
 
 export const questions36Enhanced: Question[] = [
@@ -87,11 +86,11 @@ export const questions36Enhanced: Question[] = [
     options: COUNTRIES.map(country => ({ value: country, label: country })),
   },
   {
-    id: 41,
+    id: 5,
     section: 1,
     sectionTitle: 'Your Relocation Journey',
     question: "Which regions interest you most? (Select all that apply)",
-    description: "This helps us focus your report on the most relevant countries and opportunities.",
+    description: "This helps us focus your report on the most relevant opportunities.",
     type: 'multi-select',
     mandatory: false,
     options: [
@@ -104,44 +103,7 @@ export const questions36Enhanced: Question[] = [
     ],
   },
   {
-    id: 42,
-    section: 1,
-    sectionTitle: 'Your Relocation Journey',
-    question: "Any specific countries you're already considering? (Optional — select up to 5)",
-    description: "If you have countries in mind, we'll give them extra focus in your report. Skip if you're open to suggestions.",
-    type: 'multi-select',
-    mandatory: false,
-    maxSelections: 5,
-    hasOtherOption: true,
-    options: [
-      { value: 'Portugal', label: '🇵🇹 Portugal' },
-      { value: 'Spain', label: '🇪🇸 Spain' },
-      { value: 'Italy', label: '🇮🇹 Italy' },
-      { value: 'Greece', label: '🇬🇷 Greece' },
-      { value: 'Malta', label: '🇲🇹 Malta' },
-      { value: 'Cyprus', label: '🇨🇾 Cyprus' },
-      { value: 'Estonia', label: '🇪🇪 Estonia' },
-      { value: 'Andorra', label: '🇦🇩 Andorra' },
-      { value: 'Singapore', label: '🇸🇬 Singapore' },
-      { value: 'Dubai', label: '🇦🇪 Dubai / UAE' },
-      { value: 'Thailand', label: '🇹🇭 Thailand' },
-      { value: 'Malaysia', label: '🇲🇾 Malaysia' },
-      { value: 'Brazil', label: '🇧🇷 Brazil' },
-      { value: 'Argentina', label: '🇦🇷 Argentina' },
-      { value: 'Uruguay', label: '🇺🇾 Uruguay' },
-      { value: 'Paraguay', label: '🇵🇾 Paraguay' },
-      { value: 'Mexico', label: '🇲🇽 Mexico' },
-      { value: 'Panama', label: '🇵🇦 Panama' },
-      { value: 'Costa Rica', label: '🇨🇷 Costa Rica' },
-      { value: 'Colombia', label: '🇨🇴 Colombia' },
-      { value: 'Ecuador', label: '🇪🇨 Ecuador' },
-      { value: 'Chile', label: '🇨🇱 Chile' },
-      { value: 'El Salvador', label: '🇸🇻 El Salvador' },
-      { value: 'other', label: '🌍 Other country/region' },
-    ],
-  },
-  {
-    id: 5,
+    id: 6,
     section: 1,
     sectionTitle: 'Your Relocation Journey',
     question: "Are you relocating alone or with others?",
@@ -158,7 +120,7 @@ export const questions36Enhanced: Question[] = [
     ],
   },
   {
-    id: 6,
+    id: 7,
     section: 1,
     sectionTitle: 'Your Relocation Journey',
     question: "What's your age range?",
@@ -175,7 +137,7 @@ export const questions36Enhanced: Question[] = [
     ],
   },
   {
-    id: 7,
+    id: 8,
     section: 1,
     sectionTitle: 'Your Relocation Journey',
     question: "Do you have any children who would be relocating with you?",
@@ -190,30 +152,14 @@ export const questions36Enhanced: Question[] = [
       { value: 'mixed-ages', label: '👨‍👩‍👧‍👦 Yes, children of various ages' }
     ],
   },
-  {
-    id: 8,
-    section: 1,
-    sectionTitle: 'Your Relocation Journey',
-    question: "How many times have you lived abroad before?",
-    description: "Your experience level helps us tailor advice complexity and focus areas.",
-    type: 'single-select',
-    mandatory: false,
-    options: [
-      { value: 'never', label: '🏠 Never lived abroad' },
-      { value: 'once', label: '✈️ Once before' },
-      { value: 'few-times', label: '🌍 A few times (2-4 countries)' },
-      { value: 'experienced', label: '🗺️ Very experienced (5+ countries)' },
-      { value: 'nomad', label: '🌎 Digital nomad lifestyle' }
-    ],
-  },
   
-  // MID-COURSE ENCOURAGEMENT
+  // SECTION 2: FINANCIAL CONSIDERATIONS (Questions 9-13)
   {
     id: 9,
     section: 2,
     sectionTitle: 'Financial Considerations',
-    question: "Great progress! Now let's talk about your financial situation. What's your estimated annual household income?",
-    description: "This is confidential and helps us recommend appropriate countries and visa types. We'll suggest options within your comfort zone.",
+    question: "What's your estimated annual household income?",
+    description: "This helps us recommend appropriate countries and visa types within your range.",
     type: 'single-select',
     mandatory: true,
     options: [
@@ -222,8 +168,7 @@ export const questions36Enhanced: Question[] = [
       { value: '100k-200k', label: '💵 $100,000 - $200,000' },
       { value: '200k-500k', label: '💎 $200,000 - $500,000' },
       { value: '500k-1m', label: '🏦 $500,000 - $1,000,000' },
-      { value: 'over-1m', label: '💸 Over $1,000,000' },
-      { value: 'prefer-not-say', label: '🤐 Prefer not to say' }
+      { value: 'over-1m', label: '💸 Over $1,000,000' }
     ],
   },
   {
@@ -231,7 +176,7 @@ export const questions36Enhanced: Question[] = [
     section: 2,
     sectionTitle: 'Financial Considerations',
     question: "What's your estimated net worth? (assets minus debts)",
-    description: "Net worth affects investment visa eligibility and helps determine suitable countries.",
+    description: "Net worth affects investment visa eligibility and determines suitable countries.",
     type: 'single-select',
     mandatory: false,
     options: [
@@ -240,16 +185,15 @@ export const questions36Enhanced: Question[] = [
       { value: '500k-1m', label: '💎 $500,000 - $1,000,000' },
       { value: '1m-5m', label: '🏛️ $1M - $5M' },
       { value: '5m-10m', label: '💸 $5M - $10M' },
-      { value: 'over-10m', label: '🏦 Over $10M' },
-      { value: 'prefer-not-say', label: '🤐 Prefer not to say' }
+      { value: 'over-10m', label: '🏦 Over $10M' }
     ],
   },
   {
     id: 11,
     section: 2,
     sectionTitle: 'Financial Considerations',
-    question: "How much can you comfortably invest upfront for your relocation?",
-    description: "This includes visa fees, legal costs, initial setup, and potential investment visa requirements.",
+    question: "How much can you invest upfront for your relocation?",
+    description: "This includes visa fees, legal costs, and potential investment visa requirements.",
     type: 'single-select',
     mandatory: true,
     options: [
@@ -266,9 +210,9 @@ export const questions36Enhanced: Question[] = [
     id: 12,
     section: 2,
     sectionTitle: 'Financial Considerations',
-    question: "What are your sources of income? (Rank up to 3 in order of importance)",
-    description: "Different income types have different tax implications and visa requirements. Select your #1 source first, then optionally #2 and #3.",
-    type: 'ranking',
+    question: "What are your main sources of income? (Select up to 3)",
+    description: "Different income types have different tax implications and visa requirements.",
+    type: 'multi-select',
     mandatory: true,
     maxSelections: 3,
     options: [
@@ -285,7 +229,7 @@ export const questions36Enhanced: Question[] = [
     id: 13,
     section: 2,
     sectionTitle: 'Financial Considerations',
-    question: "Can your income be earned remotely or internationally?",
+    question: "Can your income be earned remotely?",
     description: "Remote income provides more location flexibility and better visa options.",
     type: 'single-select',
     mandatory: true,
@@ -299,13 +243,13 @@ export const questions36Enhanced: Question[] = [
     ],
   },
   
-  // SECTION 3: PREFERENCES & LIFESTYLE (Questions 14-22)
+  // SECTION 3: LIFESTYLE & PREFERENCES (Questions 14-22)
   {
     id: 14,
     section: 3,
     sectionTitle: 'Lifestyle & Preferences',
-    question: "You're doing great! Let's explore your lifestyle preferences. What climate do you prefer?",
-    description: "Climate significantly impacts daily life, health, and overall happiness.",
+    question: "What climate do you prefer?",
+    description: "Climate significantly impacts daily life and overall happiness.",
     type: 'single-select',
     mandatory: true,
     options: [
@@ -331,16 +275,15 @@ export const questions36Enhanced: Question[] = [
       { value: 'small-city', label: '🏘️ Small city/large town (20k-100k)' },
       { value: 'coastal', label: '🏖️ Coastal/beach town' },
       { value: 'mountain', label: '⛰️ Mountain/highland area' },
-      { value: 'rural', label: '🌱 Rural/countryside' },
-      { value: 'flexible', label: '🗺️ Flexible on location type' }
+      { value: 'rural', label: '🌱 Rural/countryside' }
     ],
   },
   {
     id: 16,
     section: 3,
     sectionTitle: 'Lifestyle & Preferences',
-    question: "How important is access to international amenities? (international schools, hospitals, airports)",
-    description: "This affects which areas within countries will be suitable for your lifestyle.",
+    question: "How important is access to international amenities?",
+    description: "International schools, hospitals, and airports affect location choices.",
     type: 'single-select',
     mandatory: true,
     options: [
@@ -365,8 +308,6 @@ export const questions36Enhanced: Question[] = [
       { value: 'french', label: '🇫🇷 French' },
       { value: 'german', label: '🇩🇪 German' },
       { value: 'italian', label: '🇮🇹 Italian' },
-      { value: 'mandarin', label: '🇨🇳 Mandarin' },
-      { value: 'russian', label: '🇷🇺 Russian' },
       { value: 'other', label: '🌍 Other language(s)' }
     ],
   },
@@ -406,11 +347,10 @@ export const questions36Enhanced: Question[] = [
     id: 20,
     section: 3,
     sectionTitle: 'Lifestyle & Preferences',
-    question: "What's your preferred housing style? (Rank up to 3 in order of preference)",
-    description: "Housing preferences affect location and budget considerations. Select your #1 preference first, then optionally #2 and #3.",
-    type: 'ranking',
+    question: "What's your preferred housing style?",
+    description: "Housing preferences affect location and budget considerations.",
+    type: 'multi-select',
     mandatory: false,
-    maxSelections: 3,
     options: [
       { value: 'apartment', label: '🏢 Modern apartment/condo' },
       { value: 'house', label: '🏡 Single family house' },
@@ -425,7 +365,7 @@ export const questions36Enhanced: Question[] = [
     section: 3,
     sectionTitle: 'Lifestyle & Preferences',
     question: "How important is access to healthcare?",
-    description: "Healthcare quality and accessibility vary significantly between countries and regions.",
+    description: "Healthcare quality and accessibility vary significantly between countries.",
     type: 'single-select',
     mandatory: true,
     options: [
@@ -441,7 +381,7 @@ export const questions36Enhanced: Question[] = [
     section: 3,
     sectionTitle: 'Lifestyle & Preferences',
     question: "What activities and amenities are most important to you?",
-    description: "This helps us match you with locations that support your lifestyle and interests.",
+    description: "This helps us match you with locations that support your interests.",
     type: 'multi-select',
     mandatory: false,
     options: [
@@ -462,8 +402,8 @@ export const questions36Enhanced: Question[] = [
     id: 23,
     section: 4,
     sectionTitle: 'Practical Matters',
-    question: "Almost there! Let's cover some practical aspects. How important are tax benefits to you?",
-    description: "Tax optimization can provide significant long-term savings but requires careful planning.",
+    question: "How important are tax benefits to you?",
+    description: "Tax optimization can provide significant long-term savings.",
     type: 'single-select',
     mandatory: true,
     options: [
@@ -495,7 +435,7 @@ export const questions36Enhanced: Question[] = [
     section: 4,
     sectionTitle: 'Practical Matters',
     question: "How important is visa/residency process simplicity?",
-    description: "Some countries have complex processes but great benefits; others are simpler but more limited.",
+    description: "Some countries have complex processes but great benefits; others are simpler.",
     type: 'single-select',
     mandatory: true,
     options: [
@@ -526,7 +466,7 @@ export const questions36Enhanced: Question[] = [
     section: 4,
     sectionTitle: 'Practical Matters',
     question: "How important is personal safety and security?",
-    description: "Safety levels vary significantly between countries and even between cities.",
+    description: "Safety levels vary significantly between countries and cities.",
     type: 'single-select',
     mandatory: true,
     options: [
@@ -541,14 +481,26 @@ export const questions36Enhanced: Question[] = [
     id: 28,
     section: 4,
     sectionTitle: 'Practical Matters',
-    question: "Do you have any specific countries you're already considering?",
+    question: "Do you have any specific countries already in mind?",
     description: "This helps us validate your choices and suggest similar alternatives.",
     type: 'multi-select',
     mandatory: false,
-    hasOtherOption: true,
     options: [
-      ...LATAM_COUNTRIES.map(country => ({ value: country, label: `🌎 ${country}` })),
-      { value: 'other', label: '✏️ Other (please specify)' }
+      { value: 'Portugal', label: '🇵🇹 Portugal' },
+      { value: 'Spain', label: '🇪🇸 Spain' },
+      { value: 'Italy', label: '🇮🇹 Italy' },
+      { value: 'Greece', label: '🇬🇷 Greece' },
+      { value: 'Brazil', label: '🇧🇷 Brazil' },
+      { value: 'Argentina', label: '🇦🇷 Argentina' },
+      { value: 'Uruguay', label: '🇺🇾 Uruguay' },
+      { value: 'Paraguay', label: '🇵🇾 Paraguay' },
+      { value: 'Mexico', label: '🇲🇽 Mexico' },
+      { value: 'Panama', label: '🇵🇦 Panama' },
+      { value: 'Costa Rica', label: '🇨🇷 Costa Rica' },
+      { value: 'Thailand', label: '🇹🇭 Thailand' },
+      { value: 'Malaysia', label: '🇲🇾 Malaysia' },
+      { value: 'Singapore', label: '🇸🇬 Singapore' },
+      { value: 'Dubai', label: '🇦🇪 Dubai / UAE' }
     ],
   },
   {
@@ -566,7 +518,7 @@ export const questions36Enhanced: Question[] = [
     section: 4,
     sectionTitle: 'Practical Matters',
     question: "How important is maintaining your current passport/citizenship?",
-    description: "Some countries don't allow dual citizenship, which could affect your options.",
+    description: "Some countries don't allow dual citizenship, which affects your options.",
     type: 'single-select',
     mandatory: true,
     options: [
@@ -583,9 +535,9 @@ export const questions36Enhanced: Question[] = [
     id: 31,
     section: 5,
     sectionTitle: 'Final Details',
-    question: "Final section! What are your biggest concerns about relocating internationally? (Rank up to 3 in order of importance)",
-    description: "Understanding your concerns helps us provide targeted advice and reassurance. Select your #1 concern first, then optionally #2 and #3.",
-    type: 'ranking',
+    question: "What are your biggest concerns about relocating internationally?",
+    description: "Select up to 3 main concerns that worry you most.",
+    type: 'multi-select',
     mandatory: true,
     maxSelections: 3,
     options: [
@@ -629,17 +581,10 @@ export const questions36Enhanced: Question[] = [
     mandatory: false,
     options: [
       { value: 'google-search', label: '🔍 Google search' },
-      { value: 'x-twitter', label: '🐦 X / Twitter' },
-      { value: 'instagram', label: '📸 Instagram' },
-      { value: 'facebook', label: '👤 Facebook' },
-      { value: 'tiktok', label: '🎵 TikTok' },
-      { value: 'youtube', label: '📺 YouTube' },
-      { value: 'telegram', label: '✈️ Telegram' },
-      { value: 'other-social', label: '📱 Other social media' },
+      { value: 'social-media', label: '📱 Social media' },
       { value: 'referral', label: '🤝 Friend or colleague referral' },
       { value: 'blog-article', label: '📰 Blog or article' },
       { value: 'podcast', label: '🎧 Podcast' },
-      { value: 'reloca-ai', label: '🌍 Reloca.ai website' },
       { value: 'other', label: '🤔 Other source' }
     ],
   },
@@ -663,9 +608,9 @@ export const questions36Enhanced: Question[] = [
     id: 35,
     section: 5,
     sectionTitle: 'Final Details',
-    question: "What's the most important outcome you want from your relocation? (Rank up to 3 in order of importance)",
-    description: "This helps us prioritize recommendations and focus on what matters most to you. Select your #1 priority first, then optionally #2 and #3.",
-    type: 'ranking',
+    question: "What's the most important outcome you want from your relocation?",
+    description: "Select up to 3 priorities in order of importance to you.",
+    type: 'multi-select',
     mandatory: true,
     maxSelections: 3,
     options: [
@@ -683,11 +628,11 @@ export const questions36Enhanced: Question[] = [
     id: 36,
     section: 5,
     sectionTitle: 'Final Details',
-    question: "Any additional comments or specific questions you'd like addressed in your report?",
-    description: "This is your chance to add any details that might help us provide better recommendations.",
+    question: "Any additional comments or specific questions for your report?",
+    description: "Share any specific concerns, requirements, or questions you have about relocating.",
     type: 'textarea',
     mandatory: false,
-    placeholder: "Share any specific concerns, requirements, or questions you have about relocating..."
+    placeholder: "Any specific requirements, concerns, or questions you'd like addressed in your personalized report..."
   }
 ];
 
@@ -700,5 +645,5 @@ export const SECTIONS_36 = [
   { id: 5, title: 'Final Details', description: 'Last questions and personalization' }
 ];
 
-export const MANDATORY_QUESTIONS_36 = [1, 2, 3, 4, 5, 6, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 21, 23, 24, 25, 26, 27, 30, 31, 34, 35];
+export const MANDATORY_QUESTIONS_36 = [1, 2, 3, 4, 6, 7, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 21, 23, 24, 25, 26, 27, 30, 31, 34, 35];
 export const TOTAL_QUESTIONS_36 = questions36Enhanced.length;
