@@ -43,6 +43,9 @@ function Header() {
           <a href="#pricing" className="text-gray-600 hover:text-[#1a365d] transition">
             Pricing
           </a>
+          <Link href="/blog" className="text-gray-600 hover:text-[#1a365d] transition">
+            Blog
+          </Link>
           <Link href="/compare" className="text-gray-600 hover:text-[#1a365d] transition">
             Compare
           </Link>
@@ -90,6 +93,7 @@ function Header() {
           <a href="#how-it-works" onClick={() => setMobileMenuOpen(false)} className="block text-gray-600 hover:text-[#1a365d] transition text-sm">How It Works</a>
           <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="block text-gray-600 hover:text-[#1a365d] transition text-sm">About</Link>
           <a href="#pricing" onClick={() => setMobileMenuOpen(false)} className="block text-gray-600 hover:text-[#1a365d] transition text-sm">Pricing</a>
+          <Link href="/blog" onClick={() => setMobileMenuOpen(false)} className="block text-gray-600 hover:text-[#1a365d] transition text-sm">Blog</Link>
           <Link href="/compare" onClick={() => setMobileMenuOpen(false)} className="block text-gray-600 hover:text-[#1a365d] transition text-sm">Compare</Link>
           <Link href="/partners" onClick={() => setMobileMenuOpen(false)} className="block text-gray-600 hover:text-[#1a365d] transition text-sm">Partners</Link>
           <a href="#faq" onClick={() => setMobileMenuOpen(false)} className="block text-gray-600 hover:text-[#1a365d] transition text-sm">FAQ</a>
