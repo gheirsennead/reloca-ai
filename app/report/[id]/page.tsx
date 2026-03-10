@@ -700,14 +700,21 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
           );
         })()}
 
-        {/* Shareable Card - Mercury's Viral Loop System */}
+        {/* Share Prompt — Placement 1: After Free Summary (pre-purchase) */}
         {report.country_recommendations && report.country_recommendations.length > 0 && (() => {
           const topMatch = sortedRecommendations(report.country_recommendations)[0];
           return (
           <div className="mb-10">
             <div className="bg-white rounded-2xl border border-gray-100 p-6">
-              <h3 className="text-lg font-bold text-[#1a365d] mb-3 text-center">Share Your #1 Match & Get $10 Credit</h3>
-              <p className="text-gray-500 text-sm mb-4 text-center">Friends who complete our quiz using your link give you $10 credit for future reports</p>
+              <h3 className="text-lg font-bold text-[#1a365d] mb-2 text-center">
+                Share your #1 match {!isPaid && <span className="text-[#38b2ac]">(and get $10 off when friends buy)</span>}
+              </h3>
+              <p className="text-gray-500 text-sm mb-4 text-center">
+                {isPaid 
+                  ? 'Help a friend find their perfect country — you both save $10 on future reports'
+                  : 'Show your friends your result and earn $10 off your report when they purchase'
+                }
+              </p>
               
               <ShareableCard
                 country={topMatch.country}
@@ -719,25 +726,6 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
                   { icon: '🌎', text: 'Ideal for families' }
                 ]}
               />
-              
-              {/* Social Sharing Buttons */}
-              <div className="mt-4 flex justify-center gap-3">
-                <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm transition">
-                  Share on Facebook
-                </button>
-                <button className="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-lg text-sm transition">
-                  Share on Twitter
-                </button>
-                <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition">
-                  Share on LinkedIn
-                </button>
-                <button className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg text-sm transition">
-                  Share on WhatsApp
-                </button>
-                <button className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg text-sm transition">
-                  Copy Link
-                </button>
-              </div>
             </div>
           </div>
           );
@@ -799,6 +787,31 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
             </div>
           </div>
         )}
+
+        {/* Share Prompt — Placement 2: After Full Report (post-purchase) */}
+        {isPaid && report.country_recommendations && report.country_recommendations.length > 0 && (() => {
+          const topMatch = sortedRecommendations(report.country_recommendations)[0];
+          return (
+            <div className="mt-8 bg-white rounded-2xl border border-gray-100 p-6">
+              <h3 className="text-lg font-bold text-[#1a365d] mb-2 text-center">
+                Help a friend find their perfect country <span className="text-[#38b2ac]">(you both save $10)</span>
+              </h3>
+              <p className="text-gray-500 text-sm mb-4 text-center">
+                Share your result — when a friend buys their report with your link, you both get $10 off future reports
+              </p>
+              <ShareableCard
+                country={topMatch.country}
+                score={topMatch.score}
+                reportId={report.id}
+                reasons={[
+                  { icon: '🏠', text: 'Perfect property market' },
+                  { icon: '💰', text: 'Great value for money' },
+                  { icon: '🌎', text: 'Ideal for families' }
+                ]}
+              />
+            </div>
+          );
+        })()}
 
         {/* Reloca Pro upsell — paid users only */}
         {isPaid && (

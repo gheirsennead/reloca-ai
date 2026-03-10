@@ -11,18 +11,12 @@ interface ShareableCardProps {
 }
 
 const countryFlags: Record<string, string> = {
-  'BRAZIL': '🇧🇷',
-  'ARGENTINA': '🇦🇷', 
-  'PARAGUAY': '🇵🇾',
-  'URUGUAY': '🇺🇾',
-  'PANAMA': '🇵🇦',
-  'EL SALVADOR': '🇸🇻',
-  'COSTA RICA': '🇨🇷',
-  'MEXICO': '🇲🇽',
-  'COLOMBIA': '🇨🇴',
-  'ECUADOR': '🇪🇨',
-  'CHILE': '🇨🇱',
-  'PERU': '🇵🇪'
+  'BRAZIL': '🇧🇷', 'ARGENTINA': '🇦🇷', 'PARAGUAY': '🇵🇾', 'URUGUAY': '🇺🇾',
+  'PANAMA': '🇵🇦', 'EL SALVADOR': '🇸🇻', 'COSTA RICA': '🇨🇷', 'MEXICO': '🇲🇽',
+  'COLOMBIA': '🇨🇴', 'ECUADOR': '🇪🇨', 'CHILE': '🇨🇱', 'PERU': '🇵🇪', 'BOLIVIA': '🇧🇴',
+  'PORTUGAL': '🇵🇹', 'SPAIN': '🇪🇸', 'ITALY': '🇮🇹', 'GREECE': '🇬🇷',
+  'MALTA': '🇲🇹', 'CYPRUS': '🇨🇾', 'ESTONIA': '🇪🇪', 'ANDORRA': '🇦🇩',
+  'SINGAPORE': '🇸🇬', 'DUBAI': '🇦🇪', 'UAE': '🇦🇪', 'THAILAND': '🇹🇭', 'MALAYSIA': '🇲🇾',
 };
 
 const defaultReasons = [
@@ -32,7 +26,7 @@ const defaultReasons = [
 ];
 
 export function ShareableCard({ country, score, reportId, userName, reasons = defaultReasons }: ShareableCardProps) {
-  const [showCard, setShowCard] = useState(false);
+  const [showCard, setShowCard] = useState(true);
   const [discountCode, setDiscountCode] = useState<string>('');
   const [showDiscountBanner, setShowDiscountBanner] = useState(false);
   const [isGeneratingDiscount, setIsGeneratingDiscount] = useState(false);

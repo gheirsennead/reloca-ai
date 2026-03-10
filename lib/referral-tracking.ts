@@ -55,21 +55,16 @@ export function setReferralCookie(referralCode: string): void {
 }
 
 export function trackReferralClick(referralCode: string): void {
-  // Track the referral click (could be sent to analytics, database, etc.)
   if (typeof window !== 'undefined') {
-    // For now, just log it - in production this would go to your analytics
-    console.log('Referral click tracked:', {
-      code: referralCode,
-      timestamp: new Date().toISOString(),
-      url: window.location.href,
-      referrer: document.referrer,
-    });
+    // Store ref code in localStorage for later attribution
+    localStorage.setItem('reloca_ref', referralCode);
     
-    // You could also send to an API endpoint:
-    // fetch('/api/referrals/track-click', {
-    //   method: 'POST',
-    //   body: JSON.stringify({ referralCode, timestamp: new Date().toISOString() })
-    // });
+    // Fire API call to track the click
+    fetch('/api/referral-click', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code: referralCode, url: window.location.href }),
+    }).catch(() => {}); // fail silently
   }
 }
 

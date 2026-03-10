@@ -3,18 +3,12 @@ import { ImageResponse } from 'next/og';
 export const runtime = 'edge';
 
 const countryFlags: Record<string, string> = {
-  'BRAZIL': '🇧🇷',
-  'ARGENTINA': '🇦🇷', 
-  'PARAGUAY': '🇵🇾',
-  'URUGUAY': '🇺🇾',
-  'PANAMA': '🇵🇦',
-  'EL SALVADOR': '🇸🇻',
-  'COSTA RICA': '🇨🇷',
-  'MEXICO': '🇲🇽',
-  'COLOMBIA': '🇨🇴',
-  'ECUADOR': '🇪🇨',
-  'CHILE': '🇨🇱',
-  'PERU': '🇵🇪'
+  'BRAZIL': '🇧🇷', 'ARGENTINA': '🇦🇷', 'PARAGUAY': '🇵🇾', 'URUGUAY': '🇺🇾',
+  'PANAMA': '🇵🇦', 'EL SALVADOR': '🇸🇻', 'COSTA RICA': '🇨🇷', 'MEXICO': '🇲🇽',
+  'COLOMBIA': '🇨🇴', 'ECUADOR': '🇪🇨', 'CHILE': '🇨🇱', 'PERU': '🇵🇪', 'BOLIVIA': '🇧🇴',
+  'PORTUGAL': '🇵🇹', 'SPAIN': '🇪🇸', 'ITALY': '🇮🇹', 'GREECE': '🇬🇷',
+  'MALTA': '🇲🇹', 'CYPRUS': '🇨🇾', 'ESTONIA': '🇪🇪', 'ANDORRA': '🇦🇩',
+  'SINGAPORE': '🇸🇬', 'DUBAI': '🇦🇪', 'UAE': '🇦🇪', 'THAILAND': '🇹🇭', 'MALAYSIA': '🇲🇾',
 };
 
 export async function GET(request: Request) {
