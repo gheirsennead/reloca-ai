@@ -21,6 +21,11 @@ const BLOG_SLUGS = [
   'costa-rica-tax-guide-expats',
   'thailand-tax-rules-expats',
   'uae-dubai-taxes-expats',
+  'paraguay-residency-rules-2026',
+  'argentina-zero-tax-foreign-income',
+  'middle-east-uae-bahrain-qatar-expats',
+  'portugal-ifici-tax-regime-2026',
+  'digital-nomad-visa-comparison-2026',
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

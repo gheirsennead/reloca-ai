@@ -48,6 +48,41 @@ const articles = [
     excerpt: 'The UAE offers zero personal income tax, making it incredibly attractive. But US tax obligations and residency requirements create complexity.',
     readTime: '9 min read',
   },
+  {
+    slug: 'paraguay-residency-rules-2026',
+    flag: '🇵🇾',
+    title: 'Paraguay Residency Alert: 1-Year Exit Rule Enforcement (2026)',
+    excerpt: 'Paraguay is enforcing the 1-year exit rule for permanent residents. If you got residency in 2023-2025, your status may be at risk.',
+    readTime: '10 min read',
+  },
+  {
+    slug: 'argentina-zero-tax-foreign-income',
+    flag: '🇦🇷',
+    title: 'Argentina Zero Tax on Foreign Income: NRPP Status Explained (2026)',
+    excerpt: 'Argentina\'s NRPP status lets expats pay zero tax on foreign income for 5 years. Combined with low living costs and the new digital nomad visa.',
+    readTime: '11 min read',
+  },
+  {
+    slug: 'middle-east-uae-bahrain-qatar-expats',
+    flag: '🌍',
+    title: 'Middle East Expat Living 2026: UAE, Bahrain, Qatar Tax-Free Guide',
+    excerpt: 'Complete guide to tax-free expat life in UAE, Bahrain, and Qatar. Honest assessment of opportunities and risks amid regional tensions.',
+    readTime: '12 min read',
+  },
+  {
+    slug: 'portugal-ifici-tax-regime-2026',
+    flag: '🇵🇹',
+    title: 'Portugal IFICI vs NHR: Complete 2026 Tax Guide for Expats',
+    excerpt: 'Portugal\'s IFICI tax regime replaced NHR in 2024. Most online guides are outdated. Here\'s what changed, who qualifies, and how to apply.',
+    readTime: '11 min read',
+  },
+  {
+    slug: 'digital-nomad-visa-comparison-2026',
+    flag: '🌐',
+    title: 'Best Digital Nomad Visas 2026: Complete Country Comparison',
+    excerpt: '47 countries now offer digital nomad visas. Which ones are worth it? Visa costs, tax treatment, income requirements, and paths to residency compared.',
+    readTime: '14 min read',
+  },
 ];
 
 export default function BlogIndex() {

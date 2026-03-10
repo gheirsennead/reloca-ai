@@ -6,6 +6,11 @@ const ALL_ARTICLES = [
   { slug: 'costa-rica-tax-guide-expats', title: 'Costa Rica Tax Guide for Expats (2026)', country: 'Costa Rica' },
   { slug: 'thailand-tax-rules-expats', title: 'Thailand Tax Rules for Expats — 2026 Guide', country: 'Thailand' },
   { slug: 'uae-dubai-taxes-expats', title: 'UAE (Dubai) Taxes for Expats — Zero Tax Guide 2026', country: 'UAE' },
+  { slug: 'paraguay-residency-rules-2026', title: 'Paraguay Residency Alert: 1-Year Exit Rule (2026)', country: 'Paraguay' },
+  { slug: 'argentina-zero-tax-foreign-income', title: 'Argentina Zero Tax on Foreign Income: NRPP Guide', country: 'Argentina' },
+  { slug: 'middle-east-uae-bahrain-qatar-expats', title: 'Middle East Expat Living 2026: UAE, Bahrain, Qatar', country: 'Middle East' },
+  { slug: 'portugal-ifici-tax-regime-2026', title: 'Portugal IFICI vs NHR: Complete 2026 Tax Guide', country: 'Portugal' },
+  { slug: 'digital-nomad-visa-comparison-2026', title: 'Best Digital Nomad Visas 2026: Country Comparison', country: 'Global' },
 ];
 
 interface RelatedArticlesProps {
@@ -29,7 +34,11 @@ export function RelatedArticles({ currentSlug }: RelatedArticlesProps) {
               {article.country === 'Portugal' ? '🇵🇹' :
                article.country === 'Mexico' ? '🇲🇽' :
                article.country === 'Costa Rica' ? '🇨🇷' :
-               article.country === 'Thailand' ? '🇹🇭' : '🇦🇪'}
+               article.country === 'Thailand' ? '🇹🇭' :
+               article.country === 'Paraguay' ? '🇵🇾' :
+               article.country === 'Argentina' ? '🇦🇷' :
+               article.country === 'Middle East' ? '🌍' :
+               article.country === 'Global' ? '🌐' : '🇦🇪'}
             </span>
             <h4 className="font-semibold text-[#1a365d] text-sm leading-snug">{article.title}</h4>
           </Link>
