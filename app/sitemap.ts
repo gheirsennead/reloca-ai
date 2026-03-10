@@ -15,9 +15,24 @@ const COMPARISONS = [
   'spain-vs-greece', 'malta-vs-cyprus', 'uruguay-vs-paraguay', 'estonia-vs-portugal',
 ];
 
+const BLOG_SLUGS = [
+  'portugal-taxes-expats',
+  'mexico-taxes-expats',
+  'costa-rica-tax-guide-expats',
+  'thailand-tax-rules-expats',
+  'uae-dubai-taxes-expats',
+];
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://reloca.ai'
   
+  const blogPages: MetadataRoute.Sitemap = BLOG_SLUGS.map(slug => ({
+    url: `${baseUrl}/blog/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.8,
+  }));
+
   const countryPages: MetadataRoute.Sitemap = COUNTRY_SLUGS.map(slug => ({
     url: `${baseUrl}/relocate-to/${slug}`,
     lastModified: new Date(),
@@ -39,6 +54,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/about`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${baseUrl}/partners`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
     { url: `${baseUrl}/pricing`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${baseUrl}/blog`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
+    ...blogPages,
     ...countryPages,
     ...comparisonPages,
   ]
