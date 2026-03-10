@@ -1,0 +1,45 @@
+{
+  "site": {
+    "title": "Reloca.ai — Planificateur de Relocalisation LATAM alimenté par l'IA",
+    "description": "Trouvez le pays parfait en Amérique latine. Répondez à 36 questions, obtenez un plan de relocalisation personnalisé avec options de visa, coûts et calendrier. Résumé gratuit ou rapport complet pour 49$."
+  },
+  "nav": {
+    "howItWorks": "Comment ça marche",
+    "about": "À propos",
+    "pricing": "Tarifs",
+    "faq": "FAQ",
+    "login": "Connexion",
+    "dashboard": "Tableau de bord",
+    "startPlanning": "Commencer la planification"
+  },
+  "hero": {
+    "title": "Où devriez-vous déménager en Amérique latine ?",
+    "titleHighlight": "Amérique latine",
+    "subtitle": "Plans de relocalisation alimentés par l'IA basés sur des données réelles de familles qui l'ont vraiment fait. Répondez à 36 questions. Obtenez votre plan personnalisé en quelques minutes.",
+    "ctaPrimary": "Planifier mon déménagement — Gratuit",
+    "ctaSecondary": "Voir comment ça marche",
+    "badge": "10+ Pays disponibles"
+  },
+  "report": {
+    "title": "Votre plan de relocalisation",
+    "processing": "Analyse de votre profil...",
+    "ready": "Votre rapport est prêt !",
+    "freePreview": "Aperçu gratuit",
+    "fullReport": "Rapport complet",
+    "price": "49$",
+    "unlockReport": "Débloquer le rapport complet"
+  },
+  "languages": {
+    "english": "English",
+    "french": "Français",
+    "spanish": "Español", 
+    "italian": "Italiano",
+    "portuguese": "Português"
+  },
+  "faq": {
+    "reportLanguages": {
+      "question": "Dans quelles langues le rapport est-il disponible ?",
+      "answer": "Disponible en anglais, français, espagnol, italien et portugais. Sélectionnez votre langue préférée avant de commencer le questionnaire."
+    }
+  }
+}

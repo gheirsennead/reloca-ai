@@ -1,0 +1,45 @@
+{
+  "site": {
+    "title": "Reloca.ai — Pianificatore di Trasferimento LATAM con IA",
+    "description": "Trova il tuo paese perfetto in America Latina. Rispondi a 36 domande, ottieni un piano di trasferimento personalizzato con opzioni visto, costi e tempistiche. Riassunto gratuito o rapporto completo per $49."
+  },
+  "nav": {
+    "howItWorks": "Come funziona",
+    "about": "Chi siamo",
+    "pricing": "Prezzi",
+    "faq": "FAQ",
+    "login": "Accedi",
+    "dashboard": "Dashboard",
+    "startPlanning": "Inizia pianificazione"
+  },
+  "hero": {
+    "title": "Dove dovresti trasferirti in America Latina?",
+    "titleHighlight": "America Latina", 
+    "subtitle": "Piani di trasferimento alimentati dall'IA basati su dati reali di famiglie che l'hanno davvero fatto. Rispondi a 36 domande. Ottieni il tuo piano personalizzato in minuti.",
+    "ctaPrimary": "Pianifica il mio trasferimento — Gratis",
+    "ctaSecondary": "Vedi come funziona",
+    "badge": "10+ Paesi disponibili"
+  },
+  "report": {
+    "title": "Il tuo piano di trasferimento",
+    "processing": "Analizzando il tuo profilo...",
+    "ready": "Il tuo rapporto è pronto!",
+    "freePreview": "Anteprima gratuita",
+    "fullReport": "Rapporto completo",
+    "price": "$49",
+    "unlockReport": "Sblocca rapporto completo"
+  },
+  "languages": {
+    "english": "English",
+    "french": "Français",
+    "spanish": "Español",
+    "italian": "Italiano",
+    "portuguese": "Português"
+  },
+  "faq": {
+    "reportLanguages": {
+      "question": "In quali lingue è disponibile il rapporto?",
+      "answer": "Disponibile in inglese, francese, spagnolo, italiano e portoghese. Seleziona la tua lingua preferita prima di iniziare il questionario."
+    }
+  }
+}

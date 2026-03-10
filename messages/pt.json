@@ -1,0 +1,45 @@
+{
+  "site": {
+    "title": "Reloca.ai — Planejador de Realocação LATAM com IA",
+    "description": "Encontre o seu país perfeito na América Latina. Responda 36 perguntas, obtenha um plano de realocação personalizado com opções de visto, custos e cronograma. Resumo grátis ou relatório completo por $49."
+  },
+  "nav": {
+    "howItWorks": "Como funciona",
+    "about": "Sobre nós",
+    "pricing": "Preços",
+    "faq": "FAQ",
+    "login": "Entrar",
+    "dashboard": "Painel",
+    "startPlanning": "Começar planejamento"
+  },
+  "hero": {
+    "title": "Para onde você deveria se mudar na América Latina?",
+    "titleHighlight": "América Latina",
+    "subtitle": "Planos de realocação com IA baseados em dados reais de famílias que realmente fizeram isso. Responda 36 perguntas. Obtenha seu plano personalizado em minutos.",
+    "ctaPrimary": "Planejar minha mudança — Grátis",
+    "ctaSecondary": "Ver como funciona",
+    "badge": "10+ Países disponíveis"
+  },
+  "report": {
+    "title": "Seu plano de realocação",
+    "processing": "Analisando seu perfil...",
+    "ready": "Seu relatório está pronto!",
+    "freePreview": "Prévia gratuita",
+    "fullReport": "Relatório completo",
+    "price": "$49",
+    "unlockReport": "Desbloquear relatório completo"
+  },
+  "languages": {
+    "english": "English",
+    "french": "Français",
+    "spanish": "Español",
+    "italian": "Italiano",
+    "portuguese": "Português"
+  },
+  "faq": {
+    "reportLanguages": {
+      "question": "Em quais idiomas o relatório está disponível?",
+      "answer": "Disponível em inglês, francês, espanhol, italiano e português. Selecione seu idioma preferido antes de iniciar o questionário."
+    }
+  }
+}

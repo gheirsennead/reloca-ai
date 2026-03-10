@@ -1,0 +1,45 @@
+{
+  "site": {
+    "title": "Reloca.ai — AI-Powered LATAM Relocation Planner",
+    "description": "Find your perfect country match in Latin America. Answer 36 questions, get a personalized relocation plan with visa options, costs, and timeline. Free summary or full report for $49."
+  },
+  "nav": {
+    "howItWorks": "How It Works",
+    "about": "About",
+    "pricing": "Pricing", 
+    "faq": "FAQ",
+    "login": "Login",
+    "dashboard": "Dashboard",
+    "startPlanning": "Start Planning"
+  },
+  "hero": {
+    "title": "Where Should You Move in Latin America?",
+    "titleHighlight": "Latin America",
+    "subtitle": "AI-powered relocation plans based on real data from families who've actually done it. Answer 36 questions. Get your personalized plan in minutes.",
+    "ctaPrimary": "Plan My Move — Free",
+    "ctaSecondary": "See How It Works",
+    "badge": "10+ Countries Available"
+  },
+  "report": {
+    "title": "Your Relocation Plan",
+    "processing": "Analyzing your profile...",
+    "ready": "Your report is ready!",
+    "freePreview": "Free Preview",
+    "fullReport": "Full Report",
+    "price": "$49",
+    "unlockReport": "Unlock Full Report"
+  },
+  "languages": {
+    "english": "English",
+    "french": "Français", 
+    "spanish": "Español",
+    "italian": "Italiano",
+    "portuguese": "Português"
+  },
+  "faq": {
+    "reportLanguages": {
+      "question": "What languages is the report in?",
+      "answer": "Available in English, French, Spanish, Italian, and Portuguese. Select your preferred language before starting the questionnaire."
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "site": {
+    "title": "Reloca.ai — Planificador de Reubicación LATAM con IA",
+    "description": "Encuentra tu país perfecto en América Latina. Responde 36 preguntas, obtén un plan de reubicación personalizado con opciones de visa, costos y cronograma. Resumen gratis o informe completo por $49."
+  },
+  "nav": {
+    "howItWorks": "Cómo funciona",
+    "about": "Acerca de",
+    "pricing": "Precios",
+    "faq": "FAQ",
+    "login": "Iniciar sesión",
+    "dashboard": "Panel de control",
+    "startPlanning": "Comenzar planificación"
+  },
+  "hero": {
+    "title": "¿A dónde deberías mudarte en América Latina?",
+    "titleHighlight": "América Latina",
+    "subtitle": "Planes de reubicación impulsados por IA basados en datos reales de familias que realmente lo han hecho. Responde 36 preguntas. Obtén tu plan personalizado en minutos.",
+    "ctaPrimary": "Planificar mi mudanza — Gratis",
+    "ctaSecondary": "Ver cómo funciona",
+    "badge": "10+ Países disponibles"
+  },
+  "report": {
+    "title": "Tu plan de reubicación",
+    "processing": "Analizando tu perfil...",
+    "ready": "¡Tu informe está listo!",
+    "freePreview": "Vista previa gratuita",
+    "fullReport": "Informe completo",
+    "price": "$49",
+    "unlockReport": "Desbloquear informe completo"
+  },
+  "languages": {
+    "english": "English",
+    "french": "Français",
+    "spanish": "Español",
+    "italian": "Italiano", 
+    "portuguese": "Português"
+  },
+  "faq": {
+    "reportLanguages": {
+      "question": "¿En qué idiomas está disponible el informe?",
+      "answer": "Disponible en inglés, francés, español, italiano y portugués. Selecciona tu idioma preferido antes de comenzar el cuestionario."
+    }
+  }
+}

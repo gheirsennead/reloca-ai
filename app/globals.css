@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --color-deep-blue: #1a365d;
+  --color-teal: #38b2ac;
+  --color-teal-dark: #2c9a94;
+  --color-warm-white: #fafaf9;
+  --color-warm-gray: #f5f5f4;
+}
