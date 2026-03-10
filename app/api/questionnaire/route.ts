@@ -107,9 +107,34 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Failed to create report' }, { status: 500 });
     }
 
+    // 4. Generate referral code for this user
+    let referralCode = '';
+    try {
+      const { data: existingRef } = await supabaseAdmin
+        .from('user_referral_codes')
+        .select('referral_code')
+        .eq('email', email.toLowerCase().trim())
+        .single();
+      
+      if (existingRef) {
+        referralCode = existingRef.referral_code;
+      } else {
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        referralCode = 'REF-';
+        for (let i = 0; i < 5; i++) referralCode += chars.charAt(Math.floor(Math.random() * chars.length));
+        
+        await supabaseAdmin.from('user_referral_codes').insert({
+          email: email.toLowerCase().trim(),
+          referral_code: referralCode,
+          created_at: new Date().toISOString(),
+        });
+      }
+    } catch { /* non-blocking */ }
+
     return NextResponse.json({
       reportId: report.id,
       userId,
+      referralCode,
       status: 'pending',
     });
 

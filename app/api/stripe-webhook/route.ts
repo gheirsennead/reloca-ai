@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
         console.error('Analytics conversion tracking error:', e);
       }
 
-      // Track referral conversion
+      // Track referral conversion and credit referrer
       if (referralCode) {
         try {
           await supabaseAdmin.from('referral_conversions').insert({
@@ -69,8 +69,46 @@ export async function POST(request: NextRequest) {
             stripe_session_id: session.id,
             created_at: new Date().toISOString(),
           });
+
+          // Credit the referrer $10
+          const { data: referrer } = await supabaseAdmin
+            .from('user_referral_codes')
+            .select('email')
+            .eq('referral_code', referralCode)
+            .single();
+
+          if (referrer && session.customer_details?.email) {
+            await supabaseAdmin.from('referral_credits').insert({
+              referrer_email: referrer.email,
+              referred_email: session.customer_details.email.toLowerCase(),
+              credit_amount: 10.00,
+              used: false,
+              created_at: new Date().toISOString(),
+            });
+
+            // Track the purchase event
+            await supabaseAdmin.from('referral_events').insert({
+              referrer_code: referralCode,
+              referred_email: session.customer_details.email.toLowerCase(),
+              event_type: 'purchase',
+              created_at: new Date().toISOString(),
+            });
+          }
         } catch (e) {
           console.error('Referral conversion tracking error:', e);
+        }
+      }
+
+      // Mark referral credits as used if applied
+      const creditIds = session.metadata?.credit_ids;
+      if (creditIds) {
+        try {
+          const ids = creditIds.split(',');
+          for (const id of ids) {
+            await supabaseAdmin.from('referral_credits').update({ used: true }).eq('id', id);
+          }
+        } catch (e) {
+          console.error('Credit marking error:', e);
         }
       }
 
