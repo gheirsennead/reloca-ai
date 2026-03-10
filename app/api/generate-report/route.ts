@@ -349,7 +349,8 @@ export async function processReport(reportId: string): Promise<{ success: boolea
     ];
     
     // 1. Extract country matches — only accept known covered countries
-    const countryMatches: Array<{ country: string; score: number }> = [];
+    // Collect ALL country+score matches from AI output, then dedup and take top 3
+    const allMatches = new Map<string, number>(); // country -> highest score found
     
     // Try multiple regex patterns to handle various AI output formats
     const patterns = [
@@ -366,15 +367,26 @@ export async function processReport(reportId: string): Promise<{ success: boolea
     ];
     
     for (const matchRegex of patterns) {
-      if (countryMatches.length >= 3) break;
       let match;
-      while ((match = matchRegex.exec(reportContent)) !== null && countryMatches.length < 3) {
+      while ((match = matchRegex.exec(reportContent)) !== null) {
         const name = match[1].trim().replace(/\*+/g, '');
-        if (validCountries.includes(name.toLowerCase()) && !countryMatches.some(c => c.country === name.toUpperCase())) {
-          countryMatches.push({ country: name.toUpperCase(), score: parseInt(match[2]) });
+        const normalizedName = name.toUpperCase();
+        const score = parseInt(match[2]);
+        if (validCountries.includes(name.toLowerCase())) {
+          // Keep the first (highest-context) score found for each country
+          if (!allMatches.has(normalizedName)) {
+            allMatches.set(normalizedName, score);
+          }
         }
       }
     }
+    
+    // Convert to array, sort by score descending, take top 3
+    const countryMatches: Array<{ country: string; score: number }> = 
+      Array.from(allMatches.entries())
+        .map(([country, score]) => ({ country, score }))
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 3);
 
     // 2. Validate report has required sections
     const requiredSections = [
@@ -409,13 +421,20 @@ export async function processReport(reportId: string): Promise<{ success: boolea
     // 5. If no country matches found, try alternate patterns
     if (countryMatches.length === 0) {
       console.warn('No country matches from regex — trying alternate extraction');
+      const altMatches = new Map<string, number>();
       for (const country of validCountries) {
         const pattern = new RegExp(`${country}[\\s\\S]{0,50}(\\d{1,3})\\s*%`, 'gi');
         const altMatch = pattern.exec(reportContent);
-        if (altMatch && countryMatches.length < 3) {
-          countryMatches.push({ country: country.toUpperCase(), score: parseInt(altMatch[1]) });
+        if (altMatch && !altMatches.has(country.toUpperCase())) {
+          altMatches.set(country.toUpperCase(), parseInt(altMatch[1]));
         }
       }
+      // Replace countryMatches with alt results, sorted by score, top 3
+      const altArray = Array.from(altMatches.entries())
+        .map(([country, score]) => ({ country, score }))
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 3);
+      countryMatches.push(...altArray);
       console.log(`Alternate extraction found: ${countryMatches.length} matches`);
     }
 
@@ -423,12 +442,10 @@ export async function processReport(reportId: string): Promise<{ success: boolea
     for (const cm of countryMatches) {
       if (cm.score < 50 || cm.score > 98) {
         console.error(`❌ SCORE CONSISTENCY ERROR for ${cm.country}: ${cm.score}% (should be 50-98%)`);
-        // Don't modify the score - this indicates an AI instruction problem that needs fixing
       }
     }
     
-    // 7. Sort by score descending (highest match first)
-    countryMatches.sort((a, b) => b.score - a.score);
+    // 7. Already sorted by score descending from extraction step
     
     // 8. Final consistency check - ensure scores in text match extracted scores
     for (const cm of countryMatches) {

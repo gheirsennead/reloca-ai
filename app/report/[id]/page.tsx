@@ -125,11 +125,28 @@ function LoadingScreen() {
   );
 }
 
+// All 23+ covered countries
+const COVERED_COUNTRIES = new Set([
+  'brazil', 'argentina', 'paraguay', 'uruguay', 'panama', 'el salvador', 'costa rica',
+  'mexico', 'colombia', 'ecuador', 'chile', 'peru', 'bolivia',
+  'portugal', 'spain', 'italy', 'greece', 'malta', 'cyprus', 'estonia', 'andorra',
+  'singapore', 'dubai', 'uae', 'thailand', 'malaysia',
+]);
+
+// Single sort utility — used everywhere country recommendations appear
+function sortedRecommendations(recs: Array<{ country: string; score: number }>) {
+  return [...recs].sort((a, b) => b.score - a.score);
+}
+
 function MatchCard({ country, score, rank }: { country: string; score: number; rank: number }) {
   const flags: Record<string, string> = {
     brazil: "🇧🇷", argentina: "🇦🇷", paraguay: "🇵🇾", uruguay: "🇺🇾",
     panama: "🇵🇦", "el salvador": "🇸🇻", "costa rica": "🇨🇷",
     mexico: "🇲🇽", colombia: "🇨🇴", ecuador: "🇪🇨", chile: "🇨🇱", peru: "🇵🇪",
+    portugal: "🇵🇹", spain: "🇪🇸", italy: "🇮🇹", greece: "🇬🇷",
+    malta: "🇲🇹", cyprus: "🇨🇾", estonia: "🇪🇪", andorra: "🇦🇩",
+    singapore: "🇸🇬", dubai: "🇦🇪", uae: "🇦🇪", thailand: "🇹🇭", malaysia: "🇲🇾",
+    bolivia: "🇧🇴",
   };
   const flag = flags[country.toLowerCase()] || "🌎";
   
@@ -423,7 +440,7 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
     initReferralTracking();
     
     if (report && report.country_recommendations?.length > 0) {
-      const topMatch = report.country_recommendations[0];
+      const topMatch = sortedRecommendations(report.country_recommendations)[0];
       const ogImageUrl = `${window.location.origin}/api/og?country=${encodeURIComponent(topMatch.country)}&score=${topMatch.score}`;
       
       // Update OG tags dynamically
@@ -656,31 +673,45 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
           </p>
         </div>
 
-        {/* Top matches */}
-        {report.country_recommendations && report.country_recommendations.length > 0 && (
-          <div className="space-y-3 mb-10">
-            <h2 className="text-lg font-bold text-[#1a365d] mb-3">Your Top 3 Matches</h2>
-            {report.country_recommendations.map((rec, i) => (
-              <MatchCard key={rec.country} country={rec.country} score={rec.score} rank={i + 1} />
-            ))}
-            <p className="text-center mt-4">
-              <Link href="/request-country" className="text-sm text-[#38b2ac] hover:text-[#2c9a94] transition">
-                Don&apos;t see your country? Request it →
-              </Link>
-            </p>
-          </div>
-        )}
+        {/* Top matches — sorted descending by score, show ALL (up to 3) */}
+        {report.country_recommendations && report.country_recommendations.length > 0 && (() => {
+          const sorted = sortedRecommendations(report.country_recommendations);
+          // Bug 3 fix: Only show "Request a Country" if user's quiz answers suggest
+          // interest in countries outside our 22-country catalog
+          const allMatchesCovered = sorted.every(rec => 
+            COVERED_COUNTRIES.has(rec.country.toLowerCase())
+          );
+          return (
+            <div className="space-y-3 mb-10">
+              <h2 className="text-lg font-bold text-[#1a365d] mb-3">
+                Your Top {sorted.length} Match{sorted.length !== 1 ? 'es' : ''}
+              </h2>
+              {sorted.map((rec, i) => (
+                <MatchCard key={rec.country} country={rec.country} score={rec.score} rank={i + 1} />
+              ))}
+              {!allMatchesCovered && (
+                <p className="text-center mt-4">
+                  <Link href="/request-country" className="text-sm text-[#38b2ac] hover:text-[#2c9a94] transition">
+                    Don&apos;t see your country? Request it →
+                  </Link>
+                </p>
+              )}
+            </div>
+          );
+        })()}
 
         {/* Shareable Card - Mercury's Viral Loop System */}
-        {report.country_recommendations && report.country_recommendations.length > 0 && (
+        {report.country_recommendations && report.country_recommendations.length > 0 && (() => {
+          const topMatch = sortedRecommendations(report.country_recommendations)[0];
+          return (
           <div className="mb-10">
             <div className="bg-white rounded-2xl border border-gray-100 p-6">
               <h3 className="text-lg font-bold text-[#1a365d] mb-3 text-center">Share Your #1 Match & Get $10 Credit</h3>
               <p className="text-gray-500 text-sm mb-4 text-center">Friends who complete our quiz using your link give you $10 credit for future reports</p>
               
               <ShareableCard
-                country={report.country_recommendations[0].country}
-                score={report.country_recommendations[0].score}
+                country={topMatch.country}
+                score={topMatch.score}
                 reportId={report.id}
                 reasons={[
                   { icon: '🏠', text: 'Perfect property market' },
@@ -709,7 +740,8 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
               </div>
             </div>
           </div>
-        )}
+          );
+        })()}
 
         {/* Report content */}
         <div className="bg-white rounded-2xl border border-gray-100 p-6 sm:p-8">
