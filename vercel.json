@@ -8,5 +8,12 @@
       "path": "/api/send-emails",
       "schedule": "0 */4 * * *"
     }
+  ],
+  "redirects": [
+    {
+      "source": "/quiz",
+      "destination": "/plan-36",
+      "permanent": false
+    }
   ]
 }
