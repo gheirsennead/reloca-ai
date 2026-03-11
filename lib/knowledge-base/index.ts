@@ -8,8 +8,8 @@ import { THAILAND_KB } from './thailand';
 import { UAE_KB } from './uae';
 import { SPAIN_KB } from './spain';
 import { COLOMBIA_KB } from './colombia';
+import { COSTA_RICA_KB } from './costa-rica';
 // Additional countries will be added as files are created
-// import { COSTA_RICA_KB } from './costa-rica';
 // import { SINGAPORE_KB } from './singapore';
 
 // Master aggregated knowledge base
@@ -21,6 +21,7 @@ export const MASTER_KNOWLEDGE_BASE: KnowledgeBaseEntry[] = [
   ...UAE_KB,
   ...SPAIN_KB,
   ...COLOMBIA_KB,
+  ...COSTA_RICA_KB,
   // Additional country KBs will be appended here
 ];
 
