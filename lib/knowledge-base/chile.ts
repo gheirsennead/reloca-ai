@@ -1,6 +1,6 @@
-import { KnowledgeEntry } from '../types/knowledge-base';
+import { KnowledgeBaseEntry } from '../knowledge-base-schema';
 
-export const CHILE_KNOWLEDGE_BASE: KnowledgeEntry[] = [
+export const CHILE_KNOWLEDGE_BASE: KnowledgeBaseEntry[] = [
   // === TAX ===
   {
     topic: 'Income Tax System & Foreign Income Exemption',
