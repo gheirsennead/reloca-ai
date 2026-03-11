@@ -23,6 +23,8 @@ import { GREECE_KB } from './greece';
 import { MALTA_KB } from './malta';
 import { CYPRUS_KB } from './cyprus';
 import { ANDORRA_KB } from './andorra';
+import { ESTONIA_KB } from './estonia';
+import { MALAYSIA_KB } from './malaysia';
 
 // Master aggregated knowledge base
 export const MASTER_KNOWLEDGE_BASE: KnowledgeBaseEntry[] = [
@@ -48,6 +50,8 @@ export const MASTER_KNOWLEDGE_BASE: KnowledgeBaseEntry[] = [
   ...MALTA_KB,
   ...CYPRUS_KB,
   ...ANDORRA_KB,
+  ...ESTONIA_KB,
+  ...MALAYSIA_KB,
   ...PARAGUAY_KB,
 ];
 
