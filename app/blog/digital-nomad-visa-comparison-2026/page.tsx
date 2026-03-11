@@ -34,13 +34,10 @@ export default function DigitalNomadVisaComparison2026() {
   };
 
   return (
-    <BlogLayout>
+    <BlogLayout title="Digital Nomad Visa Comparison 2026: Which Country Is Best for Remote Workers?" publishDate="March 11, 2026" readTime="12 min read">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      <article className="prose prose-lg max-w-none">
-        <p className="text-sm text-gray-400 mb-2">March 11, 2026 · By Gregory, Founder of Reloca.ai</p>
 
-        <h1>Digital Nomad Visa Comparison 2026: Which Country Is Best for Remote Workers?</h1>
 
         <p>Digital nomad visas exploded from 5 countries in 2020 to 47+ countries offering remote work visas by 2026. Here&apos;s the definitive comparison of requirements, costs, and benefits to help remote workers choose the best option.</p>
 
@@ -217,7 +214,7 @@ export default function DigitalNomadVisaComparison2026() {
         <h2>The Bottom Line</h2>
         <p><strong>For most remote workers, <Link href="/relocate-to/portugal">Portugal&apos;s</Link> D7 visa offers the best combination of low requirements, tax benefits, and EU access.</strong> The IFICI program alone saves $10,000-25,000 annually for mid-to-high earners.</p>
         <p><Link href="/relocate-to/mexico">Mexico&apos;s</Link> Temporary Resident visa provides the best Americas option, <Link href="/relocate-to/estonia">Estonia</Link> excels for tech workers wanting fast EU access, and the <Link href="/relocate-to/uae">UAE</Link> suits high earners prioritizing tax optimization.</p>
-      </article>
+      
 
       <BlogCTA />
       <RelatedArticles currentSlug="digital-nomad-visa-comparison-2026" />

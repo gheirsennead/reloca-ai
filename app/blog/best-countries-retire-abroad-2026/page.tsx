@@ -34,13 +34,10 @@ export default function BestCountriesRetireAbroad2026() {
   };
 
   return (
-    <BlogLayout>
+    <BlogLayout title="Best Countries to Retire Abroad in 2026 — Data-Driven Guide" publishDate="March 11, 2026" readTime="10 min read">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      <article className="prose prose-lg max-w-none">
-        <p className="text-sm text-gray-400 mb-2">March 11, 2026 · By Gregory, Founder of Reloca.ai</p>
 
-        <h1>Best Countries to Retire Abroad in 2026 — Data-Driven Guide</h1>
 
         <p>Retiring abroad can reduce your living costs by 40-70% while improving your quality of life. Here are the top retirement destinations based on 2026 data across cost of living, healthcare quality, tax efficiency, and visa accessibility.</p>
 
@@ -200,7 +197,7 @@ export default function BestCountriesRetireAbroad2026() {
         <p>For most expat retirees, <strong><Link href="/relocate-to/portugal">Portugal</Link></strong> offers the best combination of EU lifestyle, tax benefits, and healthcare quality. The IFICI program alone saves $15,000-30,000 annually for middle-class retirees.</p>
         <p><strong><Link href="/relocate-to/mexico">Mexico</Link></strong> remains unbeatable for proximity and cultural comfort, while <strong><Link href="/relocate-to/malaysia">Malaysia</Link></strong> provides the best Asian option for English speakers.</p>
         <p>The key is matching your financial situation, health needs, and lifestyle preferences with each country&apos;s specific advantages. Every successful expat retiree spent 6-12 months researching and visiting before making the move.</p>
-      </article>
+      
 
       <BlogCTA />
       <RelatedArticles currentSlug="best-countries-retire-abroad-2026" />

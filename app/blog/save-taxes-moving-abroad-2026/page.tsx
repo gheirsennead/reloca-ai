@@ -34,13 +34,10 @@ export default function SaveTaxesMovingAbroad2026() {
   };
 
   return (
-    <BlogLayout>
+    <BlogLayout title="How to Save $10K-$100K/Year on Taxes by Moving Abroad" publishDate="March 11, 2026" readTime="14 min read">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      <article className="prose prose-lg max-w-none">
-        <p className="text-sm text-gray-400 mb-2">March 11, 2026 · By Gregory, Founder of Reloca.ai</p>
 
-        <h1>How to Save $10K-$100K/Year on Taxes by Moving Abroad</h1>
 
         <p>Expats worldwide saved an estimated $150+ billion in taxes during 2025 by leveraging strategic relocation and international tax rules. Here&apos;s exactly how middle-class to wealthy individuals from major economies reduce their tax burden by $10,000-$100,000+ annually through smart jurisdiction selection.</p>
 
@@ -206,7 +203,7 @@ export default function SaveTaxesMovingAbroad2026() {
         </ol>
 
         <p><strong>The key to successful international tax optimization is matching your specific situation — nationality, income sources, family circumstances, and mobility — with the optimal jurisdiction and structure.</strong> Professional planning typically pays for itself within 6-12 months.</p>
-      </article>
+      
 
       <BlogCTA />
       <RelatedArticles currentSlug="save-taxes-moving-abroad-2026" />
