@@ -255,7 +255,7 @@ function ReportSection({ content, isPaid, onCheckout, checkoutLoading, couponCod
                 <p className="text-sm font-semibold text-[#1a365d] mb-1">📋 Skip months of research</p>
                 <p className="text-sm text-gray-600 mb-3">Get a Complete Relocation Roadmap PDF with your personalized timeline, checklists, and action steps.</p>
                 {/* TODO: Replace with real Stripe Payment Link */}
-                <a href="https://buy.stripe.com/ROADMAP_PLACEHOLDER" target="_blank" rel="noopener" className="inline-block bg-[#1a365d] hover:bg-[#2d4a7a] text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition">
+                <a href="https://buy.stripe.com/7sY9AUbbAfKceUrcaE4Ja03" target="_blank" rel="noopener" className="inline-block bg-[#1a365d] hover:bg-[#2d4a7a] text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition">
                   Get Relocation Roadmap PDF — $129 →
                 </a>
               </div>
@@ -268,7 +268,7 @@ function ReportSection({ content, isPaid, onCheckout, checkoutLoading, couponCod
                   <p className="text-sm font-semibold text-[#1a365d] mb-1">🎯 Ready to move? Get your personalized action plan</p>
                   <p className="text-sm text-gray-600 mb-3">45-min strategy call with our relocation expert — visa roadmap, tax optimization, and timeline tailored to your situation.</p>
                   {/* TODO: Replace with real Stripe Payment Link */}
-                  <a href="https://buy.stripe.com/CONSULTATION_PLACEHOLDER" target="_blank" rel="noopener" className="inline-block bg-[#38b2ac] hover:bg-[#2c9a94] text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition">
+                  <a href="https://buy.stripe.com/cNi4gA6VkgOg3bJ0rW4Ja04" target="_blank" rel="noopener" className="inline-block bg-[#38b2ac] hover:bg-[#2c9a94] text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition">
                     Book Strategy Call — $149 →
                   </a>
                 </div>
@@ -298,7 +298,7 @@ function ReportSection({ content, isPaid, onCheckout, checkoutLoading, couponCod
             <p className="text-white font-bold text-lg mb-1">🎯 Get Your Personalized Action Plan</p>
             <p className="text-white/80 text-sm mb-4">45-min strategy call with our relocation expert — visa roadmap, tax optimization, and timeline</p>
             {/* TODO: Replace with real Stripe Payment Link */}
-            <a href="https://buy.stripe.com/CONSULTATION_PLACEHOLDER" target="_blank" rel="noopener" className="inline-block bg-white text-[#38b2ac] font-bold px-8 py-3 rounded-xl hover:bg-gray-50 transition">
+            <a href="https://buy.stripe.com/cNi4gA6VkgOg3bJ0rW4Ja04" target="_blank" rel="noopener" className="inline-block bg-white text-[#38b2ac] font-bold px-8 py-3 rounded-xl hover:bg-gray-50 transition">
               Book Strategy Call — $149 →
             </a>
           </div>
@@ -308,7 +308,7 @@ function ReportSection({ content, isPaid, onCheckout, checkoutLoading, couponCod
             <p className="text-[#1a365d] font-bold text-lg mb-1">📋 Complete Relocation Roadmap PDF</p>
             <p className="text-gray-500 text-sm mb-4">Your personalized timeline, checklists, legal steps, and action items</p>
             {/* TODO: Replace with real Stripe Payment Link */}
-            <a href="https://buy.stripe.com/ROADMAP_PLACEHOLDER" target="_blank" rel="noopener" className="inline-block bg-[#1a365d] hover:bg-[#2d4a7a] text-white font-bold px-8 py-3 rounded-xl transition">
+            <a href="https://buy.stripe.com/7sY9AUbbAfKceUrcaE4Ja03" target="_blank" rel="noopener" className="inline-block bg-[#1a365d] hover:bg-[#2d4a7a] text-white font-bold px-8 py-3 rounded-xl transition">
               Get Roadmap PDF — $129 →
             </a>
           </div>
@@ -318,7 +318,7 @@ function ReportSection({ content, isPaid, onCheckout, checkoutLoading, couponCod
             <p className="text-[#1a365d] font-bold mb-1">📊 Stay Ahead of Visa Changes & New Opportunities</p>
             <p className="text-gray-500 text-sm mb-4">Relocation Intel Subscription — Updated reports, market alerts, and priority support</p>
             {/* TODO: Replace with real Stripe Payment Link */}
-            <a href="https://buy.stripe.com/SUBSCRIPTION_PLACEHOLDER" target="_blank" rel="noopener" className="inline-block bg-gray-800 hover:bg-gray-900 text-white font-semibold px-6 py-2.5 rounded-xl transition">
+            <a href="https://buy.stripe.com/28E4gAa7wdC47rZgqU4Ja05" target="_blank" rel="noopener" className="inline-block bg-gray-800 hover:bg-gray-900 text-white font-semibold px-6 py-2.5 rounded-xl transition">
               Get Intel Subscription — $39/mo →
             </a>
           </div>
