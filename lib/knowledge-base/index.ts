@@ -14,6 +14,7 @@ import { BRAZIL_KB } from './brazil';
 import { ARGENTINA_KB } from './argentina';
 import { PANAMA_KB } from './panama';
 import { URUGUAY_KB } from './uruguay';
+import { PARAGUAY_KB } from './paraguay';
 
 // Master aggregated knowledge base
 export const MASTER_KNOWLEDGE_BASE: KnowledgeBaseEntry[] = [
@@ -30,6 +31,7 @@ export const MASTER_KNOWLEDGE_BASE: KnowledgeBaseEntry[] = [
   ...ARGENTINA_KB,
   ...PANAMA_KB,
   ...URUGUAY_KB,
+  ...PARAGUAY_KB,
 ];
 
 // Helper: Get KB entries for specific country
