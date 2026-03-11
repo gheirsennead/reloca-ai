@@ -1,7 +1,7 @@
 // Master Knowledge Base Index
 // Imports all country KB files and aggregates them
 
-import { KnowledgeBaseEntry } from './knowledge-base-schema';
+import { KnowledgeBaseEntry } from '../knowledge-base-schema';
 import { PORTUGAL_KB_EXTENDED } from './portugal';
 import { MEXICO_KB } from './mexico';
 import { THAILAND_KB } from './thailand';
