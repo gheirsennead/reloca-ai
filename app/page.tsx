@@ -172,9 +172,7 @@ function Hero() {
         <p className="mt-4 text-sm text-gray-500 font-medium">
           Full report: <s className="text-gray-400">$79</s> <span className="text-[#1a365d] font-bold">$49</span> — Launch Special
         </p>
-        <p className="mt-1 text-xs text-red-500 font-semibold animate-pulse">
-          ⏰ Launch pricing ends March 31
-        </p>
+
         <div className="mt-4">
           <ReportPreviewButton />
         </div>
