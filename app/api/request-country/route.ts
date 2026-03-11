@@ -33,6 +33,35 @@ export async function POST(req: NextRequest) {
       .select("*", { count: "exact", head: true })
       .eq("country", country.trim());
 
+    // Notify Gregory via Resend
+    const resendKey = process.env.RESEND_API_KEY;
+    if (resendKey) {
+      try {
+        await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${resendKey}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            from: 'Reloca.ai <notifications@reloca.ai>',
+            to: ['gheirsennead@proton.me'],
+            subject: `🌍 New Country Request: ${country.trim()} (#${count || 1})`,
+            html: `
+              <h2>New Country Request</h2>
+              <p><strong>Country:</strong> ${country.trim()}</p>
+              ${city ? `<p><strong>City:</strong> ${city.trim()}</p>` : ''}
+              ${email ? `<p><strong>Email:</strong> ${email.trim()}</p>` : ''}
+              ${reason ? `<p><strong>Reason:</strong> ${reason.trim()}</p>` : ''}
+              <p><strong>Total requests for ${country.trim()}:</strong> ${count || 1}</p>
+            `,
+          }),
+        });
+      } catch (e) {
+        console.error('Failed to send country request notification:', e);
+      }
+    }
+
     return NextResponse.json({ success: true, count: count || 1 });
   } catch {
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
