@@ -269,7 +269,7 @@ function ReportSection({ content, isPaid, onCheckout, checkoutLoading, couponCod
                   <p className="text-sm text-gray-600 mb-3">45-min strategy call with our relocation expert — visa roadmap, tax optimization, and timeline tailored to your situation.</p>
                   {/* TODO: Replace with real Stripe Payment Link */}
                   <a href="https://buy.stripe.com/cNi4gA6VkgOg3bJ0rW4Ja04" target="_blank" rel="noopener" className="inline-block bg-[#38b2ac] hover:bg-[#2c9a94] text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition">
-                    Book Strategy Call — $149 →
+                    Book Strategy Call — $145 →
                   </a>
                 </div>
                 <p className="text-sm text-gray-500 italic">
@@ -460,22 +460,10 @@ function ReportSection({ content, isPaid, onCheckout, checkoutLoading, couponCod
             </ul>
           </div>
           <a
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              fetch('/api/create-checkout', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                  reportId: typeof window !== 'undefined' ? window.location.pathname.split('/').pop() : '',
-                  tier: 'summary-plus'
-                }),
-              })
-                .then(r => r.json())
-                .then(data => { if (data.url) window.location.href = data.url; })
-                .catch(() => alert('Something went wrong. Please try again.'));
-            }}
-            className="block w-full text-center bg-[#38b2ac] hover:bg-[#2c9a94] text-white font-bold py-4 rounded-xl transition text-lg shadow-lg shadow-[#38b2ac]/20 cursor-pointer"
+            href="https://buy.stripe.com/bJe28s2F455yeUrdeI4Ja02"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block w-full text-center bg-[#38b2ac] hover:bg-[#2c9a94] text-white font-bold py-4 rounded-xl transition text-lg shadow-lg shadow-[#38b2ac]/20"
           >
             Get Summary Plus — $19
           </a>
@@ -641,6 +629,7 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
   const [couponError, setCouponError] = useState("");
   const [emailGateEmail, setEmailGateEmail] = useState("");
   const [emailGatePassed, setEmailGatePassed] = useState(false);
+  const [emailGateChecked, setEmailGateChecked] = useState(false);
   const [emailGateLoading, setEmailGateLoading] = useState(false);
 
   // Check if email was already provided (from quiz flow or localStorage)
@@ -651,6 +640,7 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
         setEmailGatePassed(true);
         setEmailGateEmail(savedEmail);
       }
+      setEmailGateChecked(true);
     }
   }, []);
 
@@ -836,7 +826,7 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
   const isPaid = report.report_type === "paid";
 
   // Email gate for free reports — must provide email before seeing results
-  if (!isPaid && !emailGatePassed) {
+  if (!isPaid && emailGateChecked && !emailGatePassed) {
     return (
       <div className="min-h-screen bg-[#fafaf9] flex items-center justify-center px-4">
         <div className="max-w-md w-full bg-white rounded-2xl shadow-lg border border-gray-100 p-8 text-center">
