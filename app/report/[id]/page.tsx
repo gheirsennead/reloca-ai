@@ -532,14 +532,15 @@ function ReportSection({ content, isPaid, onCheckout, checkoutLoading, couponCod
 
               {setCouponCode && <CouponInput couponCode={couponCode || ""} setCouponCode={setCouponCode} couponError={couponError || ""} />}
               
-              {/* Testimonials */}
+              {/* What early users are saying */}
               <div className="mt-4 pt-4 border-t border-gray-100 text-left space-y-3">
-                <p className="text-xs text-gray-600 italic">&ldquo;$49 versus the months I spent researching all of this by hand.&rdquo;</p>
-                <p className="text-xs text-gray-400">— Hispanic Nomad, 60+ countries visited · <a href="https://x.com/hispanicnomad" target="_blank" rel="noopener noreferrer" className="underline">@hispanicnomad</a></p>
-                <p className="text-xs text-gray-600 italic">&ldquo;The tax section alone saved me more than $10K. I had no idea about the NHR program.&rdquo;</p>
-                <p className="text-xs text-gray-400">— Marcus T., London → Spain</p>
+                <p className="text-[10px] text-gray-400 uppercase tracking-wide font-medium">What early users are saying</p>
+                <p className="text-xs text-gray-600 italic">&ldquo;$49 versus the months I spent researching all of this by hand. No-brainer.&rdquo;</p>
+                <p className="text-xs text-gray-400">— Early user, digital nomad</p>
+                <p className="text-xs text-gray-600 italic">&ldquo;The tax section alone saved me more than $10K. I had no idea about Portugal&apos;s IFICI regime.&rdquo;</p>
+                <p className="text-xs text-gray-400">— Early user, London → Portugal</p>
                 <p className="text-xs text-gray-600 italic">&ldquo;We were deciding between 5 countries for retirement. Reloca narrowed it down to 3 with real data.&rdquo;</p>
-                <p className="text-xs text-gray-400">— David & Linda R., Canada → Ecuador</p>
+                <p className="text-xs text-gray-400">— Early users, Canada → Ecuador</p>
               </div>
             </div>
           </div>
@@ -638,6 +639,20 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
   const [checkoutLoading, setCheckoutLoading] = useState(false);
   const [couponCode, setCouponCode] = useState("");
   const [couponError, setCouponError] = useState("");
+  const [emailGateEmail, setEmailGateEmail] = useState("");
+  const [emailGatePassed, setEmailGatePassed] = useState(false);
+  const [emailGateLoading, setEmailGateLoading] = useState(false);
+
+  // Check if email was already provided (from quiz flow or localStorage)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const savedEmail = localStorage.getItem('reloca-email');
+      if (savedEmail) {
+        setEmailGatePassed(true);
+        setEmailGateEmail(savedEmail);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     params.then(p => {
@@ -819,6 +834,57 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
   if (!report) return null;
 
   const isPaid = report.report_type === "paid";
+
+  // Email gate for free reports — must provide email before seeing results
+  if (!isPaid && !emailGatePassed) {
+    return (
+      <div className="min-h-screen bg-[#fafaf9] flex items-center justify-center px-4">
+        <div className="max-w-md w-full bg-white rounded-2xl shadow-lg border border-gray-100 p-8 text-center">
+          <div className="text-5xl mb-4">🎉</div>
+          <h2 className="text-2xl font-bold text-[#1a365d] mb-2">Your results are ready!</h2>
+          <p className="text-gray-500 mb-6">Enter your email to see your free personalized summary.</p>
+          
+          <form onSubmit={async (e) => {
+            e.preventDefault();
+            if (!emailGateEmail || !emailGateEmail.includes('@')) return;
+            setEmailGateLoading(true);
+            try {
+              await fetch('/api/quiz-lead', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                  email: emailGateEmail, 
+                  answers: {},
+                  topMatches: report.country_recommendations?.map((r: { country: string }) => r.country) || []
+                }),
+              });
+            } catch { /* non-blocking */ }
+            localStorage.setItem('reloca-email', emailGateEmail);
+            setEmailGatePassed(true);
+            setEmailGateLoading(false);
+          }}>
+            <input
+              type="email"
+              value={emailGateEmail}
+              onChange={(e) => setEmailGateEmail(e.target.value)}
+              placeholder="your@email.com"
+              required
+              className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-center text-lg focus:border-[#38b2ac] focus:outline-none transition mb-4"
+            />
+            <button
+              type="submit"
+              disabled={emailGateLoading || !emailGateEmail.includes('@')}
+              className="w-full bg-gradient-to-r from-[#38b2ac] to-[#319795] text-white font-bold py-4 rounded-xl hover:shadow-lg transition disabled:opacity-50 text-lg"
+            >
+              {emailGateLoading ? 'Loading...' : 'See My Results →'}
+            </button>
+          </form>
+          
+          <p className="mt-4 text-xs text-gray-400">We{"'"}ll send your results summary and occasional updates. Unsubscribe anytime.</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#fafaf9]">

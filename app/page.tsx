@@ -328,7 +328,7 @@ function WhatYouGet() {
 
 const countries = [
   // Europe & Mediterranean
-  { flag: "🇵🇹", name: "Portugal", desc: "Golden visa, NHR tax regime, Atlantic lifestyle." },
+  { flag: "🇵🇹", name: "Portugal", desc: "Golden visa, IFICI tax regime, Atlantic lifestyle." },
   { flag: "🇪🇸", name: "Spain", desc: "Digital nomad visa, Beckham Law, Mediterranean living." },
   { flag: "🇮🇹", name: "Italy", desc: "7% flat tax for retirees, culture capital of the world." },
   { flag: "🇬🇷", name: "Greece", desc: "Golden visa from €250K, islands, 7% flat tax for retirees." },

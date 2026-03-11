@@ -627,6 +627,8 @@ export default function Enhanced36Questionnaire({ prefillMotivation }: { prefill
         localStorage.removeItem('reloca-quiz-progress');
         
         // Redirect to report/payment page
+        // Save email so report page skips email gate
+        localStorage.setItem('reloca-email', email);
         window.location.href = `/report/${data.reportId}`;
       } else {
         throw new Error("Submission failed");

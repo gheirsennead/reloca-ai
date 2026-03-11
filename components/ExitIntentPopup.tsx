@@ -82,13 +82,13 @@ export function ExitIntentPopup() {
             Before you go...
           </h2>
           <p className="text-gray-600 mb-4">
-            Take our <strong>free 10-minute quiz</strong> and discover which of our 23+ countries is the best fit for your lifestyle, budget, and goals.
+            Take our <strong>free 5-minute quiz</strong> and discover which of our 23+ countries is the best fit for your lifestyle, budget, and goals.
           </p>
 
           {/* Quick testimonial */}
           <div className="bg-gray-50 rounded-xl p-3 mb-4 text-left">
-            <p className="text-xs text-gray-600 italic">&ldquo;$49 versus the months I spent researching all of this by hand.&rdquo;</p>
-            <p className="text-xs text-gray-400 mt-1">— Hispanic Nomad, 60+ countries visited</p>
+            <p className="text-xs text-gray-600 italic">&ldquo;$49 versus the months I spent researching all of this by hand. No-brainer.&rdquo;</p>
+            <p className="text-xs text-gray-400 mt-1">— Early user, digital nomad</p>
           </div>
 
           <div className="bg-[#38b2ac]/10 rounded-xl p-3 mb-5">
