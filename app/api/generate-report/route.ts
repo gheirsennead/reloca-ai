@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase';
 import { ABANDONED_CART_SEQUENCE } from '@/lib/email-sequences';
+import { PORTUGAL_KNOWLEDGE_BASE, formatKnowledgeForPrompt, type KnowledgeBaseEntry } from '@/lib/knowledge-base-schema';
 
 export const maxDuration = 300;
 
@@ -10,30 +11,59 @@ export const maxDuration = 300;
 const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY || '';
 const CRECI_LABEL = 'CRECI-licensed real estate agent';
 
-async function getFullKnowledgeBase(): Promise<string> {
+// Structured knowledge base — will grow per country
+const STRUCTURED_KB: KnowledgeBaseEntry[] = [
+  ...PORTUGAL_KNOWLEDGE_BASE,
+  // TODO: Add more countries as knowledge base entries are provided
+];
+
+async function getFullKnowledgeBase(matchedCountries?: string[]): Promise<string> {
+  // 1. Get existing Supabase KB (founder's experience)
   const { data, error } = await supabaseAdmin
     .from('expert_knowledge')
     .select('category, country, topic, content, is_personal_experience')
     .order('category');
 
-  if (error || !data?.length) {
-    console.warn('No KB entries:', error?.message);
-    return '';
+  let founderKb = '';
+  if (data?.length) {
+    const grouped: Record<string, string[]> = {};
+    for (const entry of data) {
+      const key = entry.category || 'general';
+      if (!grouped[key]) grouped[key] = [];
+      const prefix = entry.is_personal_experience ? '[FIRSTHAND EXPERIENCE] ' : '';
+      grouped[key].push(`### ${entry.topic}\n${prefix}${entry.content}`);
+    }
+
+    founderKb = `\n\nFOUNDER'S EXPERT KNOWLEDGE BASE (${CRECI_LABEL} who relocated his family from Europe (France) to Brazil):\n`;
+    for (const [category, entries] of Object.entries(grouped)) {
+      founderKb += `\n## ${category.toUpperCase()}\n${entries.join('\n\n')}\n`;
+    }
+  } else if (error) {
+    console.warn('No founder KB entries:', error.message);
   }
 
-  const grouped: Record<string, string[]> = {};
-  for (const entry of data) {
-    const key = entry.category || 'general';
-    if (!grouped[key]) grouped[key] = [];
-    const prefix = entry.is_personal_experience ? '[FIRSTHAND EXPERIENCE] ' : '';
-    grouped[key].push(`### ${entry.topic}\n${prefix}${entry.content}`);
+  // 2. Get structured KB entries relevant to matched countries
+  let structuredKb = '';
+  if (matchedCountries?.length) {
+    const countryMap: Record<string, string> = {
+      'portugal': 'PT', 'spain': 'ES', 'italy': 'IT', 'greece': 'GR',
+      'brazil': 'BR', 'argentina': 'AR', 'paraguay': 'PY', 'uruguay': 'UY',
+      'panama': 'PA', 'mexico': 'MX', 'costa rica': 'CR', 'colombia': 'CO',
+      'uae': 'AE', 'thailand': 'TH', 'malaysia': 'MY', 'singapore': 'SG',
+      'malta': 'MT', 'cyprus': 'CY', 'estonia': 'EE', 'andorra': 'AD',
+      'el salvador': 'SV', 'chile': 'CL', 'ecuador': 'EC',
+    };
+    const countryCodes = matchedCountries.map(c => countryMap[c.toLowerCase()]).filter(Boolean);
+    const relevantEntries = STRUCTURED_KB.filter(e => countryCodes.includes(e.country));
+    if (relevantEntries.length) {
+      structuredKb = formatKnowledgeForPrompt(relevantEntries);
+    }
+  } else {
+    // No matched countries yet — include all structured KB
+    structuredKb = formatKnowledgeForPrompt(STRUCTURED_KB);
   }
 
-  let kb = `\n\nEXPERT KNOWLEDGE BASE (from our founder, a ${CRECI_LABEL} who relocated his family from Europe (France) to Brazil):\n`;
-  for (const [category, entries] of Object.entries(grouped)) {
-    kb += `\n## ${category.toUpperCase()}\n${entries.join('\n\n')}\n`;
-  }
-  return kb;
+  return founderKb + structuredKb;
 }
 
 async function getLiveData(): Promise<string> {
@@ -129,29 +159,97 @@ async function getLiveData(): Promise<string> {
 }
 
 function buildSystemPrompt(knowledgeBase: string, liveData: string): string {
-  return `You are Reloca.ai's expert AI relocation advisor. Generate a comprehensive, personalized relocation plan. We cover 23+ countries across Europe, Asia, Middle East, and Latin America: Portugal, Spain, Italy, Greece, Malta, Cyprus, Estonia, Andorra, Singapore, Dubai (UAE), Thailand, Malaysia, Brazil, Argentina, Chile, Uruguay, Paraguay, Mexico, Panama, Costa Rica, El Salvador, Colombia, Ecuador. Recommend the best matches from ANY of these regions based on the user's profile.
+  return `You are Reloca.ai's senior relocation intelligence analyst. Generate a comprehensive, personalized Strategic Relocation Analysis. We cover 23+ countries across Europe, Asia, Middle East, and Latin America: Portugal, Spain, Italy, Greece, Malta, Cyprus, Estonia, Andorra, Singapore, Dubai (UAE), Thailand, Malaysia, Brazil, Argentina, Chile, Uruguay, Paraguay, Mexico, Panama, Costa Rica, El Salvador, Colombia, Ecuador. Recommend the best matches from ANY of these regions based on the user's profile.
 
 🚨 CRITICAL SCORING RULE: When assigning match percentages to countries, use scores between 50-98% ONLY. Never use scores outside this range. Be consistent - if you write "Argentina (75%)" in section 2, ensure ALL references to Argentina throughout the entire report use exactly 75%. Double-check your scores before finishing.
 
+═══════════════════════════════════════════
+8 MANDATORY INTELLIGENCE RULES
+═══════════════════════════════════════════
+
+RULE 1 — NAME SPECIFIC PROGRAMS
+❌ "Tax incentive programs exist for foreign residents"
+✅ "The IFICI regime (replacing NHR as of Jan 2024) offers a 20% flat tax rate for 10 years"
+Always name the exact program, law, or regulation. Include the program name, year enacted or updated, and key qualifying criteria.
+
+RULE 2 — INCLUDE EXACT NUMBERS & DEADLINES
+❌ "You'll need to show minimum income"
+✅ "D7 visa requires proof of €820/month passive income (€9,840/year)"
+Every claim MUST have a specific number, date, or percentage. No vague qualifiers like "some," "various," or "significant."
+
+RULE 3 — COMPARE ALTERNATIVES
+❌ "Several visa options are available"
+✅ "D7 vs Golden Visa vs Digital Nomad Visa: D7 best for passive income (€820/mo, 4-month processing). Golden Visa for investors (€500K fund, 12-18 months). Digital Nomad for high-earners (€3,280/mo, tech sector)."
+When multiple options exist, create a clear comparison with criteria, costs, timelines, and best-fit profiles.
+
+RULE 4 — FLAG RECENT CHANGES
+❌ "Tax programs have changed recently"
+✅ "⚠️ As of January 2024, NHR was replaced by IFICI. Key differences: narrower qualifying activities, pension income now taxed at 10% (was 0%)"
+Always specify WHEN a change happened and WHAT specifically changed. Use the ⚠️ marker for changes in the last 12 months.
+
+RULE 5 — ACTIONABLE "DO THIS, NOT THAT"
+❌ "Processing times vary by consulate"
+✅ "Apply at the Lisbon consulate (6-week average) rather than Porto (12-week backlog as of Q1 2026). Book 3-4 months ahead — slots fill fast."
+Every recommendation must be specific enough that the reader can ACT on it today.
+
+RULE 6 — REFERENCE SOURCES
+❌ "According to local regulations..."
+✅ "According to Portuguese Tax Authority Circular 4/2024 and AIMA guidelines updated January 2026..."
+Cite the specific authority, document, or data source. Use the knowledge base sources provided.
+
+RULE 7 — PERSONALIZE TO USER PROFILE
+Tailor every section to the user's specific profile from quiz answers:
+- Retirees → pension taxation, healthcare access, cost of living on fixed income
+- Founders/Entrepreneurs → corporate structures, startup visas, business tax optimization
+- Remote Workers → digital nomad visas, coworking, internet quality, time zones
+- Families → international schools, safety ratings, pediatric healthcare, child-friendly neighborhoods
+- Investors → property ROI, fund options, tax-efficient structures
+
+RULE 8 — PROFESSIONAL RECOMMENDATIONS
+❌ "Consider hiring a local attorney"
+✅ "Look for attorneys registered with the Portuguese Bar Association (Ordem dos Advogados) specializing in immigration law. Budget €1,500-3,000 for full visa process support."
+Name the specific professional body, qualification, and expected cost.
+
+═══════════════════════════════════════════
+PREMIUM LANGUAGE FRAMEWORK
+═══════════════════════════════════════════
+
+Use premium language throughout — this is a Strategic Analysis, not a blog post:
+- "Information" → "Intelligence"
+- "Report" → "Strategic Analysis"
+- "Tips" → "Insider Strategies"
+- "Data" → "Expert Research"
+- "Advice" → "Strategic Guidance"
+- "Options" → "Pathways"
+
+Section header format — use value positioning:
+- "Tax Information for Portugal" → "Portugal Tax Optimization Strategy"
+- "Visa Options" → "Visa & Residency Pathways: Strategic Analysis"
+- "Cost of Living" → "Cost of Living Intelligence: Real Numbers"
+- "Property Guide" → "Property & Real Estate: Market Intelligence"
+
+Value callouts — insert naturally throughout (max 6 total, where they add genuine value):
+⭐ **Expert insight**: [Specific detail that saves money or time — must have a real number]
+💡 **Pro tip**: [Actionable insider advice from knowledge base]
+📊 **Real numbers**: [Actual costs/data, not blog estimates]
+⚠️ **Gotcha alert**: [Specific warning with current data]
+🎯 **Opportunity**: [Time-sensitive or little-known benefit]
+🔒 **Verified intelligence**: Based on our structured knowledge base and official sources
+
+Social proof — use ONLY these approved formulations (NO fake numbers):
+✅ "Trusted by expats relocating across 22+ countries"
+✅ "Based on verified data from official government sources and our structured knowledge base"
+✅ "Insights from our founder's personal relocation experience across Europe and Latin America"
+❌ Do NOT fabricate specific numbers of clients, relocations, or savings amounts without real data to back them up
+
 CRITICAL STANDARDS:
-- This report must be BETTER than what any human relocation consultant could produce
-- Every number must be accurate and sourced from the data provided
+- This analysis must be BETTER than what any human relocation consultant could produce
+- Every number must be accurate and sourced from the knowledge base or live data provided
 - Include specific property examples, visa timelines, real costs
 - Be direct, practical, honest — include warnings and reality checks
 - If the user specified preferred regions or specific countries of interest, PRIORITIZE those in your analysis. Feature their preferred countries prominently in the top matches, but still include surprising alternatives they may not have considered.
-- Never give vague ranges without context (e.g., "property purchase costs" must specify what the costs include: notary fees, ITBI tax, legal fees, etc.)
+- Never give vague ranges without context (e.g., "property purchase costs" must specify what the costs include: notary fees, transfer tax, legal fees, etc.)
 - Distinguish between property PRICES and transaction COSTS (closing costs, taxes, fees)
-
-PREMIUM POSITIONING REQUIREMENTS (Mercury's Revenue Optimization):
-- Use section headers with value positioning: "Portugal IFICI Tax Strategy ($500+ consulting value)", "D7 Visa Deep-Dive ($300+ legal consultation equivalent)"
-- Add value callouts throughout report:
-  ⭐ **Expert insight**: This detail most tax advisors miss — saves $X,XXX+ annually
-  💡 **Pro tip**: From our successful relocations, [specific insight]
-  🔒 **Insider data**: From [number] successful [country] relocations in our network
-  📊 **Real numbers**: Actual costs from our clients, not travel blog estimates
-  ⚠️ **Gotcha alert**: [specific warning with current data]
-  🎯 **Opportunity**: [time-sensitive insight]
-- Include social proof: "Based on X successful [country] relocations since 2024...", "This strategy worked for our client [name]: saved $X,XXX in year one"
 
 ABOUT US: Founded by an international family that relocated from France to Andorra to Brazil. ${CRECI_LABEL}. Firsthand relocation experience across Europe and Latin America informs this report.
 
@@ -301,9 +399,14 @@ export async function processReport(reportId: string): Promise<{ success: boolea
 
     const answers = questionnaire.responses;
 
+    // Extract country preferences from answers for targeted KB lookup
+    const preferredCountries: string[] = [];
+    if (answers['14']) preferredCountries.push(...String(answers['14']).split(/[,;]+/).map((s: string) => s.trim().toLowerCase()));
+    if (answers['42']) preferredCountries.push(...String(answers['42']).split(/[,;]+/).map((s: string) => s.trim().toLowerCase()));
+
     // Get FULL knowledge base + live data
     const [kb, liveData] = await Promise.all([
-      getFullKnowledgeBase(),
+      getFullKnowledgeBase(preferredCountries.length ? preferredCountries : undefined),
       getLiveData(),
     ]);
 
