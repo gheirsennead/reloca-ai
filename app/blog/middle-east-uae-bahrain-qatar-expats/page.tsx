@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: 'Middle East Expat Living 2026: UAE, Bahrain, Qatar Tax-Free Guide | Reloca.ai',
   description: 'Complete 2026 guide to tax-free expat life in UAE, Bahrain, and Qatar. Honest assessment of opportunities and risks amid regional tensions.',
   keywords: ['UAE expat taxes 2026', 'dubai tax free living', 'bahrain expat guide', 'qatar expat taxes', 'middle east relocation'],
+  alternates: {
+    canonical: 'https://reloca.ai/blog/middle-east-uae-bahrain-qatar-expats',
+  },
   openGraph: {
     title: 'Middle East Expat Living 2026: UAE, Bahrain, Qatar Tax-Free Guide',
     description: 'Tax-free expat life in UAE, Bahrain, Qatar. Opportunities and risks in 2026.',

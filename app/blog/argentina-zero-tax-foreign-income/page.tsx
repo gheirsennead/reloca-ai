@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: 'Argentina Zero Tax on Foreign Income: NRPP Status Explained (2026) | Reloca.ai',
   description: 'Argentina\'s NRPP status lets expats pay zero tax on foreign income for 5 years. Combined with low living costs and new digital nomad visa. Complete 2026 guide.',
   keywords: ['argentina tax foreign income', 'argentina digital nomad visa 2026', 'argentina NRPP tax', 'argentina expat taxes', 'argentina zero tax foreign income'],
+  alternates: {
+    canonical: 'https://reloca.ai/blog/argentina-zero-tax-foreign-income',
+  },
   openGraph: {
     title: 'Argentina Zero Tax on Foreign Income: NRPP Status Explained (2026)',
     description: 'Argentina NRPP status: zero tax on foreign income for 5 years. Complete 2026 guide.',

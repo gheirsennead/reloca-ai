@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: 'Complete Guide to Portugal Taxes for Expats (2026 Update) | Reloca.ai',
   description: 'Complete Portugal tax guide for expats. Learn about IFICI (replacing NHR), tax rates, deductions, and strategies. Updated March 2026.',
   keywords: ['portugal taxes for expats', 'portugal tax rates 2026', 'portugal tax benefits', 'portugal expat taxes', 'NHR portugal', 'IFICI portugal'],
+  alternates: {
+    canonical: 'https://reloca.ai/blog/portugal-taxes-expats',
+  },
   openGraph: {
     title: 'Complete Guide to Portugal Taxes for Expats (2026 Update)',
     description: 'Complete Portugal tax guide for expats. IFICI regime, tax rates, and optimization strategies. Updated March 2026.',

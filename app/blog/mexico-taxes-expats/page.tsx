@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: 'Mexico Taxes for Expat Retirees — Complete 2026 Guide | Reloca.ai',
   description: 'Complete Mexico tax guide for expat retirees. Tax rates, exemptions, treaty benefits, and strategies for retirees. Updated March 2026.',
   keywords: ['mexico taxes for expats', 'mexico retirement taxes', 'mexico expat taxes', 'mexico tax rates 2026', 'mexico tax benefits'],
+  alternates: {
+    canonical: 'https://reloca.ai/blog/mexico-taxes-expats',
+  },
   openGraph: {
     title: 'Mexico Taxes for Expat Retirees — Complete 2026 Guide',
     description: 'Complete Mexico tax guide for expats. Tax rates, treaty benefits, and retirement strategies. Updated March 2026.',

@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: 'Best Digital Nomad Visas 2026: Complete Country Comparison Guide | Reloca.ai',
   description: '47 countries now offer digital nomad visas. Here\'s which ones are worth it: visa costs, tax treatment, income requirements, and paths to residency compared.',
   keywords: ['digital nomad visa 2026', 'best digital nomad visa', 'remote work visa comparison', 'digital nomad visa tax', 'cheapest digital nomad visa'],
+  alternates: {
+    canonical: 'https://reloca.ai/blog/digital-nomad-visa-comparison-2026',
+  },
   openGraph: {
     title: 'Best Digital Nomad Visas 2026: Complete Country Comparison Guide',
     description: '47 countries offer nomad visas. Which are worth it? Costs, taxes, and residency paths compared.',

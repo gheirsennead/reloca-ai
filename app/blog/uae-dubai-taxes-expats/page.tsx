@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: 'UAE (Dubai) Taxes for Expats — Zero Tax Paradise Guide 2026 | Reloca.ai',
   description: 'Complete UAE tax guide for expats. Zero income tax benefits, US obligations, residency requirements. Updated March 2026.',
   keywords: ['uae taxes for expats', 'dubai taxes', 'uae tax rates', 'uae zero tax', 'dubai expat taxes'],
+  alternates: {
+    canonical: 'https://reloca.ai/blog/uae-dubai-taxes-expats',
+  },
   openGraph: {
     title: 'UAE (Dubai) Taxes for Expats — Zero Tax Paradise Guide 2026',
     description: 'UAE zero income tax guide for expats. Benefits, US obligations, and residency. Updated March 2026.',

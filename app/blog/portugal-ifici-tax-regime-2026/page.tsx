@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: 'Portugal IFICI vs NHR: Complete 2026 Tax Guide for Expats | Reloca.ai',
   description: 'Portugal\'s IFICI tax regime replaced NHR in 2024. Most online guides are outdated. Here\'s what changed, who qualifies, and how to apply in 2026.',
   keywords: ['portugal IFICI 2026', 'portugal NHR replacement', 'portugal tax benefits expats 2026', 'portugal IFICI requirements', 'portugal flat tax 2026'],
+  alternates: {
+    canonical: 'https://reloca.ai/blog/portugal-ifici-tax-regime-2026',
+  },
   openGraph: {
     title: 'Portugal IFICI vs NHR: Complete 2026 Tax Guide for Expats',
     description: 'Portugal IFICI replaced NHR in 2024. What changed, who qualifies, how to apply.',

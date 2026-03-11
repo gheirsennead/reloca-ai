@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: 'Thailand Tax Rules for Expats — 2026 Complete Guide | Reloca.ai',
   description: 'Complete Thailand tax guide for expats. Tax rates, residency rules, treaty benefits, and strategies. Updated March 2026.',
   keywords: ['thailand taxes for expats', 'thailand tax rates', 'thailand expat taxes', 'thailand tax resident'],
+  alternates: {
+    canonical: 'https://reloca.ai/blog/thailand-tax-rules-expats',
+  },
   openGraph: {
     title: 'Thailand Tax Rules for Expats — 2026 Complete Guide',
     description: 'Thailand tax guide for expats. Tax rates, residency rules, and strategies. Updated March 2026.',

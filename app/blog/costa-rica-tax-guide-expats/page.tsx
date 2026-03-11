@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: 'Costa Rica Tax Guide for Expats (2026 Complete Analysis) | Reloca.ai',
   description: 'Complete Costa Rica tax guide for expats. Learn about territorial taxation, tax rates, exemptions, and strategies. Updated 2026.',
   keywords: ['costa rica taxes for expats', 'costa rica tax rates', 'costa rica expat taxes', 'costa rica territorial tax'],
+  alternates: {
+    canonical: 'https://reloca.ai/blog/costa-rica-tax-guide-expats',
+  },
   openGraph: {
     title: 'Costa Rica Tax Guide for Expats (2026 Complete Analysis)',
     description: 'Costa Rica territorial tax system explained. Tax rates, exemptions, and strategies for expats. Updated 2026.',

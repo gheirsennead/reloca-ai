@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: 'Paraguay Residency Alert: 1-Year Exit Rule Enforcement (2026) | Reloca.ai',
   description: 'Paraguay is enforcing the 1-year exit rule for permanent residents. If you got residency in 2023-2025, your status may be at risk. Here\'s what to do.',
   keywords: ['paraguay residency 2026', 'paraguay permanent residency rules', 'paraguay expat residency requirements', 'paraguay 1 year exit rule'],
+  alternates: {
+    canonical: 'https://reloca.ai/blog/paraguay-residency-rules-2026',
+  },
   openGraph: {
     title: 'Paraguay Residency Alert: 1-Year Exit Rule Enforcement Could Cost You Your Status',
     description: 'Paraguay is enforcing the 1-year exit rule. If you got residency in 2023-2025, your status may be at risk.',
