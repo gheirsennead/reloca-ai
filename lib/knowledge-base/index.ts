@@ -19,6 +19,7 @@ import { CHILE_KNOWLEDGE_BASE } from './chile';
 import { ECUADOR_KB } from './ecuador';
 import { EL_SALVADOR_KB } from './el-salvador';
 import { ITALY_KB } from './italy';
+import { GREECE_KB } from './greece';
 
 // Master aggregated knowledge base
 export const MASTER_KNOWLEDGE_BASE: KnowledgeBaseEntry[] = [
@@ -40,6 +41,7 @@ export const MASTER_KNOWLEDGE_BASE: KnowledgeBaseEntry[] = [
   ...ECUADOR_KB,
   ...EL_SALVADOR_KB,
   ...ITALY_KB,
+  ...GREECE_KB,
   ...PARAGUAY_KB,
 ];
 
