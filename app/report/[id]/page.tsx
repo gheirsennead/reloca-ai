@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { createClient } from "@supabase/supabase-js";
 import { ShareableCard } from "@/components/ShareableCard";
+import { FeedbackSurvey } from "@/components/FeedbackSurvey";
 import { initReferralTracking } from "@/lib/referral-tracking";
 
 const supabase = createClient(
@@ -226,7 +227,7 @@ function CountdownTimer({ createdAt }: { createdAt: string }) {
   );
 }
 
-function ReportSection({ content, isPaid, onCheckout, checkoutLoading, couponCode, setCouponCode, couponError, createdAt }: { content: string; isPaid: boolean; onCheckout?: () => void; checkoutLoading?: boolean; couponCode?: string; setCouponCode?: (v: string) => void; couponError?: string; createdAt?: string }) {
+function ReportSection({ content, isPaid, onCheckout, checkoutLoading, couponCode, setCouponCode, couponError, createdAt, reportId }: { content: string; isPaid: boolean; onCheckout?: () => void; checkoutLoading?: boolean; couponCode?: string; setCouponCode?: (v: string) => void; couponError?: string; createdAt?: string; reportId?: string }) {
   // Split content into free preview (first ~20%) and paid sections
   const sections = content.split(/(?=^#{1,2}\s)/m);
   const freeCount = 1; // Show only #1 match, tease the rest
@@ -288,6 +289,13 @@ function ReportSection({ content, isPaid, onCheckout, checkoutLoading, couponCod
             )}
           </div>
         ))}
+
+        {/* Feedback Survey - only for paid reports */}
+        {isPaid && reportId && (
+          <div className="not-prose mt-10">
+            <FeedbackSurvey reportId={reportId} />
+          </div>
+        )}
 
         {/* YOUR NEXT STEPS — End-of-Report CTA Block */}
         <div className="not-prose mt-10 pt-8 border-t border-gray-200">
@@ -1006,7 +1014,7 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
 
         {/* Report content */}
         <div className="bg-white rounded-2xl border border-gray-100 p-6 sm:p-8">
-          <ReportSection content={report.report_content} isPaid={isPaid} onCheckout={handleCheckout} checkoutLoading={checkoutLoading} couponCode={couponCode} setCouponCode={setCouponCode} couponError={couponError} createdAt={report.created_at} />
+          <ReportSection content={report.report_content} isPaid={isPaid} onCheckout={handleCheckout} checkoutLoading={checkoutLoading} couponCode={couponCode} setCouponCode={setCouponCode} couponError={couponError} createdAt={report.created_at} reportId={resolvedId} />
         </div>
 
         {/* Upsell with comparison table */}
