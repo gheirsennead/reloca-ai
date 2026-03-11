@@ -367,7 +367,6 @@ function ReportSection({ content, isPaid, onCheckout, checkoutLoading, couponCod
         <div className="mt-8 mb-4">
           <h3 className="text-lg font-bold text-[#1a365d] text-center mb-6">Here{"'"}s What You{"'"}re Missing</h3>
           <div className="space-y-4">
-            {/* Tax Optimization Tease */}
             <div className="relative bg-white rounded-xl border border-gray-200 overflow-hidden">
               <div className="p-5 pb-3">
                 <div className="flex items-center gap-2 mb-2">
@@ -377,12 +376,10 @@ function ReportSection({ content, isPaid, onCheckout, checkoutLoading, couponCod
                 <p className="text-sm text-gray-700">You could save <span className="font-semibold text-[#38b2ac]">€12,400/year</span> with the right tax regime for your profile...</p>
               </div>
               <div className="px-5 pb-5 blur-[6px] select-none pointer-events-none text-sm text-gray-500 leading-relaxed">
-                <p>Based on your income bracket and residency plans, we&apos;ve identified three tax optimization pathways. The primary recommendation leverages a special tax regime that reduces your effective rate from 37% to under 15% on qualifying income. Combined with strategic timing of your tax residency change and structuring of investment income...</p>
+                <p>Based on your income bracket and residency plans, we&apos;ve identified three tax optimization pathways...</p>
               </div>
               <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent" />
             </div>
-
-            {/* Visa Roadmap Tease */}
             <div className="relative bg-white rounded-xl border border-gray-200 overflow-hidden">
               <div className="p-5 pb-3">
                 <div className="flex items-center gap-2 mb-2">
@@ -392,12 +389,10 @@ function ReportSection({ content, isPaid, onCheckout, checkoutLoading, couponCod
                 <p className="text-sm text-gray-700">Your fastest path to residency takes <span className="font-semibold text-[#38b2ac]">as little as 3 months</span> with the right visa category...</p>
               </div>
               <div className="px-5 pb-5 blur-[6px] select-none pointer-events-none text-sm text-gray-500 leading-relaxed">
-                <p>We&apos;ve mapped out your complete visa journey from application to permanent residency. Month 1: Gather documentation and apostille key documents. Month 2: Submit visa application with our recommended category. Month 3: Attend biometrics appointment. Your profile qualifies for an expedited processing track that most applicants don&apos;t know about...</p>
+                <p>We&apos;ve mapped out your complete visa journey from application to permanent residency...</p>
               </div>
               <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent" />
             </div>
-
-            {/* Cost of Living Tease */}
             <div className="relative bg-white rounded-xl border border-gray-200 overflow-hidden">
               <div className="p-5 pb-3">
                 <div className="flex items-center gap-2 mb-2">
@@ -407,11 +402,51 @@ function ReportSection({ content, isPaid, onCheckout, checkoutLoading, couponCod
                 <p className="text-sm text-gray-700">A comfortable lifestyle in your top match costs <span className="font-semibold text-[#38b2ac]">40-60% less</span> than your current location...</p>
               </div>
               <div className="px-5 pb-5 blur-[6px] select-none pointer-events-none text-sm text-gray-500 leading-relaxed">
-                <p>Here&apos;s your personalized monthly budget for each recommended country. Rent for a quality 2-bedroom apartment: €850-1,200/month in desirable neighborhoods. Groceries and dining: €400-600 for a couple. Private healthcare with international coverage: €150-250/month. Total monthly spend for a comfortable lifestyle including entertainment and travel...</p>
+                <p>Here&apos;s your personalized monthly budget for each recommended country...</p>
               </div>
               <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent" />
             </div>
           </div>
+        </div>
+      )}
+
+      {/* Summary Plus $19 upsell */}
+      {lockedSections.length > 0 && (
+        <div className="mt-4 bg-white rounded-2xl border-2 border-[#38b2ac]/30 p-6 sm:p-8">
+          <div className="text-center mb-4">
+            <span className="inline-block bg-[#38b2ac]/10 text-[#38b2ac] text-xs font-bold px-3 py-1 rounded-full mb-3">MOST POPULAR</span>
+            <h3 className="text-xl font-bold text-[#1a365d] mb-1">💡 Want more detail without the full report?</h3>
+          </div>
+          <div className="bg-gradient-to-r from-[#fafaf9] to-white rounded-xl p-5 mb-5">
+            <h4 className="font-bold text-[#1a365d] text-lg mb-3">SUMMARY PLUS — $19</h4>
+            <ul className="space-y-2 text-sm text-gray-700">
+              <li className="flex items-center gap-2"><span className="text-[#38b2ac]">✓</span> Expanded analysis for all 3 matches</li>
+              <li className="flex items-center gap-2"><span className="text-[#38b2ac]">✓</span> Key visa requirements for each country</li>
+              <li className="flex items-center gap-2"><span className="text-[#38b2ac]">✓</span> Cost of living comparison table</li>
+              <li className="flex items-center gap-2"><span className="text-[#38b2ac]">✓</span> Tax overview per country</li>
+            </ul>
+          </div>
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              fetch('/api/create-checkout', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                  reportId: typeof window !== 'undefined' ? window.location.pathname.split('/').pop() : '',
+                  tier: 'summary-plus'
+                }),
+              })
+                .then(r => r.json())
+                .then(data => { if (data.url) window.location.href = data.url; })
+                .catch(() => alert('Something went wrong. Please try again.'));
+            }}
+            className="block w-full text-center bg-[#38b2ac] hover:bg-[#2c9a94] text-white font-bold py-4 rounded-xl transition text-lg shadow-lg shadow-[#38b2ac]/20 cursor-pointer"
+          >
+            Get Summary Plus — $19
+          </a>
+          <p className="text-center text-xs text-gray-400 mt-2">🛡️ 30-day money-back guarantee</p>
         </div>
       )}
 
