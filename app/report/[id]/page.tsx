@@ -361,6 +361,60 @@ function ReportSection({ content, isPaid, onCheckout, checkoutLoading, couponCod
           <p className="text-gray-500 text-sm mt-1">Including visa roadmaps, tax strategies, cost analysis & relocation timeline</p>
         </div>
       )}
+
+      {/* "Here's what you're missing" teaser block */}
+      {lockedSections.length > 0 && (
+        <div className="mt-8 mb-4">
+          <h3 className="text-lg font-bold text-[#1a365d] text-center mb-6">Here{"'"}s What You{"'"}re Missing</h3>
+          <div className="space-y-4">
+            {/* Tax Optimization Tease */}
+            <div className="relative bg-white rounded-xl border border-gray-200 overflow-hidden">
+              <div className="p-5 pb-3">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-lg">📊</span>
+                  <h4 className="font-bold text-[#1a365d]">Your Tax Optimization Strategy</h4>
+                </div>
+                <p className="text-sm text-gray-700">You could save <span className="font-semibold text-[#38b2ac]">€12,400/year</span> with the right tax regime for your profile...</p>
+              </div>
+              <div className="px-5 pb-5 blur-[6px] select-none pointer-events-none text-sm text-gray-500 leading-relaxed">
+                <p>Based on your income bracket and residency plans, we&apos;ve identified three tax optimization pathways. The primary recommendation leverages a special tax regime that reduces your effective rate from 37% to under 15% on qualifying income. Combined with strategic timing of your tax residency change and structuring of investment income...</p>
+              </div>
+              <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent" />
+            </div>
+
+            {/* Visa Roadmap Tease */}
+            <div className="relative bg-white rounded-xl border border-gray-200 overflow-hidden">
+              <div className="p-5 pb-3">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-lg">🛂</span>
+                  <h4 className="font-bold text-[#1a365d]">Visa Roadmap &amp; Timeline</h4>
+                </div>
+                <p className="text-sm text-gray-700">Your fastest path to residency takes <span className="font-semibold text-[#38b2ac]">as little as 3 months</span> with the right visa category...</p>
+              </div>
+              <div className="px-5 pb-5 blur-[6px] select-none pointer-events-none text-sm text-gray-500 leading-relaxed">
+                <p>We&apos;ve mapped out your complete visa journey from application to permanent residency. Month 1: Gather documentation and apostille key documents. Month 2: Submit visa application with our recommended category. Month 3: Attend biometrics appointment. Your profile qualifies for an expedited processing track that most applicants don&apos;t know about...</p>
+              </div>
+              <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent" />
+            </div>
+
+            {/* Cost of Living Tease */}
+            <div className="relative bg-white rounded-xl border border-gray-200 overflow-hidden">
+              <div className="p-5 pb-3">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-lg">💰</span>
+                  <h4 className="font-bold text-[#1a365d]">Cost of Living Breakdown</h4>
+                </div>
+                <p className="text-sm text-gray-700">A comfortable lifestyle in your top match costs <span className="font-semibold text-[#38b2ac]">40-60% less</span> than your current location...</p>
+              </div>
+              <div className="px-5 pb-5 blur-[6px] select-none pointer-events-none text-sm text-gray-500 leading-relaxed">
+                <p>Here&apos;s your personalized monthly budget for each recommended country. Rent for a quality 2-bedroom apartment: €850-1,200/month in desirable neighborhoods. Groceries and dining: €400-600 for a couple. Private healthcare with international coverage: €150-250/month. Total monthly spend for a comfortable lifestyle including entertainment and travel...</p>
+              </div>
+              <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent" />
+            </div>
+          </div>
+        </div>
+      )}
+
       {lockedSections.length > 0 && (
         <div className="relative mt-8">
           <div className="prose prose-gray max-w-none blur-sm select-none pointer-events-none opacity-60">
