@@ -337,7 +337,7 @@ function EarlyEmailCapture({ email, onEmailChange, onDismiss }: { email: string;
   );
 }
 
-export default function Enhanced36Questionnaire() {
+export default function Enhanced36Questionnaire({ prefillMotivation }: { prefillMotivation?: string | null }) {
   const [showIntro, setShowIntro] = useState(true);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Record<number, Answer>>({});
@@ -347,6 +347,15 @@ export default function Enhanced36Questionnaire() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showEmailCapture, setShowEmailCapture] = useState(false);
   const [earlyEmailDismissed, setEarlyEmailDismissed] = useState(false);
+
+  // Handle prefill from inline question on homepage
+  useEffect(() => {
+    if (prefillMotivation) {
+      setShowIntro(false);
+      setAnswers(prev => ({ ...prev, 1: [prefillMotivation] }));
+      setCurrentQuestion(1); // Skip to Q2 since Q1 is answered
+    }
+  }, [prefillMotivation]);
 
   const question = questions36Enhanced[currentQuestion];
   const answer = answers[question.id];
@@ -547,7 +556,7 @@ export default function Enhanced36Questionnaire() {
               <strong>47 people</strong> took this quiz today
             </span>
             <span>·</span>
-            <span>⏱️ ~10 min</span>
+            <span>⏱️ ~5 min</span>
           </div>
 
           <button

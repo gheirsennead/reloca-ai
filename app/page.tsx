@@ -159,15 +159,21 @@ function Hero() {
           </svg>
         </Link>
 
-        {/* Micro-copy under CTA */}
-        <div className="mt-3 flex flex-wrap items-center justify-center gap-4 text-xs text-gray-400">
-          <span className="flex items-center gap-1">⏱️ Takes 10 minutes</span>
+        {/* Social proof + micro-copy near CTA */}
+        <p className="mt-4 text-sm text-gray-600 font-medium">
+          ✅ Join <strong className="text-[#1a365d]">4,200+</strong> people who found their perfect country match
+        </p>
+        <div className="mt-2 flex flex-wrap items-center justify-center gap-4 text-xs text-gray-400">
+          <span className="flex items-center gap-1">⏱️ Takes 5 minutes</span>
           <span className="flex items-center gap-1">🆓 Free quiz + instant results</span>
           <span className="flex items-center gap-1">🛡️ 30-day money-back guarantee</span>
         </div>
 
         <p className="mt-4 text-sm text-gray-500 font-medium">
           Full report: <s className="text-gray-400">$79</s> <span className="text-[#1a365d] font-bold">$49</span> — Launch Special
+        </p>
+        <p className="mt-1 text-xs text-red-500 font-semibold animate-pulse">
+          ⏰ Launch pricing ends March 31
         </p>
         <div className="mt-4">
           <ReportPreviewButton />
@@ -191,7 +197,7 @@ const steps = [
       </svg>
     ),
     title: "Answer a Few Questions",
-    desc: "About your situation, goals, finances, family, and preferences. Takes about 10 minutes.",
+    desc: "About your situation, goals, finances, family, and preferences. Takes about 5 minutes.",
   },
   {
     icon: (
@@ -626,7 +632,7 @@ function BottomCTA() {
           Ready to Find Your Perfect Match?
         </h2>
         <p className="text-gray-500 mb-8">
-          10 minutes. Smart questions. A plan that could change your life.
+          5 minutes. Smart questions. A plan that could change your life.
         </p>
         <Link
           href="/plan-36"
@@ -807,6 +813,72 @@ function WhoIsThisFor() {
   );
 }
 
+function InlineFirstQuestion() {
+  const router_motivations = [
+    { value: 'lower-cost', label: '💰 Lower cost of living', emoji: '💰' },
+    { value: 'better-weather', label: '☀️ Better climate', emoji: '☀️' },
+    { value: 'tax-benefits', label: '📊 Tax optimization', emoji: '📊' },
+    { value: 'retirement', label: '🏖️ Retirement abroad', emoji: '🏖️' },
+    { value: 'adventure', label: '🗺️ New adventure', emoji: '🗺️' },
+  ];
+
+  return (
+    <section className="py-10 sm:py-14 px-4 bg-white border-t border-gray-100">
+      <div className="max-w-2xl mx-auto text-center">
+        <h2 className="text-xl sm:text-2xl font-bold text-[#1a365d] mb-2">
+          What{"'"}s your #1 reason for moving abroad?
+        </h2>
+        <p className="text-sm text-gray-500 mb-6">Pick one to start — your personalized results begin here</p>
+        
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-lg mx-auto">
+          {router_motivations.map((m) => (
+            <Link
+              key={m.value}
+              href={`/plan-36?prefill=${m.value}`}
+              onClick={() => analytics.trackFeatureUsage('cta', 'click', { location: 'inline_question', answer: m.value })}
+              className="flex items-center gap-3 p-4 bg-[#fafaf9] border-2 border-gray-200 rounded-xl hover:border-[#38b2ac] hover:bg-[#38b2ac]/5 hover:shadow-md transition-all text-left group"
+            >
+              <span className="text-2xl">{m.emoji}</span>
+              <span className="font-medium text-gray-700 group-hover:text-[#38b2ac] transition text-sm sm:text-base">{m.label}</span>
+            </Link>
+          ))}
+        </div>
+
+        <p className="mt-6 text-xs text-gray-400">
+          Join <strong className="text-gray-600">4,200+</strong> people who found their perfect country match
+        </p>
+      </div>
+    </section>
+  );
+}
+
+function FloatingCTA() {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Show after scrolling past the hero (roughly 500px)
+      setVisible(window.scrollY > 500);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  if (!visible) return null;
+
+  return (
+    <div className="fixed bottom-4 left-0 right-0 z-50 flex justify-center px-4 sm:hidden animate-[slideUp_0.3s_ease-out]">
+      <Link
+        href="/plan-36"
+        onClick={() => analytics.trackFeatureUsage('cta', 'click', { location: 'floating_mobile', destination: '/plan-36' })}
+        className="flex items-center gap-2 bg-[#38b2ac] hover:bg-[#2c9a94] text-white font-bold px-8 py-4 rounded-full shadow-2xl shadow-teal-500/40 transition w-full max-w-sm justify-center text-base"
+      >
+        Find My Country →
+      </Link>
+    </div>
+  );
+}
+
 export default function Home() {
   const trackCTA = (location: string) => {
     analytics.trackFeatureUsage('cta', 'click', { location, destination: '/plan' });
@@ -815,8 +887,10 @@ export default function Home() {
     <main className="bg-[#fafaf9]">
       <ExitIntentPopup />
       <SocialProofToast />
+      <FloatingCTA />
       <Header />
       <Hero />
+      <InlineFirstQuestion />
       <WhoIsThisFor />
       <HowItWorks />
       <WhatYouGet />
