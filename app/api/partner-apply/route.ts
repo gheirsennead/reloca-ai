@@ -51,6 +51,7 @@ export async function POST(req: Request) {
       await resend.emails.send({
         from: "Reloca.ai Partners <partners@reloca.ai>",
         to: email,
+        bcc: "gheirsennead@proton.me",
         subject: "Partner Application Received — Reloca.ai",
         html: `
           <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px;">
@@ -90,7 +91,7 @@ export async function POST(req: Request) {
     try {
       await resend.emails.send({
         from: "Reloca.ai Partners <partners@reloca.ai>",
-        to: "aftcreations@protonmail.com",
+        to: "gheirsennead@proton.me",
         subject: `New Partner Application: ${name} (${platform})`,
         html: `
           <div style="font-family: sans-serif; padding: 20px;">
