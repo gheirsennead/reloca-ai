@@ -469,7 +469,7 @@ function EarlyEmailCapture({ email, onEmailChange, onDismiss }: { email: string;
   );
 }
 
-export default function Enhanced36Questionnaire() {
+export default function Enhanced36Questionnaire({ prefillMotivation }: { prefillMotivation?: string | null }) {
   const [showIntro, setShowIntro] = useState(true);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Record<number, Answer>>({});
@@ -482,6 +482,7 @@ export default function Enhanced36Questionnaire() {
   const [showMicroResults, setShowMicroResults] = useState(false);
   const [hasSavedProgress, setHasSavedProgress] = useState(false);
 
+<<<<<<< HEAD
   // Load saved progress from localStorage on mount
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -537,10 +538,19 @@ export default function Enhanced36Questionnaire() {
     }
   }, [currentQuestion, answers, email, firstName, earlyEmailDismissed, showIntro]);
 
+  // Handle prefill from inline question on homepage
+  useEffect(() => {
+    if (prefillMotivation) {
+      setShowIntro(false);
+      setAnswers(prev => ({ ...prev, 1: [prefillMotivation] }));
+      setCurrentQuestion(1); // Skip to Q2 since Q1 is answered
+    }
+  }, [prefillMotivation]);
+
   const reorderedQuestions = useMemo(() => getReorderedQuestions(), []);
   const question = reorderedQuestions[currentQuestion];
   const answer = answers[question.id];
-  const isNewSection = currentQuestion === 0 || questions36Enhanced[currentQuestion].section !== questions36Enhanced[currentQuestion - 1].section;
+  const isNewSection = currentQuestion === 0 || reorderedQuestions[currentQuestion].section !== reorderedQuestions[currentQuestion - 1].section;
   const currentSection = REORDERED_SECTIONS.find(s => s.id === question.section);
 
   // Track quiz start
@@ -745,7 +755,7 @@ export default function Enhanced36Questionnaire() {
               <strong>47 people</strong> took this quiz today
             </span>
             <span>·</span>
-            <span>⏱️ ~10 min</span>
+            <span>⏱️ ~5 min</span>
           </div>
 
           <button
