@@ -289,56 +289,89 @@ function ReportSection({ content, isPaid, onCheckout, checkoutLoading, couponCod
           </div>
         ))}
 
-        {/* End-of-Report Multi-CTA Block */}
-        <div className="not-prose mt-10 pt-8 border-t border-gray-200 space-y-4">
-          <h3 className="text-xl font-bold text-[#1a365d] text-center mb-6">Ready for Your Next Step?</h3>
+        {/* YOUR NEXT STEPS — End-of-Report CTA Block */}
+        <div className="not-prose mt-10 pt-8 border-t border-gray-200">
+          <h3 className="text-2xl font-bold text-[#1a365d] text-center mb-8">🎯 YOUR NEXT STEPS</h3>
           
-          {/* Primary: Strategy Consultation */}
-          <div className="bg-gradient-to-r from-[#38b2ac] to-[#2c9a94] rounded-xl p-6 text-center">
-            <p className="text-white font-bold text-lg mb-1">🎯 Get Your Personalized Action Plan</p>
-            <p className="text-white/80 text-sm mb-4">45-min strategy call with our relocation expert — visa roadmap, tax optimization, and timeline</p>
-            {/* TODO: Replace with real Stripe Payment Link */}
-            <a href="https://buy.stripe.com/cNi4gA6VkgOg3bJ0rW4Ja04" target="_blank" rel="noopener" className="inline-block bg-white text-[#38b2ac] font-bold px-8 py-3 rounded-xl hover:bg-gray-50 transition">
-              Book Strategy Call — $149 →
-            </a>
+          <div className="space-y-5">
+            {/* 1. Strategy Call */}
+            <div className="bg-gradient-to-r from-[#38b2ac] to-[#2c9a94] rounded-xl p-6">
+              <div className="flex items-start gap-4">
+                <span className="text-3xl">📞</span>
+                <div className="flex-1">
+                  <h4 className="text-white font-bold text-lg mb-1">Book a 1-on-1 Strategy Call — $145</h4>
+                  <p className="text-white/80 text-sm mb-4">30 min with a relocation expert. Get your visa roadmap, tax strategy, and personalized timeline.</p>
+                  <a href="https://buy.stripe.com/cNi4gA6VkgOg3bJ0rW4Ja04" target="_blank" rel="noopener" className="inline-block bg-white text-[#38b2ac] font-bold px-6 py-3 rounded-xl hover:bg-gray-50 transition">
+                    Book My Call →
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* 2. Monthly Market Updates */}
+            <div className="bg-white border border-gray-200 rounded-xl p-6">
+              <div className="flex items-start gap-4">
+                <span className="text-3xl">📊</span>
+                <div className="flex-1">
+                  <h4 className="text-[#1a365d] font-bold text-lg mb-1">Monthly Market Updates — Coming Soon</h4>
+                  <p className="text-gray-500 text-sm mb-4">Visa changes, cost shifts, and new opportunities for your matched countries. Be the first to know.</p>
+                  <button
+                    onClick={() => {
+                      const email = prompt('Enter your email to join the waitlist:');
+                      if (email && email.includes('@')) {
+                        fetch('/api/quiz-lead', {
+                          method: 'POST',
+                          headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify({ email, answers: {}, topMatches: ['waitlist-market-updates'] }),
+                        }).then(() => alert('You\'re on the waitlist! We\'ll notify you when it launches.'))
+                          .catch(() => alert('Something went wrong. Email support@reloca.ai'));
+                      }
+                    }}
+                    className="inline-block bg-[#1a365d] hover:bg-[#2d4a7c] text-white font-bold px-6 py-3 rounded-xl transition cursor-pointer"
+                  >
+                    Join Waitlist →
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* 3. Gift a Report */}
+            <div className="bg-[#fafaf9] border border-gray-100 rounded-xl p-6">
+              <div className="flex items-start gap-4">
+                <span className="text-3xl">🎁</span>
+                <div className="flex-1">
+                  <h4 className="text-[#1a365d] font-bold text-lg mb-1">Know someone planning a move?</h4>
+                  <p className="text-gray-500 text-sm mb-4">Give them the gift of a personalized relocation plan — same report you just read, tailored to their situation.</p>
+                  <a href="/plan-36?gift=true" className="inline-block bg-gray-800 hover:bg-gray-900 text-white font-bold px-6 py-3 rounded-xl transition">
+                    Gift a Reloca Report — $49 →
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* 4. Share Your Match */}
+            <div className="bg-white border border-gray-200 rounded-xl p-6">
+              <div className="flex items-start gap-4">
+                <span className="text-3xl">📱</span>
+                <div className="flex-1">
+                  <h4 className="text-[#1a365d] font-bold text-lg mb-1">Share Your #1 Match</h4>
+                  <p className="text-gray-500 text-sm mb-3">Show your friends where you matched — and help them find theirs.</p>
+                  <button
+                    onClick={() => document.getElementById('share-card')?.scrollIntoView({ behavior: 'smooth' })}
+                    className="inline-block bg-[#38b2ac] hover:bg-[#2c9a94] text-white font-bold px-6 py-3 rounded-xl transition cursor-pointer"
+                  >
+                    Share My Result →
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* Secondary: Roadmap PDF */}
-          <div className="bg-white border border-gray-200 rounded-xl p-6 text-center">
-            <p className="text-[#1a365d] font-bold text-lg mb-1">📋 Complete Relocation Roadmap PDF</p>
-            <p className="text-gray-500 text-sm mb-4">Your personalized timeline, checklists, legal steps, and action items</p>
-            {/* TODO: Replace with real Stripe Payment Link */}
-            <a href="https://buy.stripe.com/7sY9AUbbAfKceUrcaE4Ja03" target="_blank" rel="noopener" className="inline-block bg-[#1a365d] hover:bg-[#2d4a7a] text-white font-bold px-8 py-3 rounded-xl transition">
-              Get Roadmap PDF — $129 →
-            </a>
-          </div>
-
-          {/* Tertiary: Intel Subscription */}
-          <div className="bg-[#fafaf9] border border-gray-100 rounded-xl p-6 text-center">
-            <p className="text-[#1a365d] font-bold mb-1">📊 Stay Ahead of Visa Changes & New Opportunities</p>
-            <p className="text-gray-500 text-sm mb-4">Relocation Intel Subscription — Updated reports, market alerts, and priority support</p>
-            {/* TODO: Replace with real Stripe Payment Link */}
-            <a href="https://buy.stripe.com/28E4gAa7wdC47rZgqU4Ja05" target="_blank" rel="noopener" className="inline-block bg-gray-800 hover:bg-gray-900 text-white font-semibold px-6 py-2.5 rounded-xl transition">
-              Get Intel Subscription — $39/mo →
-            </a>
-          </div>
-
-          {/* Text links */}
-          <div className="text-center space-y-3 pt-4">
-            <p className="text-sm">
-              <a href="mailto:support@reloca.ai?subject=Local Professional Referral" className="text-[#38b2ac] hover:underline font-medium">
-                💼 Connect with Vetted Local Professionals — attorneys, real estate agents, tax advisors
-              </a>
-            </p>
-            <p className="text-sm">
-              <a href="/plan-36?gift=true" className="text-[#1a365d] hover:underline font-medium">
-                🎁 Buy Reloca for a Friend — $49
-              </a>
-            </p>
-            <p className="text-sm">
-              <button onClick={() => document.getElementById('share-card')?.scrollIntoView({ behavior: 'smooth' })} className="text-gray-500 hover:text-[#38b2ac] hover:underline font-medium cursor-pointer">
-                📤 Share Your Results
-              </button>
+          {/* Disclaimer */}
+          <div className="mt-8 pt-6 border-t border-gray-100 text-center">
+            <p className="text-xs text-gray-400 leading-relaxed max-w-lg mx-auto">
+              ⚖️ This report is for informational purposes only and does not constitute legal, tax, or immigration advice. 
+              Consult qualified professionals for decisions regarding legal residency, tax obligations, and financial planning.
             </p>
           </div>
         </div>
