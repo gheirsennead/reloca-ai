@@ -361,6 +361,50 @@ function ReportSection({ content, isPaid, onCheckout, checkoutLoading, couponCod
           <p className="text-gray-500 text-sm mt-1">Including visa roadmaps, tax strategies, cost analysis & relocation timeline</p>
         </div>
       )}
+
+      {/* Summary Plus $19 upsell */}
+      {lockedSections.length > 0 && (
+        <div className="mt-8 bg-white rounded-2xl border-2 border-[#38b2ac]/30 p-6 sm:p-8">
+          <div className="text-center mb-4">
+            <span className="inline-block bg-[#38b2ac]/10 text-[#38b2ac] text-xs font-bold px-3 py-1 rounded-full mb-3">MOST POPULAR</span>
+            <h3 className="text-xl font-bold text-[#1a365d] mb-1">💡 Want more detail without the full report?</h3>
+          </div>
+          
+          <div className="bg-gradient-to-r from-[#fafaf9] to-white rounded-xl p-5 mb-5">
+            <h4 className="font-bold text-[#1a365d] text-lg mb-3">SUMMARY PLUS — $19</h4>
+            <ul className="space-y-2 text-sm text-gray-700">
+              <li className="flex items-center gap-2"><span className="text-[#38b2ac]">✓</span> Expanded analysis for all 3 matches</li>
+              <li className="flex items-center gap-2"><span className="text-[#38b2ac]">✓</span> Key visa requirements for each country</li>
+              <li className="flex items-center gap-2"><span className="text-[#38b2ac]">✓</span> Cost of living comparison table</li>
+              <li className="flex items-center gap-2"><span className="text-[#38b2ac]">✓</span> Tax overview per country</li>
+            </ul>
+          </div>
+
+          <a
+            href={`/api/create-checkout?reportId=${encodeURIComponent(typeof window !== 'undefined' ? window.location.pathname.split('/').pop() || '' : '')}&tier=summary-plus`}
+            onClick={(e) => {
+              e.preventDefault();
+              // Use existing checkout flow with summary-plus tier
+              fetch('/api/create-checkout', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                  reportId: typeof window !== 'undefined' ? window.location.pathname.split('/').pop() : '',
+                  tier: 'summary-plus'
+                }),
+              })
+                .then(r => r.json())
+                .then(data => { if (data.url) window.location.href = data.url; })
+                .catch(() => alert('Something went wrong. Please try again.'));
+            }}
+            className="block w-full text-center bg-[#38b2ac] hover:bg-[#2c9a94] text-white font-bold py-4 rounded-xl transition text-lg shadow-lg shadow-[#38b2ac]/20 cursor-pointer"
+          >
+            Get Summary Plus — $19
+          </a>
+          <p className="text-center text-xs text-gray-400 mt-2">🛡️ 30-day money-back guarantee</p>
+        </div>
+      )}
+
       {lockedSections.length > 0 && (
         <div className="relative mt-8">
           <div className="prose prose-gray max-w-none blur-sm select-none pointer-events-none opacity-60">
