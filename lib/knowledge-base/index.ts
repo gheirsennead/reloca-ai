@@ -21,6 +21,7 @@ import { EL_SALVADOR_KB } from './el-salvador';
 import { ITALY_KB } from './italy';
 import { GREECE_KB } from './greece';
 import { MALTA_KB } from './malta';
+import { CYPRUS_KB } from './cyprus';
 
 // Master aggregated knowledge base
 export const MASTER_KNOWLEDGE_BASE: KnowledgeBaseEntry[] = [
@@ -44,6 +45,7 @@ export const MASTER_KNOWLEDGE_BASE: KnowledgeBaseEntry[] = [
   ...ITALY_KB,
   ...GREECE_KB,
   ...MALTA_KB,
+  ...CYPRUS_KB,
   ...PARAGUAY_KB,
 ];
 
