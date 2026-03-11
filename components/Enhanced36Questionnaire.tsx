@@ -482,7 +482,6 @@ export default function Enhanced36Questionnaire({ prefillMotivation }: { prefill
   const [showMicroResults, setShowMicroResults] = useState(false);
   const [hasSavedProgress, setHasSavedProgress] = useState(false);
 
-<<<<<<< HEAD
   // Load saved progress from localStorage on mount
   useEffect(() => {
     if (typeof window !== 'undefined') {
