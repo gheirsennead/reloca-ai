@@ -6,10 +6,11 @@ import { PORTUGAL_KB_EXTENDED } from './portugal';
 import { MEXICO_KB } from './mexico';
 import { THAILAND_KB } from './thailand';
 import { UAE_KB } from './uae';
+import { SPAIN_KB } from './spain';
 // Additional countries will be added as files are created
-// import { SPAIN_KB } from './spain';
+// import { COLOMBIA_KB } from './colombia';
 // import { COSTA_RICA_KB } from './costa-rica';
-// ... etc
+// import { SINGAPORE_KB } from './singapore';
 
 // Master aggregated knowledge base
 export const MASTER_KNOWLEDGE_BASE: KnowledgeBaseEntry[] = [
@@ -18,6 +19,7 @@ export const MASTER_KNOWLEDGE_BASE: KnowledgeBaseEntry[] = [
   ...MEXICO_KB,
   ...THAILAND_KB,
   ...UAE_KB,
+  ...SPAIN_KB,
   // Additional country KBs will be appended here
 ];
 
