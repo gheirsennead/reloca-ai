@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
             },
             body: JSON.stringify({
               from: 'Reloca.ai <notifications@reloca.ai>',
-              to: ['gregory@reloca.ai'],
+              to: ['gheirsennead@proton.me'],
               subject: `⚠️ Low Rating (${rating}/5) on Report ${reportId}`,
               html: `
                 <h2>Low Feedback Alert</h2>
