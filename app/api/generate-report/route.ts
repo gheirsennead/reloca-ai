@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase';
 import { ABANDONED_CART_SEQUENCE } from '@/lib/email-sequences';
-import { PORTUGAL_KNOWLEDGE_BASE, formatKnowledgeForPrompt, type KnowledgeBaseEntry } from '@/lib/knowledge-base-schema';
+import { formatKnowledgeForPrompt, type KnowledgeBaseEntry } from '@/lib/knowledge-base-schema';
+import { MASTER_KNOWLEDGE_BASE } from '@/lib/knowledge-base/index';
 
 export const maxDuration = 300;
 
@@ -11,10 +12,9 @@ export const maxDuration = 300;
 const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY || '';
 const CRECI_LABEL = 'CRECI-licensed real estate agent';
 
-// Structured knowledge base — will grow per country
+// Structured knowledge base — all countries from lib/knowledge-base/
 const STRUCTURED_KB: KnowledgeBaseEntry[] = [
-  ...PORTUGAL_KNOWLEDGE_BASE,
-  // TODO: Add more countries as knowledge base entries are provided
+  ...MASTER_KNOWLEDGE_BASE,
 ];
 
 async function getFullKnowledgeBase(matchedCountries?: string[]): Promise<string> {

@@ -320,7 +320,7 @@ Timeline: 6-12 weeks total. Fideicomiso adds 4-8 weeks`,
 - Bupa Mexico: MXN 20,000-90,000/year. International standard
 Note: Mexican insurers are much cheaper than international plans but typically only cover Mexico. Pre-existing conditions: 12-24 month exclusion is standard. Age limits: Some Mexican insurers won't issue new policies after age 64-70`,
     gotchas: `Mexican insurance plans often have deductibles of MXN 15,000-50,000 ($750-2,500) before coverage kicks in. Read the fine print on coverage limits — some plans cap hospitalization at MXN 5-10M lifetime (sounds like a lot but a complex surgery can reach MXN 2-3M). Mental health coverage is minimal or excluded on most Mexican plans. Dental is usually a separate add-on. COVID and pandemic exclusions are still common.`,
-    pro_tip: `The optimal strategy: IMSS voluntary (for routine/chronic care, $400/year) + a Mexican private plan with high deductible (for serious/emergency care, $1,000-2,000/year). Total: ~$1,500-2,500/year for comprehensive coverage. This is 80-90% cheaper than equivalent US coverage. For Americans: you can still use US-based health plans for telehealth and returning-to-US care while using Mexican insurance locally.`,
+    pro_tip: `The optimal strategy: IMSS voluntary (for routine/chronic care, $400/year) + a Mexican private plan with high deductible (for serious/emergency care, $1,000-2,000/year). Total: ~$1,500-2,500/year for comprehensive coverage. This is 80-90% cheaper than equivalent US coverage. For expats from the US: you can still use US-based health plans for telehealth and returning-to-US care while using Mexican insurance locally.`,
   },
 
   // === LIFESTYLE ===

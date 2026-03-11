@@ -92,7 +92,7 @@ export const THAILAND_KB: KnowledgeBaseEntry[] = [
 - Students/trainees: Exempt from Thai tax on remittances for education/training for up to 5 years
 - FEIE still available: US citizens can use Foreign Earned Income Exclusion ($130,000 in 2026) regardless of Thai taxation`,
     gotchas: `The treaty does NOT eliminate the 2024 foreign income remittance rule for US citizens living in Thailand — it only provides credits for taxes paid. US Social Security is exempt from Thai tax but IRA/401k distributions are NOT. The "permanent establishment" rule means many US remote workers technically owe Thai tax on their US employment income if they're Thai tax residents. Treaty benefits must be claimed — they're not automatic.`,
-    pro_tip: `US retirees get the best deal: Social Security exempt from Thai tax, plus FEIE for any consulting income. For working Americans: structure your compensation as contractor/consultant income to maximize FEIE benefits. File for treaty benefits on Thai tax forms using the appropriate exemption codes. Keep detailed records of days in Thailand vs. US to support treaty position if audited.`,
+    pro_tip: `US retirees get the best deal: Social Security exempt from Thai tax, plus FEIE for any consulting income. For working US expats: structure your compensation as contractor/consultant income to maximize FEIE benefits. File for treaty benefits on Thai tax forms using the appropriate exemption codes. Keep detailed records of days in Thailand vs. US to support treaty position if audited.`,
   },
   {
     topic: 'Thai Limited Company Structure for Foreigners',

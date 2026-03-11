@@ -1,7 +1,7 @@
 // Master Knowledge Base Index
 // Imports all country KB files and aggregates them
 
-import { KnowledgeBaseEntry } from '../knowledge-base-schema';
+import { KnowledgeBaseEntry, PORTUGAL_KNOWLEDGE_BASE } from '../knowledge-base-schema';
 import { PORTUGAL_KB_EXTENDED } from './portugal';
 import { MEXICO_KB } from './mexico';
 import { THAILAND_KB } from './thailand';
@@ -13,7 +13,8 @@ import { UAE_KB } from './uae';
 
 // Master aggregated knowledge base
 export const MASTER_KNOWLEDGE_BASE: KnowledgeBaseEntry[] = [
-  ...PORTUGAL_KB_EXTENDED,
+  ...PORTUGAL_KNOWLEDGE_BASE,    // Core 10 Portugal entries (IFICI, D7, Golden Visa, etc.)
+  ...PORTUGAL_KB_EXTENDED,        // 21 extended Portugal entries (treaties, neighborhoods, etc.)
   ...MEXICO_KB,
   ...THAILAND_KB,
   ...UAE_KB,

@@ -395,7 +395,7 @@ Portuguese public schools: FREE. Quality varies by area. Language transition: 6-
 - Insurance: Mandatory. Basic liability: €150-300/year. Full coverage: €400-800/year
 - Fuel: Gasoline €1.70-1.90/liter, diesel €1.55-1.70/liter (March 2026)
 - Tolls: Electronic Via Verde system. Registration: €6-27/year. Major highways are tolled`,
-    gotchas: `Americans and Canadians: you MUST take the full Portuguese driving test. The theory test has 30 questions in English, pass mark 27/30. It's notoriously tricky — Portuguese road rules differ from North American (roundabout priority, urban speed limits of 50km/h). The practical test includes parallel parking, hill starts, and city driving. Budget €300-600 for a driving school package. Automatic transmission cars for the test are limited — book early.`,
+    gotchas: `US and Canadian license holders: you MUST take the full Portuguese driving test. The theory test has 30 questions in English, pass mark 27/30. It's notoriously tricky — Portuguese road rules differ from North American (roundabout priority, urban speed limits of 50km/h). The practical test includes parallel parking, hill starts, and city driving. Budget €300-600 for a driving school package. Automatic transmission cars for the test are limited — book early.`,
     pro_tip: `If you live in Lisbon or Porto, you probably don't need a car. Metro + Uber + Bolt is cheaper than car ownership when you factor in parking (€100-200/month in Lisbon), insurance, fuel, and maintenance. For the Algarve or rural areas, a car is essential. Buy used from a stand (dealership) not a private seller for warranty protection. Check the Registo Automóvel for any liens before buying.`,
   },
   {
