@@ -79,8 +79,22 @@ const articles = [
   {
     slug: 'digital-nomad-visa-comparison-2026',
     flag: '🌐',
-    title: 'Best Digital Nomad Visas 2026: Complete Country Comparison',
-    excerpt: '47 countries now offer digital nomad visas. Which ones are worth it? Visa costs, tax treatment, income requirements, and paths to residency compared.',
+    title: 'Digital Nomad Visa Comparison 2026: Which Country Is Best for Remote Workers?',
+    excerpt: 'Complete comparison of 15+ digital nomad visas in 2026. Requirements, costs, taxes, and benefits analyzed for remote workers choosing where to relocate.',
+    readTime: '12 min read',
+  },
+  {
+    slug: 'best-countries-retire-abroad-2026',
+    flag: '🌍',
+    title: 'Best Countries to Retire Abroad in 2026 — Data-Driven Guide',
+    excerpt: 'Top 10 retirement destinations ranked by cost of living, healthcare, taxes, and visa requirements. Real numbers, not opinions.',
+    readTime: '10 min read',
+  },
+  {
+    slug: 'save-taxes-moving-abroad-2026',
+    flag: '💰',
+    title: 'How to Save $10K-$100K/Year on Taxes by Moving Abroad',
+    excerpt: 'US, UK, and EU expats are saving thousands annually through strategic relocation. FEIE, IFICI, non-dom strategies, and real case studies.',
     readTime: '14 min read',
   },
 ];

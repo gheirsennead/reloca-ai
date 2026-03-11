@@ -26,6 +26,8 @@ const BLOG_SLUGS = [
   'middle-east-uae-bahrain-qatar-expats',
   'portugal-ifici-tax-regime-2026',
   'digital-nomad-visa-comparison-2026',
+  'best-countries-retire-abroad-2026',
+  'save-taxes-moving-abroad-2026',
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

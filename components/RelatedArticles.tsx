@@ -11,6 +11,8 @@ const ALL_ARTICLES = [
   { slug: 'middle-east-uae-bahrain-qatar-expats', title: 'Middle East Expat Living 2026: UAE, Bahrain, Qatar', country: 'Middle East' },
   { slug: 'portugal-ifici-tax-regime-2026', title: 'Portugal IFICI vs NHR: Complete 2026 Tax Guide', country: 'Portugal' },
   { slug: 'digital-nomad-visa-comparison-2026', title: 'Best Digital Nomad Visas 2026: Country Comparison', country: 'Global' },
+  { slug: 'best-countries-retire-abroad-2026', title: 'Best Countries to Retire Abroad in 2026', country: 'Global' },
+  { slug: 'save-taxes-moving-abroad-2026', title: 'How to Save $10K-$100K/Year on Taxes Moving Abroad', country: 'Global' },
 ];
 
 interface RelatedArticlesProps {
