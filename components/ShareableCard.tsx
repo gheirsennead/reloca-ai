@@ -39,8 +39,10 @@ export function ShareableCard({ country, score, reportId, userName, reasons = de
   const circumference = 2 * Math.PI * 52;
   const offset = circumference * (1 - score / 100);
   
-  const shareUrl = `${window.location.origin}/plan?ref=${reportId}`;
-  const shareText = `I just found out ${displayName} is my #1 country match with ${score}% compatibility! 🌎\n\nFind yours →`;
+  const countryCode = Object.entries(countryFlags).find(([k]) => k === country.toUpperCase())?.[0]?.substring(0, 2) || country.substring(0, 2).toUpperCase();
+  const refCode = typeof window !== 'undefined' ? (localStorage.getItem('referralCode') || reportId) : reportId;
+  const shareUrl = `${typeof window !== 'undefined' ? window.location.origin : 'https://reloca.ai'}/match?country=${encodeURIComponent(countryCode)}&score=${score}&ref=${refCode}`;
+  const shareText = `I'm a ${score}% match for ${displayName}! ${flag}\n\nFind your perfect country →`;
 
   const generateShareDiscount = async (platform: string) => {
     if (isGeneratingDiscount || discountCode) return; // Already generated or in progress
@@ -218,8 +220,15 @@ export function ShareableCard({ country, score, reportId, userName, reasons = de
           Find yours → <strong>reloca.ai</strong>
         </div>
         
+        {/* Referral code if available */}
+        {refCode && refCode !== reportId && (
+          <div className="mt-2 text-xs opacity-60">
+            Referral: {refCode}
+          </div>
+        )}
+        
         {/* Branding */}
-        <div className="mt-4 opacity-75 text-xs">
+        <div className="mt-3 opacity-75 text-xs">
           Reloca.ai
         </div>
       </div>
@@ -233,13 +242,25 @@ export function ShareableCard({ country, score, reportId, userName, reasons = de
         </div>
       )}
       
-      {/* Share Buttons */}
+      {/* Share Buttons — Web Share API on mobile, fallback on desktop */}
       <div className="flex flex-wrap gap-3 justify-center">
+        {typeof navigator !== 'undefined' && 'share' in navigator && (
+          <button
+            onClick={async () => {
+              try {
+                await navigator.share({ title: `I'm a ${score}% match for ${displayName}!`, text: shareText, url: shareUrl });
+              } catch {}
+            }}
+            className="flex items-center gap-2 px-6 py-3 bg-[#38b2ac] hover:bg-[#2c9a94] text-white rounded-xl transition font-bold sm:hidden"
+          >
+            📤 Share My Result
+          </button>
+        )}
         <button
-          onClick={() => handleShare('copy')}
-          className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition text-gray-700 font-medium"
+          onClick={() => handleShare('whatsapp')}
+          className="flex items-center gap-2 px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition font-medium"
         >
-          📋 Copy Link
+          💬 WhatsApp
         </button>
         <button
           onClick={() => handleShare('twitter')}
@@ -254,16 +275,10 @@ export function ShareableCard({ country, score, reportId, userName, reasons = de
           📘 Facebook
         </button>
         <button
-          onClick={() => handleShare('linkedin')}
-          className="flex items-center gap-2 px-4 py-2 bg-blue-700 hover:bg-blue-800 text-white rounded-lg transition font-medium"
+          onClick={() => handleShare('copy')}
+          className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition text-gray-700 font-medium"
         >
-          💼 LinkedIn
-        </button>
-        <button
-          onClick={() => handleShare('whatsapp')}
-          className="flex items-center gap-2 px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition font-medium"
-        >
-          💬 WhatsApp
+          📋 Copy Link
         </button>
         <button
           onClick={() => handleShare('download')}

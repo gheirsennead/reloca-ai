@@ -7,6 +7,86 @@ import { QuizDisclaimer } from "@/components/LegalDisclaimer";
 import type { Answer, Question } from "@/types/questionnaire";
 import { analytics } from "@/lib/analytics";
 
+// Reordered question flow: Easy/fun first, hard questions later
+// This preserves original question IDs for scoring but presents them in better UX order
+const REORDERED_QUESTION_IDS = [
+  // Section 1: About You (Easy starter questions)
+  1,  // Primary motivations (easy, engaging)
+  5,  // Regions of interest (fun to think about)
+  22, // City vs nature preference (lifestyle, easy)
+  24, // Climate preference (fun, visual)
+  
+  // Section 2: Lifestyle (Fun questions that build engagement)
+  21, // Adventure level
+  23, // Transportation preferences
+  25, // Language learning interest
+  26, // Cultural immersion
+  
+  // Section 3: Finances (Harder questions, but they're committed now)
+  2,  // Timeline (affects urgency)
+  6,  // Age range
+  7,  // Work situation
+  9,  // Current income
+  10, // Investment capacity
+  11, // Monthly budget
+  
+  // Section 4: Family (Personal but important)
+  3,  // Type of relocation
+  4,  // Current country
+  8,  // Family size
+  29, // Education needs
+  30, // Healthcare priorities
+  
+  // Section 5: Preferences (Final details)
+  12, // Housing preference
+  13, // Residency vs citizenship
+  14, // Work authorization
+  15, // Second passport
+  16, // Business/investment interest
+  17, // Visa complexity tolerance
+  18, // Tax planning priority
+  19, // Professional priorities
+  20, // Social environment
+  27, // Special circumstances
+  28, // Deal breakers
+  31, // Additional considerations
+  32, // Research stage
+  33, // Information priorities
+  34, // Concerns
+  35, // Additional info
+  36, // Contact preferences
+];
+
+// Updated sections to match reordered questions
+const REORDERED_SECTIONS = [
+  { id: 1, title: 'About You', description: 'Tell us about your relocation goals and preferences' },
+  { id: 2, title: 'Lifestyle', description: 'What kind of life do you want to live?' },
+  { id: 3, title: 'Finances', description: 'Your financial situation and investment capacity' },
+  { id: 4, title: 'Family & Needs', description: 'Important considerations for you and your family' },
+  { id: 5, title: 'Final Details', description: 'Last questions to perfect your recommendations' }
+];
+
+// Map to get reordered questions with updated section numbers
+const getReorderedQuestions = () => {
+  return REORDERED_QUESTION_IDS.map((id, index) => {
+    const originalQuestion = questions36Enhanced.find(q => q.id === id);
+    if (!originalQuestion) return null;
+    
+    // Assign new section based on position in reordered array
+    let newSection = 1;
+    if (index >= 4) newSection = 2;  // Lifestyle questions
+    if (index >= 8) newSection = 3;  // Finance questions 
+    if (index >= 14) newSection = 4; // Family questions
+    if (index >= 20) newSection = 5; // Final details
+    
+    return {
+      ...originalQuestion,
+      section: newSection,
+      sectionTitle: REORDERED_SECTIONS[newSection - 1].title
+    };
+  }).filter(Boolean) as Question[];
+};
+
 function ProgressBar({ current, total }: { current: number; total: number }) {
   const pct = Math.round((current / total) * 100);
   const remaining = total - current;
@@ -43,6 +123,58 @@ function SectionHeader({ section, isNewSection }: { section: typeof SECTIONS_36[
         <h2 className="text-xl font-bold text-[#1a365d]">{section.title}</h2>
       </div>
       <p className="text-gray-600 ml-11">{section.description}</p>
+    </div>
+  );
+}
+
+function MicroResults({ answers }: { answers: Record<number, Answer> }) {
+  // Simple logic to show micro-results after section 2
+  const motivations = answers[1] as string[] || [];
+  const regions = answers[5] as string[] || [];
+  
+  // Basic matching logic for preview
+  let suggestedCountries = [];
+  
+  if (regions.includes('latin-america') || motivations.includes('lower-cost')) {
+    suggestedCountries.push({ country: '🇵🇹 Portugal', reason: 'lower costs and European lifestyle' });
+  }
+  if (regions.includes('tax-havens-europe') || motivations.includes('tax-benefits')) {
+    suggestedCountries.push({ country: '🇨🇾 Cyprus', reason: 'favorable tax regime and EU benefits' });
+  }
+  if (regions.includes('southern-europe') || motivations.includes('better-weather')) {
+    suggestedCountries.push({ country: '🇪🇸 Spain', reason: 'excellent climate and lifestyle' });
+  }
+  if (motivations.includes('retirement') || motivations.includes('lower-cost')) {
+    suggestedCountries.push({ country: '🇲🇽 Mexico', reason: 'affordable retirement destination' });
+  }
+  
+  // Default suggestions if no specific matches
+  if (suggestedCountries.length === 0) {
+    suggestedCountries = [
+      { country: '🇵🇹 Portugal', reason: 'balanced lifestyle and opportunities' },
+      { country: '🇪🇸 Spain', reason: 'excellent quality of life' }
+    ];
+  }
+
+  return (
+    <div className="mb-8 p-6 bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl border border-emerald-200/50 shadow-sm">
+      <div className="text-center">
+        <h3 className="text-lg font-bold text-emerald-800 mb-3">🎯 Early Insights from Your Answers</h3>
+        <p className="text-emerald-700 mb-4">Based on what you've shared so far, you might be a great fit for:</p>
+        
+        <div className="space-y-3 mb-4">
+          {suggestedCountries.slice(0, 2).map((suggestion, index) => (
+            <div key={index} className="bg-white/70 rounded-lg p-3 text-sm">
+              <span className="font-semibold text-emerald-900">{suggestion.country}</span>
+              <span className="text-emerald-700"> - {suggestion.reason}</span>
+            </div>
+          ))}
+        </div>
+        
+        <p className="text-xs text-emerald-600">
+          💡 Keep going to get your full personalized analysis with detailed recommendations!
+        </p>
+      </div>
     </div>
   );
 }
@@ -337,7 +469,7 @@ function EarlyEmailCapture({ email, onEmailChange, onDismiss }: { email: string;
   );
 }
 
-export default function Enhanced36Questionnaire() {
+export default function Enhanced36Questionnaire({ prefillMotivation }: { prefillMotivation?: string | null }) {
   const [showIntro, setShowIntro] = useState(true);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Record<number, Answer>>({});
@@ -347,11 +479,78 @@ export default function Enhanced36Questionnaire() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showEmailCapture, setShowEmailCapture] = useState(false);
   const [earlyEmailDismissed, setEarlyEmailDismissed] = useState(false);
+  const [showMicroResults, setShowMicroResults] = useState(false);
+  const [hasSavedProgress, setHasSavedProgress] = useState(false);
 
-  const question = questions36Enhanced[currentQuestion];
+  // Load saved progress from localStorage on mount
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const savedProgress = localStorage.getItem('reloca-quiz-progress');
+      if (savedProgress) {
+        try {
+          const { 
+            currentQuestion: savedCurrentQuestion, 
+            answers: savedAnswers, 
+            email: savedEmail, 
+            firstName: savedFirstName,
+            earlyEmailDismissed: savedEarlyEmailDismissed,
+            timestamp
+          } = JSON.parse(savedProgress);
+          
+          // Only restore if progress is less than 24 hours old
+          const isRecentProgress = timestamp && (Date.now() - timestamp) < 24 * 60 * 60 * 1000;
+          
+          if (savedCurrentQuestion > 0 && isRecentProgress) {
+            setHasSavedProgress(true);
+            setShowIntro(false); // Skip intro if resuming
+            setCurrentQuestion(savedCurrentQuestion);
+            setAnswers(savedAnswers || {});
+            setEmail(savedEmail || "");
+            setFirstName(savedFirstName || "");
+            setEarlyEmailDismissed(savedEarlyEmailDismissed || false);
+          } else if (!isRecentProgress) {
+            // Clear old progress
+            localStorage.removeItem('reloca-quiz-progress');
+          } else if (savedCurrentQuestion > 0) {
+            setHasSavedProgress(true);
+          }
+        } catch (error) {
+          console.error('Error loading saved progress:', error);
+          localStorage.removeItem('reloca-quiz-progress');
+        }
+      }
+    }
+  }, []);
+
+  // Save progress to localStorage whenever answers change
+  useEffect(() => {
+    if (typeof window !== 'undefined' && !showIntro) {
+      const progressData = {
+        currentQuestion,
+        answers,
+        email,
+        firstName,
+        earlyEmailDismissed,
+        timestamp: Date.now()
+      };
+      localStorage.setItem('reloca-quiz-progress', JSON.stringify(progressData));
+    }
+  }, [currentQuestion, answers, email, firstName, earlyEmailDismissed, showIntro]);
+
+  // Handle prefill from inline question on homepage
+  useEffect(() => {
+    if (prefillMotivation) {
+      setShowIntro(false);
+      setAnswers(prev => ({ ...prev, 1: [prefillMotivation] }));
+      setCurrentQuestion(1); // Skip to Q2 since Q1 is answered
+    }
+  }, [prefillMotivation]);
+
+  const reorderedQuestions = useMemo(() => getReorderedQuestions(), []);
+  const question = reorderedQuestions[currentQuestion];
   const answer = answers[question.id];
-  const isNewSection = currentQuestion === 0 || questions36Enhanced[currentQuestion].section !== questions36Enhanced[currentQuestion - 1].section;
-  const currentSection = SECTIONS_36.find(s => s.id === question.section);
+  const isNewSection = currentQuestion === 0 || reorderedQuestions[currentQuestion].section !== reorderedQuestions[currentQuestion - 1].section;
+  const currentSection = REORDERED_SECTIONS.find(s => s.id === question.section);
 
   // Track quiz start
   useEffect(() => {
@@ -377,12 +576,12 @@ export default function Enhanced36Questionnaire() {
   }, [question.mandatory, question.type, answer]);
 
   const handleNext = useCallback(() => {
-    if (currentQuestion < questions36Enhanced.length - 1) {
+    if (currentQuestion < reorderedQuestions.length - 1) {
       setCurrentQuestion(prev => prev + 1);
     } else {
       setShowEmailCapture(true);
     }
-  }, [currentQuestion]);
+  }, [currentQuestion, reorderedQuestions.length]);
 
   const handlePrevious = useCallback(() => {
     if (currentQuestion > 0) {
@@ -423,6 +622,9 @@ export default function Enhanced36Questionnaire() {
           answered_questions: Object.keys(answers).length,
           skipped_questions: skippedQuestions.size
         });
+        
+        // Clear saved progress since quiz is complete
+        localStorage.removeItem('reloca-quiz-progress');
         
         // Redirect to report/payment page
         window.location.href = `/report/${data.reportId}`;
@@ -508,10 +710,15 @@ export default function Enhanced36Questionnaire() {
             <img src="/images/reloca-logo.png" alt="Reloca.ai" className="h-12 w-auto mx-auto" />
           </Link>
 
-          <h1 className="text-3xl font-bold text-[#1a365d] mb-4">Your Relocation Starts Here</h1>
+          <h1 className="text-3xl font-bold text-[#1a365d] mb-4">
+            {hasSavedProgress ? "Welcome Back!" : "Your Relocation Starts Here"}
+          </h1>
           
           <p className="text-gray-600 mb-6 leading-relaxed">
-            In the next few minutes, you{"'"}ll answer questions that shape a report no generic guide can match.
+            {hasSavedProgress 
+              ? "We've saved your progress! Continue where you left off to complete your personalized relocation assessment."
+              : "In the next few minutes, you'll answer questions that shape a report no generic guide can match."
+            }
           </p>
 
           <div className="text-left space-y-4 mb-8">
@@ -547,14 +754,14 @@ export default function Enhanced36Questionnaire() {
               <strong>47 people</strong> took this quiz today
             </span>
             <span>·</span>
-            <span>⏱️ ~10 min</span>
+            <span>⏱️ ~5 min</span>
           </div>
 
           <button
             onClick={() => setShowIntro(false)}
             className="w-full py-4 bg-gradient-to-r from-[#38b2ac] to-[#319795] text-white font-bold rounded-xl hover:shadow-lg shadow-lg shadow-[#38b2ac]/25 transition-all text-lg hover:scale-[1.02]"
           >
-            Start My Free Assessment →
+            {hasSavedProgress ? "Continue My Assessment →" : "Start My Free Assessment →"}
           </button>
 
           <p className="text-xs text-gray-400 mt-2">Free quiz. No credit card. Instant results.</p>
@@ -590,6 +797,11 @@ export default function Enhanced36Questionnaire() {
 
         {/* Mid-course Encouragement */}
         <MidCourseEncouragement questionId={question.id} />
+
+        {/* Micro-results after section 2 */}
+        {question.section === 3 && isNewSection && (
+          <MicroResults answers={answers} />
+        )}
 
         {/* Early email capture at question 9 */}
         {currentQuestion === 9 && !earlyEmailDismissed && !email && (
@@ -647,7 +859,7 @@ export default function Enhanced36Questionnaire() {
               disabled={!canProceed}
               className="flex items-center gap-2 bg-[#38b2ac] hover:bg-[#2c9a94] text-white font-bold px-8 py-3 rounded-xl transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {currentQuestion === questions36Enhanced.length - 1 ? "Complete" : "Next"}
+              {currentQuestion === reorderedQuestions.length - 1 ? "Complete" : "Next"}
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
