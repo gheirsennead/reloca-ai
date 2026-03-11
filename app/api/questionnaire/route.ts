@@ -107,7 +107,18 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Failed to create report' }, { status: 500 });
     }
 
-    // 4. Generate referral code for this user
+    // 4. Save to quiz_leads for email drip sequence
+    try {
+      await supabaseAdmin.from('quiz_leads').upsert({
+        email: email.toLowerCase().trim(),
+        quiz_answers: answers || {},
+        top_matches: [], // Will be populated after report generation
+        converted_to_paid: false,
+        created_at: new Date().toISOString(),
+      }, { onConflict: 'email' });
+    } catch { /* non-blocking */ }
+
+    // 5. Generate referral code for this user
     let referralCode = '';
     try {
       const { data: existingRef } = await supabaseAdmin
