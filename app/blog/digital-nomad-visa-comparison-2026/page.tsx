@@ -1,3 +1,4 @@
+import { BreadcrumbSchema } from '@/components/StructuredData';
 import type { Metadata } from 'next';
 import { BlogLayout } from '@/components/BlogLayout';
 import { BlogEmailGate } from '@/components/BlogEmailGate';
@@ -13,7 +14,15 @@ export const metadata: Metadata = {
     description: '47 countries offer nomad visas. Which are worth it? Costs, taxes, and residency paths compared.',
     url: 'https://reloca.ai/blog/digital-nomad-visa-comparison-2026',
     type: 'article',
+    siteName: 'Reloca.ai',
+    images: [{ url: 'https://reloca.ai/images/og-image.png', width: 1200, height: 630 }],
     publishedTime: '2026-03-10T00:00:00Z',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Best Digital Nomad Visas 2026: Complete Country Comparison Guide | Reloca.ai',
+    description: "47 countries now offer digital nomad visas. Here\'s which ones are worth it: visa costs, tax treatment, income requirements, and paths to residency compared.",
+    images: ['https://reloca.ai/images/og-image.png'],
   },
 };
 
@@ -26,14 +35,14 @@ export default function DigitalNomadVisaArticle() {
     datePublished: '2026-03-10',
     dateModified: '2026-03-10',
     author: { '@type': 'Organization', name: 'Reloca.ai' },
-    publisher: { '@type': 'Organization', name: 'Reloca.ai', url: 'https://reloca.ai' },
-    mainEntityOfPage: 'https://reloca.ai/blog/digital-nomad-visa-comparison-2026',
+    publisher: { '@type': 'Organization', name: 'Reloca.ai', logo: { '@type': 'ImageObject', url: 'https://reloca.ai/images/reloca-logo.png' } },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': 'https://reloca.ai/blog/digital-nomad-visa-comparison-2026' },
   };
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <BlogLayout title="Best Digital Nomad Visas 2026: Complete Country Comparison Guide" publishDate="March 10, 2026" readTime="14 min read">
+      <BreadcrumbSchema items={[{ name: 'Blog', url: 'https://reloca.ai/blog' }, { name: jsonLd.headline, url: 'https://reloca.ai/blog/digital-nomad-visa-comparison-2026' }]} />      <BlogLayout title="Best Digital Nomad Visas 2026: Complete Country Comparison Guide" publishDate="March 10, 2026" readTime="14 min read">
 
         {/* ===== PUBLIC SECTION (60%) ===== */}
 

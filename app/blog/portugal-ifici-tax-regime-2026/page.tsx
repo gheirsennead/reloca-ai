@@ -1,3 +1,4 @@
+import { BreadcrumbSchema } from '@/components/StructuredData';
 import type { Metadata } from 'next';
 import { BlogLayout } from '@/components/BlogLayout';
 import { BlogEmailGate } from '@/components/BlogEmailGate';
@@ -13,7 +14,15 @@ export const metadata: Metadata = {
     description: 'Portugal IFICI replaced NHR in 2024. What changed, who qualifies, how to apply.',
     url: 'https://reloca.ai/blog/portugal-ifici-tax-regime-2026',
     type: 'article',
+    siteName: 'Reloca.ai',
+    images: [{ url: 'https://reloca.ai/images/og-image.png', width: 1200, height: 630 }],
     publishedTime: '2026-03-10T00:00:00Z',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Portugal IFICI vs NHR: Complete 2026 Tax Guide for Expats | Reloca.ai',
+    description: "Portugal\'s IFICI tax regime replaced NHR in 2024. Most online guides are outdated. Here\'s what changed, who qualifies, and how to apply in 2026.",
+    images: ['https://reloca.ai/images/og-image.png'],
   },
 };
 
@@ -26,14 +35,14 @@ export default function PortugalIFICIArticle() {
     datePublished: '2026-03-10',
     dateModified: '2026-03-10',
     author: { '@type': 'Organization', name: 'Reloca.ai' },
-    publisher: { '@type': 'Organization', name: 'Reloca.ai', url: 'https://reloca.ai' },
-    mainEntityOfPage: 'https://reloca.ai/blog/portugal-ifici-tax-regime-2026',
+    publisher: { '@type': 'Organization', name: 'Reloca.ai', logo: { '@type': 'ImageObject', url: 'https://reloca.ai/images/reloca-logo.png' } },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': 'https://reloca.ai/blog/portugal-ifici-tax-regime-2026' },
   };
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <BlogLayout title="Portugal IFICI vs NHR: Complete 2026 Tax Guide for Expats" publishDate="March 10, 2026" readTime="11 min read">
+      <BreadcrumbSchema items={[{ name: 'Blog', url: 'https://reloca.ai/blog' }, { name: jsonLd.headline, url: 'https://reloca.ai/blog/portugal-ifici-tax-regime-2026' }]} />      <BlogLayout title="Portugal IFICI vs NHR: Complete 2026 Tax Guide for Expats" publishDate="March 10, 2026" readTime="11 min read">
 
         {/* ===== PUBLIC SECTION (60%) ===== */}
 

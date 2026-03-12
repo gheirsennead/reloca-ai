@@ -3,6 +3,7 @@ import { Header } from "@/components/Header";
 import { CountryComparisonCard } from "@/components/CountryComparison/CountryComparisonCard";
 import { CostBreakdownChart } from "@/components/CostBreakdownChart/CostBreakdownChart";
 import { VisaPathwayTimeline } from "@/components/VisaPathwayTimeline/VisaPathwayTimeline";
+import { BreadcrumbSchema } from "@/components/StructuredData";
 
 export const metadata: Metadata = {
   title: "Compare Countries for Relocation — Reloca.ai",
@@ -11,12 +12,23 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Compare Countries for Relocation — Reloca.ai",
     description: "Side-by-side country comparison: costs, safety, visas, taxes. Find your perfect match.",
+    url: "https://reloca.ai/compare",
+    type: "website",
+    siteName: "Reloca.ai",
+    images: [{ url: "https://reloca.ai/images/og-image.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Compare Countries for Relocation — Reloca.ai",
+    description: "Side-by-side country comparison: costs, safety, visas, taxes. Find your perfect match.",
+    images: ["https://reloca.ai/images/og-image.png"],
   },
 };
 
 export default function ComparePage() {
   return (
     <div className="min-h-screen bg-[#fafaf9]">
+      <BreadcrumbSchema items={[{ name: "Compare Countries", url: "https://reloca.ai/compare" }]} />
       <Header />
 
       {/* Hero */}

@@ -1,8 +1,30 @@
 import Link from "next/link";
+import { Metadata } from "next";
+import { BreadcrumbSchema } from "@/components/StructuredData";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy — Reloca.ai",
+  description: "Learn how Reloca.ai collects, uses, and protects your personal information.",
+  openGraph: {
+    title: "Privacy Policy — Reloca.ai",
+    description: "Learn how Reloca.ai collects, uses, and protects your personal information.",
+    url: "https://reloca.ai/privacy",
+    type: "website",
+    siteName: "Reloca.ai",
+    images: [{ url: "https://reloca.ai/images/og-image.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Privacy Policy — Reloca.ai",
+    description: "Learn how Reloca.ai collects, uses, and protects your personal information.",
+    images: ["https://reloca.ai/images/og-image.png"],
+  },
+};
 
 export default function PrivacyPolicy() {
   return (
     <div className="min-h-screen bg-[#fafaf9]">
+      <BreadcrumbSchema items={[{ name: "Privacy Policy", url: "https://reloca.ai/privacy" }]} />
       <header className="bg-white border-b border-gray-100 px-4 py-4">
         <div className="max-w-3xl mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center">

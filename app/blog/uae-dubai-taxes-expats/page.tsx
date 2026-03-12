@@ -1,3 +1,4 @@
+import { BreadcrumbSchema } from '@/components/StructuredData';
 import type { Metadata } from 'next';
 import { BlogLayout } from '@/components/BlogLayout';
 import { BlogEmailGate } from '@/components/BlogEmailGate';
@@ -13,7 +14,15 @@ export const metadata: Metadata = {
     description: 'UAE zero income tax guide for expats. Benefits, US obligations, and residency. Updated March 2026.',
     url: 'https://reloca.ai/blog/uae-dubai-taxes-expats',
     type: 'article',
+    siteName: 'Reloca.ai',
+    images: [{ url: 'https://reloca.ai/images/og-image.png', width: 1200, height: 630 }],
     publishedTime: '2026-03-10T00:00:00Z',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'UAE (Dubai) Taxes for Expats — Zero Tax Paradise Guide 2026 | Reloca.ai',
+    description: "Complete UAE tax guide for expats. Zero income tax benefits, US obligations, residency requirements. Updated March 2026.",
+    images: ['https://reloca.ai/images/og-image.png'],
   },
 };
 
@@ -26,14 +35,14 @@ export default function UAETaxArticle() {
     datePublished: '2026-03-10',
     dateModified: '2026-03-10',
     author: { '@type': 'Organization', name: 'Reloca.ai' },
-    publisher: { '@type': 'Organization', name: 'Reloca.ai', url: 'https://reloca.ai' },
-    mainEntityOfPage: 'https://reloca.ai/blog/uae-dubai-taxes-expats',
+    publisher: { '@type': 'Organization', name: 'Reloca.ai', logo: { '@type': 'ImageObject', url: 'https://reloca.ai/images/reloca-logo.png' } },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': 'https://reloca.ai/blog/uae-dubai-taxes-expats' },
   };
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <BlogLayout title="UAE (Dubai) Taxes for Expats — Zero Tax Paradise Guide 2026" publishDate="March 10, 2026" readTime="9 min read">
+      <BreadcrumbSchema items={[{ name: 'Blog', url: 'https://reloca.ai/blog' }, { name: jsonLd.headline, url: 'https://reloca.ai/blog/uae-dubai-taxes-expats' }]} />      <BlogLayout title="UAE (Dubai) Taxes for Expats — Zero Tax Paradise Guide 2026" publishDate="March 10, 2026" readTime="9 min read">
 
         {/* ===== PUBLIC SECTION (60%) ===== */}
 

@@ -1,3 +1,4 @@
+import { BreadcrumbSchema } from '@/components/StructuredData';
 import type { Metadata } from 'next';
 import { BlogLayout } from '@/components/BlogLayout';
 import { BlogEmailGate } from '@/components/BlogEmailGate';
@@ -13,7 +14,15 @@ export const metadata: Metadata = {
     description: 'Complete Portugal tax guide for expats. IFICI regime, tax rates, and optimization strategies. Updated March 2026.',
     url: 'https://reloca.ai/blog/portugal-taxes-expats',
     type: 'article',
+    siteName: 'Reloca.ai',
+    images: [{ url: 'https://reloca.ai/images/og-image.png', width: 1200, height: 630 }],
     publishedTime: '2026-03-10T00:00:00Z',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Complete Guide to Portugal Taxes for Expats (2026 Update) | Reloca.ai',
+    description: "Complete Portugal tax guide for expats. Learn about IFICI (replacing NHR), tax rates, deductions, and strategies. Updated March 2026.",
+    images: ['https://reloca.ai/images/og-image.png'],
   },
 };
 
@@ -26,14 +35,14 @@ export default function PortugalTaxesArticle() {
     datePublished: '2026-03-10',
     dateModified: '2026-03-10',
     author: { '@type': 'Organization', name: 'Reloca.ai' },
-    publisher: { '@type': 'Organization', name: 'Reloca.ai', url: 'https://reloca.ai' },
-    mainEntityOfPage: 'https://reloca.ai/blog/portugal-taxes-expats',
+    publisher: { '@type': 'Organization', name: 'Reloca.ai', logo: { '@type': 'ImageObject', url: 'https://reloca.ai/images/reloca-logo.png' } },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': 'https://reloca.ai/blog/portugal-taxes-expats' },
   };
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <BlogLayout title="Complete Guide to Portugal Taxes for Expats (2026 Update)" publishDate="March 10, 2026" readTime="10 min read">
+      <BreadcrumbSchema items={[{ name: 'Blog', url: 'https://reloca.ai/blog' }, { name: jsonLd.headline, url: 'https://reloca.ai/blog/portugal-taxes-expats' }]} />      <BlogLayout title="Complete Guide to Portugal Taxes for Expats (2026 Update)" publishDate="March 10, 2026" readTime="10 min read">
 
         {/* ===== PUBLIC SECTION (60%) ===== */}
 

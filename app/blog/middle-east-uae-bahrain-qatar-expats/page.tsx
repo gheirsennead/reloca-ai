@@ -1,3 +1,4 @@
+import { BreadcrumbSchema } from '@/components/StructuredData';
 import type { Metadata } from 'next';
 import { BlogLayout } from '@/components/BlogLayout';
 import { BlogEmailGate } from '@/components/BlogEmailGate';
@@ -13,7 +14,15 @@ export const metadata: Metadata = {
     description: 'Tax-free expat life in UAE, Bahrain, Qatar. Opportunities and risks in 2026.',
     url: 'https://reloca.ai/blog/middle-east-uae-bahrain-qatar-expats',
     type: 'article',
+    siteName: 'Reloca.ai',
+    images: [{ url: 'https://reloca.ai/images/og-image.png', width: 1200, height: 630 }],
     publishedTime: '2026-03-10T00:00:00Z',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Middle East Expat Living 2026: UAE, Bahrain, Qatar Tax-Free Guide | Reloca.ai',
+    description: "Complete 2026 guide to tax-free expat life in UAE, Bahrain, and Qatar. Honest assessment of opportunities and risks amid regional tensions.",
+    images: ['https://reloca.ai/images/og-image.png'],
   },
 };
 
@@ -26,14 +35,14 @@ export default function MiddleEastExpatsArticle() {
     datePublished: '2026-03-10',
     dateModified: '2026-03-10',
     author: { '@type': 'Organization', name: 'Reloca.ai' },
-    publisher: { '@type': 'Organization', name: 'Reloca.ai', url: 'https://reloca.ai' },
-    mainEntityOfPage: 'https://reloca.ai/blog/middle-east-uae-bahrain-qatar-expats',
+    publisher: { '@type': 'Organization', name: 'Reloca.ai', logo: { '@type': 'ImageObject', url: 'https://reloca.ai/images/reloca-logo.png' } },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': 'https://reloca.ai/blog/middle-east-uae-bahrain-qatar-expats' },
   };
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <BlogLayout title="Middle East Expat Living 2026: UAE, Bahrain, Qatar Tax-Free Guide" publishDate="March 10, 2026" readTime="12 min read">
+      <BreadcrumbSchema items={[{ name: 'Blog', url: 'https://reloca.ai/blog' }, { name: jsonLd.headline, url: 'https://reloca.ai/blog/middle-east-uae-bahrain-qatar-expats' }]} />      <BlogLayout title="Middle East Expat Living 2026: UAE, Bahrain, Qatar Tax-Free Guide" publishDate="March 10, 2026" readTime="12 min read">
 
         {/* ===== PUBLIC SECTION (60%) ===== */}
 

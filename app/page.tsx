@@ -8,6 +8,7 @@ import { analytics } from "@/lib/analytics";
 import { ExitIntentPopup } from "@/components/ExitIntentPopup";
 import { SocialProofCounter, SocialProofToast } from "@/components/SocialProofCounter";
 import { FooterDisclaimer } from "@/components/LegalDisclaimer";
+import { WebSiteSchema, ProductSchema, FAQSchema, BreadcrumbSchema } from "@/components/StructuredData";
 
 function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -811,8 +812,19 @@ export default function Home() {
   const trackCTA = (location: string) => {
     analytics.trackFeatureUsage('cta', 'click', { location, destination: '/plan' });
   };
+
+  const faqItems = faqs.map((faq) => ({
+    question: faq.q,
+    answer: faq.a,
+  }));
+
   return (
     <main className="bg-[#fafaf9]">
+      {/* Structured Data for SEO & AI Discovery */}
+      <WebSiteSchema />
+      <ProductSchema />
+      <FAQSchema items={faqItems} />
+      <BreadcrumbSchema items={[]} />
       <ExitIntentPopup />
       <SocialProofToast />
       <Header />

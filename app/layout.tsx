@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { Suspense } from "react";
 import { ReferralTracker } from "@/components/ReferralTracker";
 import { AnalyticsProvider } from "@/components/AnalyticsProvider";
+import { OrganizationSchema } from "@/components/StructuredData";
 import "./globals.css";
 
 const inter = Inter({
@@ -47,30 +48,7 @@ export default function RootLayout({
   return (
     <html className={inter.variable} lang="en">
       <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "SoftwareApplication",
-              "name": "Reloca.ai",
-              "applicationCategory": "LifestyleApplication",
-              "operatingSystem": "Web",
-              "description": "AI-powered relocation intelligence platform covering 23+ countries across 3 continents. Get personalized country matches, visa roadmaps, tax optimization, and relocation timelines.",
-              "offers": {
-                "@type": "Offer",
-                "price": "49",
-                "priceCurrency": "USD",
-                "description": "Full personalized relocation report"
-              },
-              "aggregateRating": {
-                "@type": "AggregateRating",
-                "ratingValue": "4.8",
-                "reviewCount": "12"
-              }
-            })
-          }}
-        />
+        <OrganizationSchema />
       </head>
       <body className="font-sans antialiased bg-[#fafaf9] text-[#1a365d]">
         <Suspense fallback={null}>

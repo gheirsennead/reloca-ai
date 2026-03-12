@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { BreadcrumbSchema } from '@/components/StructuredData';
 
 export const metadata: Metadata = {
   title: 'Tax Guides for Expats | Reloca.ai Blog',
@@ -9,6 +10,14 @@ export const metadata: Metadata = {
     description: 'Expert tax guides for expats relocating abroad. Updated 2026 tax strategies.',
     url: 'https://reloca.ai/blog',
     type: 'website',
+    siteName: 'Reloca.ai',
+    images: [{ url: 'https://reloca.ai/images/og-image.png', width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Tax Guides for Expats | Reloca.ai Blog',
+    description: 'Expert tax guides for expats relocating abroad. Updated 2026 tax strategies.',
+    images: ['https://reloca.ai/images/og-image.png'],
   },
 };
 
@@ -88,6 +97,7 @@ const articles = [
 export default function BlogIndex() {
   return (
     <div className="min-h-screen bg-white">
+      <BreadcrumbSchema items={[{ name: 'Blog', url: 'https://reloca.ai/blog' }]} />
       {/* Nav */}
       <nav className="border-b border-gray-100 bg-white sticky top-0 z-50">
         <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">

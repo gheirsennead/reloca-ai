@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Metadata } from "next";
+import { BreadcrumbSchema } from "@/components/StructuredData";
 
 export const metadata: Metadata = {
   title: "About Reloca.ai — Built by Expats, for Expats",
@@ -7,12 +8,23 @@ export const metadata: Metadata = {
   openGraph: {
     title: "About Reloca.ai — Built by Expats, for Expats",
     description: "25+ years of expat experience across 3 continents. Built by someone who's lived the relocation journey.",
+    url: "https://reloca.ai/about",
+    type: "website",
+    siteName: "Reloca.ai",
+    images: [{ url: "https://reloca.ai/images/og-image.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Reloca.ai — Built by Expats, for Expats",
+    description: "25+ years of expat experience across 3 continents. Built by someone who's lived the relocation journey.",
+    images: ["https://reloca.ai/images/og-image.png"],
   },
 };
 
 export default function About() {
   return (
     <div className="min-h-screen bg-[#fafaf9]">
+      <BreadcrumbSchema items={[{ name: "About", url: "https://reloca.ai/about" }]} />
       <header className="bg-white border-b border-gray-100 px-4 py-4">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center">

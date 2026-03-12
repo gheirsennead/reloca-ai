@@ -1,8 +1,30 @@
 import Link from "next/link";
+import { Metadata } from "next";
+import { BreadcrumbSchema } from "@/components/StructuredData";
+
+export const metadata: Metadata = {
+  title: "Terms of Service — Reloca.ai",
+  description: "Terms of service for using the Reloca.ai relocation intelligence platform.",
+  openGraph: {
+    title: "Terms of Service — Reloca.ai",
+    description: "Terms of service for using the Reloca.ai relocation intelligence platform.",
+    url: "https://reloca.ai/terms",
+    type: "website",
+    siteName: "Reloca.ai",
+    images: [{ url: "https://reloca.ai/images/og-image.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Terms of Service — Reloca.ai",
+    description: "Terms of service for using the Reloca.ai relocation intelligence platform.",
+    images: ["https://reloca.ai/images/og-image.png"],
+  },
+};
 
 export default function TermsOfService() {
   return (
     <div className="min-h-screen bg-[#fafaf9]">
+      <BreadcrumbSchema items={[{ name: "Terms of Service", url: "https://reloca.ai/terms" }]} />
       <header className="bg-white border-b border-gray-100 px-4 py-4">
         <div className="max-w-3xl mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center">

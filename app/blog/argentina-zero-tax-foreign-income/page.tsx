@@ -1,3 +1,4 @@
+import { BreadcrumbSchema } from '@/components/StructuredData';
 import type { Metadata } from 'next';
 import { BlogLayout } from '@/components/BlogLayout';
 import { BlogEmailGate } from '@/components/BlogEmailGate';
@@ -13,7 +14,15 @@ export const metadata: Metadata = {
     description: 'Argentina NRPP status: zero tax on foreign income for 5 years. Complete 2026 guide.',
     url: 'https://reloca.ai/blog/argentina-zero-tax-foreign-income',
     type: 'article',
+    siteName: 'Reloca.ai',
+    images: [{ url: 'https://reloca.ai/images/og-image.png', width: 1200, height: 630 }],
     publishedTime: '2026-03-10T00:00:00Z',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Argentina Zero Tax on Foreign Income: NRPP Status Explained (2026) | Reloca.ai',
+    description: "Argentina\'s NRPP status lets expats pay zero tax on foreign income for 5 years. Combined with low living costs and new digital nomad visa. Complete 2026 guide.",
+    images: ['https://reloca.ai/images/og-image.png'],
   },
 };
 
@@ -26,14 +35,14 @@ export default function ArgentinaZeroTaxArticle() {
     datePublished: '2026-03-10',
     dateModified: '2026-03-10',
     author: { '@type': 'Organization', name: 'Reloca.ai' },
-    publisher: { '@type': 'Organization', name: 'Reloca.ai', url: 'https://reloca.ai' },
-    mainEntityOfPage: 'https://reloca.ai/blog/argentina-zero-tax-foreign-income',
+    publisher: { '@type': 'Organization', name: 'Reloca.ai', logo: { '@type': 'ImageObject', url: 'https://reloca.ai/images/reloca-logo.png' } },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': 'https://reloca.ai/blog/argentina-zero-tax-foreign-income' },
   };
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <BlogLayout title="Argentina Zero Tax on Foreign Income: NRPP Status Explained (2026)" publishDate="March 10, 2026" readTime="11 min read">
+      <BreadcrumbSchema items={[{ name: 'Blog', url: 'https://reloca.ai/blog' }, { name: jsonLd.headline, url: 'https://reloca.ai/blog/argentina-zero-tax-foreign-income' }]} />      <BlogLayout title="Argentina Zero Tax on Foreign Income: NRPP Status Explained (2026)" publishDate="March 10, 2026" readTime="11 min read">
 
         {/* ===== PUBLIC SECTION (60%) ===== */}
 

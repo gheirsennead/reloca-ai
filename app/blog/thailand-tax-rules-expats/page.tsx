@@ -1,3 +1,4 @@
+import { BreadcrumbSchema } from '@/components/StructuredData';
 import type { Metadata } from 'next';
 import { BlogLayout } from '@/components/BlogLayout';
 import { BlogEmailGate } from '@/components/BlogEmailGate';
@@ -13,7 +14,15 @@ export const metadata: Metadata = {
     description: 'Thailand tax guide for expats. Tax rates, residency rules, and strategies. Updated March 2026.',
     url: 'https://reloca.ai/blog/thailand-tax-rules-expats',
     type: 'article',
+    siteName: 'Reloca.ai',
+    images: [{ url: 'https://reloca.ai/images/og-image.png', width: 1200, height: 630 }],
     publishedTime: '2026-03-10T00:00:00Z',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Thailand Tax Rules for Expats — 2026 Complete Guide | Reloca.ai',
+    description: "Complete Thailand tax guide for expats. Tax rates, residency rules, treaty benefits, and strategies. Updated March 2026.",
+    images: ['https://reloca.ai/images/og-image.png'],
   },
 };
 
@@ -26,14 +35,14 @@ export default function ThailandTaxArticle() {
     datePublished: '2026-03-10',
     dateModified: '2026-03-10',
     author: { '@type': 'Organization', name: 'Reloca.ai' },
-    publisher: { '@type': 'Organization', name: 'Reloca.ai', url: 'https://reloca.ai' },
-    mainEntityOfPage: 'https://reloca.ai/blog/thailand-tax-rules-expats',
+    publisher: { '@type': 'Organization', name: 'Reloca.ai', logo: { '@type': 'ImageObject', url: 'https://reloca.ai/images/reloca-logo.png' } },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': 'https://reloca.ai/blog/thailand-tax-rules-expats' },
   };
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <BlogLayout title="Thailand Tax Rules for Expats — 2026 Complete Guide" publishDate="March 10, 2026" readTime="9 min read">
+      <BreadcrumbSchema items={[{ name: 'Blog', url: 'https://reloca.ai/blog' }, { name: jsonLd.headline, url: 'https://reloca.ai/blog/thailand-tax-rules-expats' }]} />      <BlogLayout title="Thailand Tax Rules for Expats — 2026 Complete Guide" publishDate="March 10, 2026" readTime="9 min read">
 
         {/* ===== PUBLIC SECTION (60%) ===== */}
 

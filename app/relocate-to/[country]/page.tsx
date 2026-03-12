@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Header } from "@/components/Header";
+import { BreadcrumbSchema } from "@/components/StructuredData";
 import Link from "next/link";
 
 interface CountryData {
@@ -69,6 +70,15 @@ export async function generateMetadata({ params }: { params: Promise<{ country: 
       title: `Relocate to ${data.name} ${data.flag} — Everything You Need to Know`,
       description: `${data.whyMove.substring(0, 160)}...`,
       url: `https://reloca.ai/relocate-to/${data.slug}`,
+      type: "website",
+      siteName: "Reloca.ai",
+      images: [{ url: "https://reloca.ai/images/og-image.png", width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `Relocate to ${data.name} ${data.flag} — Everything You Need to Know`,
+      description: `${data.whyMove.substring(0, 160)}...`,
+      images: ["https://reloca.ai/images/og-image.png"],
     },
   };
 }
@@ -80,6 +90,7 @@ export default async function RelocateToCountryPage({ params }: { params: Promis
 
   return (
     <div className="min-h-screen bg-[#fafaf9]">
+      <BreadcrumbSchema items={[{ name: `Relocate to ${data.name}`, url: `https://reloca.ai/relocate-to/${data.slug}` }]} />
       <Header />
 
       {/* Hero */}
