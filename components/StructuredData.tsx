@@ -37,11 +37,6 @@ export function WebSiteSchema() {
     "@type": "WebSite",
     name: "Reloca.ai",
     url: "https://reloca.ai",
-    potentialAction: {
-      "@type": "SearchAction",
-      target: "https://reloca.ai/blog?q={search_term_string}",
-      "query-input": "required name=search_term_string",
-    },
   };
 
   return (
