@@ -14,11 +14,48 @@ class Analytics {
   private visitorId: string;
   private userId?: string;
   private apiEndpoint = '/api/analytics';
+  private utmParams: { source?: string; medium?: string; campaign?: string; term?: string; content?: string } = {};
 
   constructor() {
     this.sessionId = this.getOrCreateSessionId();
     this.visitorId = this.getOrCreateVisitorId();
     this.userId = this.getUserId();
+    this.captureUtmParams();
+  }
+
+  // Capture and persist UTM parameters through the entire session
+  private captureUtmParams() {
+    if (typeof window === 'undefined') return;
+    
+    // Check URL for fresh UTM params
+    const params = new URLSearchParams(window.location.search);
+    const utmSource = params.get('utm_source');
+    
+    if (utmSource) {
+      // Fresh UTM params from URL — store them
+      this.utmParams = {
+        source: utmSource,
+        medium: params.get('utm_medium') || undefined,
+        campaign: params.get('utm_campaign') || undefined,
+        term: params.get('utm_term') || undefined,
+        content: params.get('utm_content') || undefined,
+      };
+      // Persist in localStorage so attribution survives across sessions
+      localStorage.setItem('reloca_utm', JSON.stringify(this.utmParams));
+      // Also store first-touch time
+      if (!localStorage.getItem('reloca_utm_first_touch')) {
+        localStorage.setItem('reloca_utm_first_touch', JSON.stringify({
+          ...this.utmParams,
+          timestamp: Date.now(),
+        }));
+      }
+    } else {
+      // No UTM in URL — restore from storage (attribution persistence)
+      try {
+        const stored = localStorage.getItem('reloca_utm');
+        if (stored) this.utmParams = JSON.parse(stored);
+      } catch {}
+    }
   }
 
   private getOrCreateVisitorId(): string {
@@ -70,6 +107,8 @@ class Analytics {
           height: window.innerHeight
         },
         geo: parsedGeo, // Include geo data in all events
+        // UTM attribution — attached to every event for marketing ROI tracking
+        utm: this.utmParams.source ? this.utmParams : undefined,
         page_info: {
           title: document.title,
           path: window.location.pathname,
