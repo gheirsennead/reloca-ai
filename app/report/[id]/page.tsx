@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { createClient } from "@supabase/supabase-js";
 import { ShareableCard } from "@/components/ShareableCard";
+import { DynamicTestimonials } from "@/components/DynamicTestimonials";
 import { initReferralTracking } from "@/lib/referral-tracking";
 
 const supabase = createClient(
@@ -452,6 +453,7 @@ function ReportSection({ content, isPaid, onCheckout, checkoutLoading, couponCod
                 <p className="text-xs text-gray-400">— Hispanic Nomad, 60+ countries visited · <a href="https://x.com/hispanicnomad" target="_blank" rel="noopener noreferrer" className="underline">@hispanicnomad</a></p>
                 <p className="text-xs text-gray-600 italic">&ldquo;The tax section alone could save you more than the report costs. Most people don&apos;t know about programs like Portugal&apos;s NHR or Paraguay&apos;s 0% foreign income tax.&rdquo;</p>
                 <p className="text-xs text-gray-400">— Reloca.ai Intelligence Engine</p>
+                <DynamicTestimonials />
                 <div className="bg-gray-50 rounded-lg p-3 text-center">
                   <p className="text-xs text-gray-600">What others pay for this research:</p>
                   <p className="text-xs text-gray-500 mt-1">Immigration lawyer: $200–$500/hr · Relocation consultant: $2,000–$5,000 · <strong className="text-[#38b2ac]">Your Reloca report: $49</strong></p>
