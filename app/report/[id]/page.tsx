@@ -138,17 +138,53 @@ function sortedRecommendations(recs: Array<{ country: string; score: number }>) 
   return [...recs].sort((a, b) => b.score - a.score);
 }
 
-function MatchCard({ country, score, rank }: { country: string; score: number; rank: number }) {
-  const flags: Record<string, string> = {
-    brazil: "🇧🇷", argentina: "🇦🇷", paraguay: "🇵🇾", uruguay: "🇺🇾",
-    panama: "🇵🇦", "el salvador": "🇸🇻", "costa rica": "🇨🇷",
-    mexico: "🇲🇽", colombia: "🇨🇴", ecuador: "🇪🇨", chile: "🇨🇱", peru: "🇵🇪",
-    portugal: "🇵🇹", spain: "🇪🇸", italy: "🇮🇹", greece: "🇬🇷",
-    malta: "🇲🇹", cyprus: "🇨🇾", estonia: "🇪🇪", andorra: "🇦🇩",
-    singapore: "🇸🇬", dubai: "🇦🇪", uae: "🇦🇪", thailand: "🇹🇭", malaysia: "🇲🇾",
-    bolivia: "🇧🇴",
-  };
-  const flag = flags[country.toLowerCase()] || "🌎";
+// Proper display names for countries that need special casing
+const COUNTRY_DISPLAY_NAMES: Record<string, string> = {
+  uae: "UAE", usa: "USA", "el salvador": "El Salvador", "costa rica": "Costa Rica",
+};
+
+function formatCountryName(country: string): string {
+  const lower = country.toLowerCase();
+  if (COUNTRY_DISPLAY_NAMES[lower]) return COUNTRY_DISPLAY_NAMES[lower];
+  // Title case each word
+  return country.replace(/\b\w/g, c => c.toUpperCase());
+}
+
+const COUNTRY_FLAGS: Record<string, string> = {
+  brazil: "🇧🇷", argentina: "🇦🇷", paraguay: "🇵🇾", uruguay: "🇺🇾",
+  panama: "🇵🇦", "el salvador": "🇸🇻", "costa rica": "🇨🇷",
+  mexico: "🇲🇽", colombia: "🇨🇴", ecuador: "🇪🇨", chile: "🇨🇱", peru: "🇵🇪",
+  portugal: "🇵🇹", spain: "🇪🇸", italy: "🇮🇹", greece: "🇬🇷",
+  malta: "🇲🇹", cyprus: "🇨🇾", estonia: "🇪🇪", andorra: "🇦🇩",
+  singapore: "🇸🇬", dubai: "🇦🇪", uae: "🇦🇪", thailand: "🇹🇭", malaysia: "🇲🇾",
+  bolivia: "🇧🇴",
+};
+
+function MatchCard({ country, score, rank, locked, onUnlockClick }: { country: string; score: number; rank: number; locked?: boolean; onUnlockClick?: () => void }) {
+  const flag = COUNTRY_FLAGS[country.toLowerCase()] || "🌎";
+  const displayName = formatCountryName(country);
+  
+  if (locked) {
+    return (
+      <div 
+        className="bg-white rounded-2xl border border-gray-100 p-6 flex items-center gap-4 cursor-pointer hover:border-[#38b2ac]/40 transition group"
+        onClick={onUnlockClick}
+      >
+        <div className="text-4xl opacity-40">🔒</div>
+        <div className="flex-1">
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-bold text-gray-400">#{rank}</span>
+            <h3 className="font-bold text-gray-400 text-lg">[Locked]</h3>
+          </div>
+          <p className="text-xs text-[#38b2ac] mt-1 group-hover:underline">Unlock your full report to reveal this match →</p>
+        </div>
+        <div className="text-right">
+          <div className="text-2xl font-bold text-gray-300">{score}%</div>
+          <div className="text-xs text-gray-400">match</div>
+        </div>
+      </div>
+    );
+  }
   
   return (
     <div className="bg-white rounded-2xl border border-gray-100 p-6 flex items-center gap-4">
@@ -156,7 +192,7 @@ function MatchCard({ country, score, rank }: { country: string; score: number; r
       <div className="flex-1">
         <div className="flex items-center gap-2">
           <span className="text-xs font-bold text-[#38b2ac]">#{rank}</span>
-          <h3 className="font-bold text-[#1a365d] text-lg">{country}</h3>
+          <h3 className="font-bold text-[#1a365d] text-lg">{displayName}</h3>
         </div>
       </div>
       <div className="text-right">
@@ -367,7 +403,7 @@ function ReportSection({ content, isPaid, onCheckout, checkoutLoading, couponCod
             <div dangerouslySetInnerHTML={{ __html: markdownToHtml(lockedSections.slice(0, 3).join("\n")) }} />
           </div>
           <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-b from-transparent via-white/80 to-white">
-            <div className="text-center p-8 max-w-md mx-auto">
+            <div className="text-center p-8 max-w-md mx-auto" data-checkout-cta>
               <div className="text-3xl mb-3">🔒</div>
               <h3 className="text-xl font-bold text-[#1a365d] mb-3">
                 Unlock Your Full Relocation Report
@@ -410,64 +446,23 @@ function ReportSection({ content, isPaid, onCheckout, checkoutLoading, couponCod
 
               {setCouponCode && <CouponInput couponCode={couponCode || ""} setCouponCode={setCouponCode} couponError={couponError || ""} />}
               
-              {/* Testimonials */}
+              {/* Testimonials & Social Proof */}
               <div className="mt-4 pt-4 border-t border-gray-100 text-left space-y-3">
                 <p className="text-xs text-gray-600 italic">&ldquo;$49 versus the months I spent researching all of this by hand.&rdquo;</p>
                 <p className="text-xs text-gray-400">— Hispanic Nomad, 60+ countries visited · <a href="https://x.com/hispanicnomad" target="_blank" rel="noopener noreferrer" className="underline">@hispanicnomad</a></p>
-                <p className="text-xs text-gray-600 italic">&ldquo;The tax section alone saved me more than $10K. I had no idea about the NHR program.&rdquo;</p>
-                <p className="text-xs text-gray-400">— Marcus T., London → Spain</p>
-                <p className="text-xs text-gray-600 italic">&ldquo;We were deciding between 5 countries for retirement. Reloca narrowed it down to 3 with real data.&rdquo;</p>
-                <p className="text-xs text-gray-400">— David & Linda R., Canada → Ecuador</p>
+                <p className="text-xs text-gray-600 italic">&ldquo;The tax section alone could save you more than the report costs. Most people don&apos;t know about programs like Portugal&apos;s NHR or Paraguay&apos;s 0% foreign income tax.&rdquo;</p>
+                <p className="text-xs text-gray-400">— Reloca.ai Intelligence Engine</p>
+                <div className="bg-gray-50 rounded-lg p-3 text-center">
+                  <p className="text-xs text-gray-600">What others pay for this research:</p>
+                  <p className="text-xs text-gray-500 mt-1">Immigration lawyer: $200–$500/hr · Relocation consultant: $2,000–$5,000 · <strong className="text-[#38b2ac]">Your Reloca report: $49</strong></p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       )}
 
-      {/* "Report Ready" section at the bottom */}
-      {!isPaid && (
-        <div className="mt-12 bg-white rounded-2xl shadow-lg border border-gray-100 p-8 max-w-lg mx-auto">
-          <div className="text-center mb-6">
-            <div className="w-16 h-16 bg-[#38b2ac] rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <h2 className="text-2xl font-bold text-[#1a365d] mb-2">Your Personalized Report Is Ready to Be Built</h2>
-            <p className="text-gray-600 mb-4">Based on your answers, our AI has identified key insights about your ideal relocation — but the full picture is inside your report.</p>
-          </div>
-
-          <div className="bg-gradient-to-br from-[#38b2ac]/5 to-[#1a365d]/5 rounded-xl p-5 mb-6 text-left">
-            <p className="font-semibold text-[#1a365d] mb-3">🗺️ What your Full Report includes:</p>
-            <ul className="space-y-2 text-sm text-gray-700">
-              <li className="flex items-start"><span className="mr-2">•</span>Your top 3 country matches with detailed scoring</li>
-              <li className="flex items-start"><span className="mr-2">•</span>Step-by-step visa & residency roadmap for each</li>
-              <li className="flex items-start"><span className="mr-2">•</span>Personalized tax optimization strategy (potential savings: $10K–$100K+/year)</li>
-              <li className="flex items-start"><span className="mr-2">•</span>Cost of living comparison vs. your current situation</li>
-              <li className="flex items-start"><span className="mr-2">•</span>Healthcare, education & safety analysis for your profile</li>
-              <li className="flex items-start"><span className="mr-2">•</span>Timeline and actionable checklist to make it happen</li>
-            </ul>
-            <p className="text-xs text-gray-500 mt-3">⚡ Built live using our proprietary data + real expat families feedback + your answers + verified official and professional sources.</p>
-          </div>
-
-          <div className="text-center">
-            <p className="text-sm text-gray-600 italic mb-3">💡 People who relocate with a plan save an average of 6 months and thousands in avoidable mistakes.</p>
-            <div className="flex items-center justify-center gap-2 mb-2">
-              <span className="text-gray-400 line-through text-lg">$79</span>
-              <span className="text-3xl font-bold text-[#38b2ac]">$49</span>
-            </div>
-            <p className="text-xs text-gray-400 mb-4">One report. One investment. A lifetime of clarity.</p>
-            <button onClick={onCheckout} disabled={checkoutLoading} className="w-full bg-gradient-to-r from-[#38b2ac] to-[#319795] hover:from-[#2c9a94] hover:to-[#28908a] text-white font-bold px-8 py-4 rounded-xl transition disabled:opacity-50 text-lg shadow-lg shadow-[#38b2ac]/25">
-              {checkoutLoading ? 'Redirecting to checkout...' : 'Get My Full Report →'}
-            </button>
-            <div className="flex items-center justify-center gap-2 mt-3 bg-green-50 rounded-lg px-3 py-2">
-              <span className="text-lg">🛡️</span>
-              <p className="text-xs text-green-700 font-medium">30-day money-back guarantee — no questions asked</p>
-            </div>
-            {setCouponCode && <CouponInput couponCode={couponCode || ""} setCouponCode={setCouponCode} couponError={couponError || ""} />}
-          </div>
-        </div>
-      )}
+      {/* CTA Block #2 removed — keeping only block #1 (above, with blurred content) and block #3 (comparison table below) */}
     </div>
   );
 }
@@ -490,7 +485,7 @@ function markdownToHtml(md: string): string {
     .replace(/^[┌│└┐┘├┤┬┴┼─]+.*$/gm, '') // Remove box-drawing chars
     // Lists
     .replace(/^- (.+)$/gm, '<li class="ml-4 text-gray-600 mb-1 list-disc">$1</li>')
-    .replace(/^• (.+)$/gm, '<li class="ml-4 text-gray-600 mb-1 list-disc">$1</li>')
+    .replace(/^•\s*(.+)$/gm, '<li class="ml-4 text-gray-600 mb-1 list-disc">$1</li>')
     .replace(/^(\d+)\. (.+)$/gm, '<li class="ml-4 text-gray-600 mb-1"><span class="font-semibold text-[#1a365d]">$1.</span> $2</li>')
     // Wrap consecutive <li> in <ul>
     .replace(/((?:<li[^>]*>.*<\/li>\n?)+)/g, '<ul class="my-3 space-y-1">$1</ul>')
@@ -771,19 +766,33 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
         {/* Top matches — sorted descending by score, show ALL (up to 3) */}
         {report.country_recommendations && report.country_recommendations.length > 0 && (() => {
           const sorted = sortedRecommendations(report.country_recommendations);
-          // Bug 3 fix: Only show "Request a Country" if user's quiz answers suggest
-          // interest in countries outside our 22-country catalog
           const allMatchesCovered = sorted.every(rec => 
             COVERED_COUNTRIES.has(rec.country.toLowerCase())
           );
+          const scrollToCheckout = () => {
+            document.querySelector('[data-checkout-cta]')?.scrollIntoView({ behavior: 'smooth' });
+          };
           return (
             <div className="space-y-3 mb-10">
               <h2 className="text-lg font-bold text-[#1a365d] mb-3">
                 Your Top {sorted.length} Match{sorted.length !== 1 ? 'es' : ''}
               </h2>
               {sorted.map((rec, i) => (
-                <MatchCard key={rec.country} country={rec.country} score={rec.score} rank={i + 1} />
+                <MatchCard 
+                  key={rec.country} 
+                  country={rec.country} 
+                  score={rec.score} 
+                  rank={i + 1} 
+                  locked={!isPaid && i >= 1}
+                  onUnlockClick={scrollToCheckout}
+                />
               ))}
+              {!isPaid && sorted.length > 1 && (
+                <p className="text-center text-sm text-[#38b2ac] mt-2">
+                  🔓 Unlock your full report to reveal your #{2} match ({sorted[1]?.score}% compatible)
+                  {sorted.length > 2 && ` and #{3} match (${sorted[2]?.score}% compatible)`}
+                </p>
+              )}
               {!allMatchesCovered && (
                 <p className="text-center mt-4">
                   <Link href="/request-country" className="text-sm text-[#38b2ac] hover:text-[#2c9a94] transition">
@@ -802,12 +811,12 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
           <div className="mb-10">
             <div className="bg-white rounded-2xl border border-gray-100 p-6">
               <h3 className="text-lg font-bold text-[#1a365d] mb-2 text-center">
-                Share your #1 match {!isPaid && <span className="text-[#38b2ac]">(and get $10 off when friends buy)</span>}
+                Share your #1 match {!isPaid && <span className="text-[#38b2ac]">(and get $15 off when friends buy)</span>}
               </h3>
               <p className="text-gray-500 text-sm mb-4 text-center">
                 {isPaid 
-                  ? 'Help a friend find their perfect country — you both save $10 on future reports'
-                  : 'Show your friends your result and earn $10 off your report when they purchase'
+                  ? 'Help a friend find their perfect country — you both save $15 on future reports'
+                  : 'Show your friends your result and earn $15 off your report when they purchase'
                 }
               </p>
               
@@ -889,10 +898,10 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
           return (
             <div className="mt-8 bg-white rounded-2xl border border-gray-100 p-6">
               <h3 className="text-lg font-bold text-[#1a365d] mb-2 text-center">
-                Help a friend find their perfect country <span className="text-[#38b2ac]">(you both save $10)</span>
+                Help a friend find their perfect country <span className="text-[#38b2ac]">(you both save $15)</span>
               </h3>
               <p className="text-gray-500 text-sm mb-4 text-center">
-                Share your result — when a friend buys their report with your link, you both get $10 off future reports
+                Share your result — when a friend buys their report with your link, you both get $15 off future reports
               </p>
               <ShareableCard
                 country={topMatch.country}
