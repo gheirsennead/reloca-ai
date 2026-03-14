@@ -269,112 +269,62 @@ function ReportSection({ content, isPaid, onCheckout, checkoutLoading, couponCod
   const freeCount = 1; // Show only #1 match, tease the rest
 
   if (isPaid) {
-    // Split content into sections for CTA injection
+    // Split content into sections — pure value delivery, no mid-report upsells
     const reportSections = content.split(/(?=^#{1,2}\s)/m);
-    
-    // Find section indices for CTA placement
-    const execSummaryIdx = reportSections.findIndex(s => /executive\s*summary/i.test(s));
-    const taxIdx = reportSections.findIndex(s => /\btax\b/i.test(s) && /section|implication|analysis|optimization/i.test(s));
-    const countryIndices = reportSections.reduce<number[]>((acc, s, i) => {
-      if (/^#{1,2}\s.*(?:match|country|recommendation|#[123])/i.test(s.trim())) acc.push(i);
-      return acc;
-    }, []);
 
     return (
       <div className="prose prose-gray max-w-none">
         {reportSections.map((section, i) => (
           <div key={i}>
             <div dangerouslySetInnerHTML={{ __html: markdownToHtml(section) }} />
-            
-            {/* After Executive Summary → Roadmap PDF CTA */}
-            {i === execSummaryIdx && (
-              <div className="not-prose my-6 bg-gradient-to-r from-[#1a365d]/5 to-[#38b2ac]/5 border border-[#1a365d]/10 rounded-xl p-5">
-                <p className="text-sm font-semibold text-[#1a365d] mb-1">📋 Skip months of research</p>
-                <p className="text-sm text-gray-600 mb-3">Get a Complete Relocation Roadmap PDF with your personalized timeline, checklists, and action steps.</p>
-                {/* TODO: Replace with real Stripe Payment Link */}
-                <a href="https://buy.stripe.com/7sY9AUbbAfKceUrcaE4Ja03" target="_blank" rel="noopener" className="inline-block bg-[#1a365d] hover:bg-[#2d4a7a] text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition">
-                  Get Relocation Roadmap PDF — $129 →
-                </a>
-              </div>
-            )}
-
-            {/* After Tax Section → Strategy Consultation + Tax Specialists */}
-            {i === taxIdx && taxIdx > 0 && (
-              <div className="not-prose my-6 space-y-4">
-                <div className="bg-gradient-to-r from-[#38b2ac]/5 to-[#1a365d]/5 border border-[#38b2ac]/10 rounded-xl p-5">
-                  <p className="text-sm font-semibold text-[#1a365d] mb-1">🎯 Ready to move? Get your personalized action plan</p>
-                  <p className="text-sm text-gray-600 mb-3">45-min strategy call with our relocation expert — visa roadmap, tax optimization, and timeline tailored to your situation.</p>
-                  {/* TODO: Replace with real Stripe Payment Link */}
-                  <a href="https://buy.stripe.com/cNi4gA6VkgOg3bJ0rW4Ja04" target="_blank" rel="noopener" className="inline-block bg-[#38b2ac] hover:bg-[#2c9a94] text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition">
-                    Book Strategy Call — $149 →
-                  </a>
-                </div>
-                <p className="text-sm text-gray-500 italic">
-                  💼 <a href="mailto:support@reloca.ai?subject=Tax Specialist Referral" className="text-[#38b2ac] hover:underline">Connect with vetted international tax specialists</a> who understand cross-border obligations.
-                </p>
-              </div>
-            )}
-
-            {/* After each country section → Explore properties link */}
-            {countryIndices.includes(i) && (
-              <p className="not-prose text-sm text-[#38b2ac] my-4">
-                🏠 <a href={`/relocate-to/${section.match(/(?:#{1,2}\s*(?:#?\d\.?\s*)?)([A-Za-z\s]+)/)?.[1]?.trim().toLowerCase().replace(/\s+/g, '-') || 'portugal'}`} className="hover:underline font-medium">
-                  Explore {section.match(/(?:#{1,2}\s*(?:#?\d\.?\s*)?)([A-Za-z\s]+)/)?.[1]?.trim() || 'country'} properties →
-                </a>
-              </p>
-            )}
           </div>
         ))}
 
-        {/* End-of-Report Multi-CTA Block */}
-        <div className="not-prose mt-10 pt-8 border-t border-gray-200 space-y-4">
-          <h3 className="text-xl font-bold text-[#1a365d] text-center mb-6">Ready for Your Next Step?</h3>
+        {/* End-of-Report CTA — Clear hierarchy: 1 primary + secondaries */}
+        <div className="not-prose mt-10 pt-8 border-t border-gray-200">
+          <h3 className="text-xl font-bold text-[#1a365d] text-center mb-6">Ready to Make Your Move?</h3>
           
-          {/* Primary: Strategy Consultation */}
-          <div className="bg-gradient-to-r from-[#38b2ac] to-[#2c9a94] rounded-xl p-6 text-center">
-            <p className="text-white font-bold text-lg mb-1">🎯 Get Your Personalized Action Plan</p>
-            <p className="text-white/80 text-sm mb-4">45-min strategy call with our relocation expert — visa roadmap, tax optimization, and timeline</p>
-            {/* TODO: Replace with real Stripe Payment Link */}
-            <a href="https://buy.stripe.com/cNi4gA6VkgOg3bJ0rW4Ja04" target="_blank" rel="noopener" className="inline-block bg-white text-[#38b2ac] font-bold px-8 py-3 rounded-xl hover:bg-gray-50 transition">
+          {/* PRIMARY CTA: Strategy Call */}
+          <div className="bg-gradient-to-r from-[#38b2ac] to-[#2c9a94] rounded-xl p-8 text-center mb-6">
+            <p className="text-white font-bold text-2xl mb-2">🎯 Get Your Personalized Action Plan</p>
+            <p className="text-white/80 text-sm mb-5 max-w-md mx-auto">45-min strategy call with our relocation expert — visa roadmap, tax optimization, and a timeline tailored to your situation.</p>
+            <a href="https://buy.stripe.com/cNi4gA6VkgOg3bJ0rW4Ja04" target="_blank" rel="noopener" className="inline-block bg-white text-[#38b2ac] font-bold px-10 py-4 rounded-xl hover:bg-gray-50 transition text-lg shadow-lg">
               Book Strategy Call — $149 →
             </a>
           </div>
 
-          {/* Secondary: Roadmap PDF */}
-          <div className="bg-white border border-gray-200 rounded-xl p-6 text-center">
-            <p className="text-[#1a365d] font-bold text-lg mb-1">📋 Complete Relocation Roadmap PDF</p>
-            <p className="text-gray-500 text-sm mb-4">Your personalized timeline, checklists, legal steps, and action items</p>
-            {/* TODO: Replace with real Stripe Payment Link */}
-            <a href="https://buy.stripe.com/7sY9AUbbAfKceUrcaE4Ja03" target="_blank" rel="noopener" className="inline-block bg-[#1a365d] hover:bg-[#2d4a7a] text-white font-bold px-8 py-3 rounded-xl transition">
-              Get Roadmap PDF — $129 →
+          {/* SECONDARY CTAs: Compact row */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+            <a href="https://buy.stripe.com/7sY9AUbbAfKceUrcaE4Ja03" target="_blank" rel="noopener" className="block bg-white border border-gray-200 rounded-xl p-4 text-center hover:border-[#1a365d]/30 transition">
+              <p className="text-lg mb-1">📋</p>
+              <p className="text-sm font-bold text-[#1a365d]">Roadmap PDF</p>
+              <p className="text-xs text-gray-500 mt-1">Checklists & timeline</p>
+              <p className="text-sm font-bold text-[#38b2ac] mt-2">$129</p>
+            </a>
+            <a href="https://buy.stripe.com/28E4gAa7wdC47rZgqU4Ja05" target="_blank" rel="noopener" className="block bg-white border border-gray-200 rounded-xl p-4 text-center hover:border-[#1a365d]/30 transition">
+              <p className="text-lg mb-1">📊</p>
+              <p className="text-sm font-bold text-[#1a365d]">Intel Subscription</p>
+              <p className="text-xs text-gray-500 mt-1">Updates & alerts</p>
+              <p className="text-sm font-bold text-[#38b2ac] mt-2">$39/mo</p>
+            </a>
+            <a href="/plan-36?gift=true" className="block bg-white border border-gray-200 rounded-xl p-4 text-center hover:border-[#1a365d]/30 transition">
+              <p className="text-lg mb-1">🎁</p>
+              <p className="text-sm font-bold text-[#1a365d]">Gift Reloca</p>
+              <p className="text-xs text-gray-500 mt-1">Buy for a friend</p>
+              <p className="text-sm font-bold text-[#38b2ac] mt-2">$49</p>
             </a>
           </div>
 
-          {/* Tertiary: Intel Subscription */}
-          <div className="bg-[#fafaf9] border border-gray-100 rounded-xl p-6 text-center">
-            <p className="text-[#1a365d] font-bold mb-1">📊 Stay Ahead of Visa Changes & New Opportunities</p>
-            <p className="text-gray-500 text-sm mb-4">Relocation Intel Subscription — Updated reports, market alerts, and priority support</p>
-            {/* TODO: Replace with real Stripe Payment Link */}
-            <a href="https://buy.stripe.com/28E4gAa7wdC47rZgqU4Ja05" target="_blank" rel="noopener" className="inline-block bg-gray-800 hover:bg-gray-900 text-white font-semibold px-6 py-2.5 rounded-xl transition">
-              Get Intel Subscription — $39/mo →
-            </a>
-          </div>
-
-          {/* Text links */}
-          <div className="text-center space-y-3 pt-4">
+          {/* Tertiary links */}
+          <div className="text-center space-y-2 pt-2">
             <p className="text-sm">
               <a href="mailto:support@reloca.ai?subject=Local Professional Referral" className="text-[#38b2ac] hover:underline font-medium">
-                💼 Connect with Vetted Local Professionals — attorneys, real estate agents, tax advisors
-              </a>
-            </p>
-            <p className="text-sm">
-              <a href="/plan-36?gift=true" className="text-[#1a365d] hover:underline font-medium">
-                🎁 Buy Reloca for a Friend — $49
+                💼 Connect with vetted local professionals
               </a>
             </p>
             <p className="text-sm">
               <button onClick={() => document.getElementById('share-card')?.scrollIntoView({ behavior: 'smooth' })} className="text-gray-500 hover:text-[#38b2ac] hover:underline font-medium cursor-pointer">
-                📤 Share Your Results
+                📤 Share your results
               </button>
             </p>
           </div>

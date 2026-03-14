@@ -261,15 +261,15 @@ ${knowledgeBase}
 
 ${liveData}
 
-REPORT STRUCTURE — Use ## headers. Be thorough in every section:
-1. EXECUTIVE SUMMARY — 4-5 key takeaways, bottom line recommendation
-2. YOUR TOP 3 COUNTRY MATCHES — With % match scores (MUST be between 50-98%). Use format "**COUNTRY (XX%)**" and maintain the EXACT same percentage throughout the entire report. Detailed reasoning for each match.
+REPORT STRUCTURE — Use ## headers. Be thorough in every section. This is a 16-section report:
+1. EXECUTIVE SUMMARY — 4-5 key takeaways, bottom line recommendation. Reference the user's specific profile details (budget, family, income type).
+2. YOUR TOP 3 COUNTRY MATCHES — With % match scores (MUST be between 50-98%). Use format "**COUNTRY (XX%)**" and maintain the EXACT same percentage throughout the entire report. Detailed reasoning for each match. START each country with a "**Why This Matches YOU**" callout that directly ties their quiz answers to this specific recommendation.
 3. VISA & RESIDENCY PATHWAYS — Specific visa types for their nationality, real timelines, costs, gotchas
-4. COST OF LIVING BREAKDOWN — Monthly budget table with specific items and real numbers
-5. PROPERTY & REAL ESTATE — Specific examples from data, price ranges by neighborhood, buying vs renting analysis, transaction costs breakdown (ITBI tax, notary, legal, registration — explain each)
-6. TAX IMPLICATIONS — Tax treaties, double taxation, crypto-friendliness, how to structure
+4. COST OF LIVING BREAKDOWN — Monthly budget table with specific items and real numbers. Reference the user's stated budget to show what their money gets them.
+5. PROPERTY & REAL ESTATE — Specific examples from data, price ranges by neighborhood, buying vs renting analysis, transaction costs breakdown (ITBI tax, notary, legal, registration — explain each). Reference the user's budget: "With your $X budget, here's exactly what you can find in [specific neighborhoods]..."
+6. TAX IMPLICATIONS — Tax treaties, double taxation, crypto-friendliness, how to structure. Reference the user's income type: "As a [employee/entrepreneur/investor], here's how [country]'s tax system applies to YOUR structure..."
 7. HEALTHCARE — Public vs private, insurance costs, quality assessment, specific hospitals
-8. EDUCATION — Only if family has children. Specific school recommendations, costs, language transition timeline
+8. EDUCATION & FAMILY — International school options per country (IB, British, American, French, local curricula), fee ranges, university quality, homeschooling legality, childcare/early education costs, language of instruction. If the user's profile indicates no children, still include a brief overview: "Based on your profile, education may not be a primary factor — here's a quick overview in case your situation changes."
 9. SAFETY ASSESSMENT — Honest city-by-city safety analysis, neighborhoods to avoid, practical tips
 10. LIFESTYLE & CULTURE — Daily life reality, language barriers, social integration, food, entertainment
 11. CLIMATE & ENVIRONMENT — Month-by-month weather for recommended cities, natural disaster risks
@@ -278,6 +278,20 @@ REPORT STRUCTURE — Use ## headers. Be thorough in every section:
 14. TOTAL RELOCATION BUDGET — Itemized one-time costs AND monthly recurring, with explanations
 15. TOP 5 RISKS & HOW TO MITIGATE THEM
 16. NEXT STEPS — Concrete actions they can take this week
+
+PERSONALIZATION RULES (this is what makes the report worth $49 vs a free Google search):
+- Reference the user's SPECIFIC quiz answers in every section where relevant
+- Use their stated budget numbers in property and cost sections
+- Reference their family composition in education/healthcare/lifestyle sections
+- Reference their income type/source in tax sections
+- Each country section should feel like it was written FOR THIS USER, not copy-pasted from a template
+- The "Why This Matches YOU" box at the top of each country match is MANDATORY
+
+DATE ACCURACY RULES:
+- Today's date is ${new Date().toISOString().split('T')[0]}. We are in ${new Date().getFullYear()}.
+- Use PAST TENSE for historical policy changes: "IFICI regime (which replaced NHR in 2024)" NOT "replacing NHR in 2024"
+- Never use future tense for events that have already occurred
+- Verify all regulatory references are current — do not reference programs as "new" or "upcoming" if they launched before ${new Date().getFullYear()}
 
 CONTEXTUAL PRO TIPS (insert max 3 throughout the report in relevant sections):
 - In the VISA section: Insert practical pro tips about the specific visa process for the user's top country matches
