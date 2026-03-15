@@ -555,17 +555,11 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
   const [couponError, setCouponError] = useState("");
   const [shareDiscount, setShareDiscount] = useState(false);
 
-  // Check for existing share discount on mount, or auto-apply from email link
+  // Check for existing share discount on mount (earned by sharing)
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const url = new URL(window.location.href);
-      const hasPromo = url.searchParams.get('promo') === 'share' || url.searchParams.get('discount') === 'share';
-      
-      if (hasPromo || localStorage.getItem('share_discount') === 'true') {
-        localStorage.setItem('share_discount', 'true');
-        setShareDiscount(true);
-        setCouponCode('SHARE20');
-      }
+    if (typeof window !== 'undefined' && localStorage.getItem('share_discount') === 'true') {
+      setShareDiscount(true);
+      setCouponCode('SHARE20');
     }
   }, []);
 
