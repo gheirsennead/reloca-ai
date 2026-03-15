@@ -4,6 +4,20 @@ import { stripe } from '@/lib/stripe';
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || '10f34574c2510a38ae6caad89e45a7f5';
 const ADMIN_API_KEY = process.env.ADMIN_API_KEY;
 
+// Emails to exclude from revenue stats (test purchases, admin)
+const EXCLUDED_EMAILS = [
+  'vitagreg@gmail.com',
+];
+
+function isExcludedEmail(charge: any): boolean {
+  const email = (
+    charge.billing_details?.email || 
+    charge.receipt_email || 
+    ''
+  ).toLowerCase();
+  return EXCLUDED_EMAILS.includes(email);
+}
+
 function isAuthorized(request: NextRequest): boolean {
   // Check x-admin-password header (existing pattern)
   const adminPass = request.headers.get('x-admin-password');
@@ -41,7 +55,10 @@ export async function GET(request: NextRequest) {
       if (startingAfter) params.starting_after = startingAfter;
 
       const batch = await stripe.charges.list(params);
-      const successfulCharges = batch.data.filter(c => c.status === 'succeeded' && !c.refunded);
+      const successfulCharges = batch.data.filter(c => 
+        c.status === 'succeeded' && !c.refunded &&
+        !isExcludedEmail(c)
+      );
       charges.push(...successfulCharges);
       hasMore = batch.has_more;
       if (batch.data.length > 0) {
@@ -59,7 +76,10 @@ export async function GET(request: NextRequest) {
       if (allStartingAfter) params.starting_after = allStartingAfter;
 
       const batch = await stripe.charges.list(params);
-      const successfulCharges = batch.data.filter(c => c.status === 'succeeded' && !c.refunded);
+      const successfulCharges = batch.data.filter(c => 
+        c.status === 'succeeded' && !c.refunded &&
+        !isExcludedEmail(c)
+      );
       allTimeCharges.push(...successfulCharges);
       allHasMore = batch.has_more;
       if (batch.data.length > 0) {
