@@ -118,7 +118,7 @@ export async function POST(request: NextRequest) {
     try {
       const name = c.name || 'there';
       const country = formatCountryName(c.country);
-      const reportUrl = `${SITE_URL}/report/${c.reportId}`;
+      const reportUrl = `${SITE_URL}/report/${c.reportId}?promo=share`;
       const html = buildBlastEmail(name, country, c.score, c.daysAgo, reportUrl);
 
       await resend.emails.send({
