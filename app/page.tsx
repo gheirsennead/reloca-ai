@@ -168,7 +168,7 @@ function Hero() {
         </div>
 
         <p className="mt-4 text-sm text-gray-500 font-medium">
-          Full report: <span className="text-[#1a365d] font-bold">$49</span> — Launch Special
+          Full report: <span className="text-[#1a365d] font-bold">$49</span><br /><em className="text-[#38b2ac]">Share your results &amp; pay only $29</em> →
         </p>
         <div className="mt-4">
           <ReportPreviewButton />
