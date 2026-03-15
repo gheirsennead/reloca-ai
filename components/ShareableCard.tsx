@@ -71,6 +71,10 @@ export function ShareableCard({ country, score, reportId, userName, reasons = de
       if (data.success && data.couponCode) {
         setDiscountCode(data.couponCode);
         setShowDiscountBanner(true);
+        // Set the share discount flag so checkout auto-applies SHARE20
+        localStorage.setItem('share_discount', 'true');
+        // Dispatch event so report page picks up the change
+        window.dispatchEvent(new Event('share_discount_applied'));
       }
     } catch (error) {
       console.error('Failed to generate discount:', error);

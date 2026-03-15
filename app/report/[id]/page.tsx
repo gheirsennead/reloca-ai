@@ -555,9 +555,18 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
 
   // Check for existing share discount on mount (earned by sharing)
   useEffect(() => {
-    if (typeof window !== 'undefined' && localStorage.getItem('share_discount') === 'true') {
-      setShareDiscount(true);
-      setCouponCode('SHARE20');
+    if (typeof window !== 'undefined') {
+      if (localStorage.getItem('share_discount') === 'true') {
+        setShareDiscount(true);
+        setCouponCode('SHARE20');
+      }
+      // Listen for share discount from ShareableCard component
+      const handler = () => {
+        setShareDiscount(true);
+        setCouponCode('SHARE20');
+      };
+      window.addEventListener('share_discount_applied', handler);
+      return () => window.removeEventListener('share_discount_applied', handler);
     }
   }, []);
 
