@@ -37,29 +37,14 @@ export async function POST(request: NextRequest) {
       // Return existing discount code
       return NextResponse.json({
         success: true,
-        couponCode: existingDiscount.coupon_code,
-        discountAmount: 10,
+        couponCode: 'SHARE20',
+        discountAmount: 20,
         message: 'You already have a share discount for this report!'
       });
     }
 
-    // Generate unique coupon code
-    const couponCode = generateCouponCode();
-
-    // Create Stripe coupon
-    const stripeCoupon = await stripe.coupons.create({
-      id: couponCode,
-      name: `Social Share Discount - $10 off`,
-      amount_off: 1000, // $10 in cents
-      currency: 'usd',
-      duration: 'once',
-      metadata: {
-        type: 'social_share',
-        user_email: userEmail,
-        report_id: reportId,
-        share_platform: sharePlatform
-      }
-    });
+    // Use the global SHARE20 coupon ($20 off)
+    const couponCode = 'SHARE20';
 
     // Save to database
     const { error: dbError } = await supabaseAdmin
@@ -68,20 +53,14 @@ export async function POST(request: NextRequest) {
         user_email: userEmail.toLowerCase().trim(),
         report_id: reportId,
         coupon_code: couponCode,
-        stripe_coupon_id: stripeCoupon.id,
-        discount_amount: 10.00,
+        stripe_coupon_id: couponCode,
+        discount_amount: 20.00,
         share_platform: sharePlatform,
         used: false
       });
 
     if (dbError) {
       console.error('Database error:', dbError);
-      // Try to delete the Stripe coupon if DB insert failed
-      try {
-        await stripe.coupons.del(couponCode);
-      } catch (e) {
-        console.error('Failed to cleanup Stripe coupon:', e);
-      }
       return NextResponse.json({ error: 'Failed to save discount' }, { status: 500 });
     }
 
@@ -95,7 +74,7 @@ export async function POST(request: NextRequest) {
           report_id: reportId,
           user_email: userEmail,
           coupon_code: couponCode,
-          discount_amount: 10
+          discount_amount: 20
         },
         session_id: `share_${reportId}_${Date.now()}`,
         timestamp: new Date().toISOString()
@@ -108,8 +87,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       couponCode,
-      discountAmount: 10,
-      message: '🎉 You shared! Your discount code is ready!'
+      discountAmount: 20,
+      message: '🎉 You shared! $20 off — your report is now $29!'
     });
 
   } catch (error: any) {
