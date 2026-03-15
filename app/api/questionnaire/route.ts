@@ -4,7 +4,7 @@ import { supabaseAdmin } from '@/lib/supabase';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { email, firstName, answers, skipped } = body;
+    const { email, firstName, answers, skipped, browser_language } = body;
 
     if (!email || !email.includes('@')) {
       return NextResponse.json({ error: 'Valid email required' }, { status: 400 });
@@ -46,6 +46,11 @@ export async function POST(request: NextRequest) {
     }
 
     // 2. Save questionnaire responses
+    // Store browser language in answers for report generation
+    if (browser_language) {
+      answers['_browser_language'] = browser_language;
+    }
+    
     const questionsAnswered = Object.keys(answers).length;
     const questionsSkipped = skipped?.length || 0;
 

@@ -361,8 +361,29 @@ FINAL SECTION — After Section 16, you MUST include this exact disclaimer:
 Write in markdown. Be specific to their exact situation. Use the actual data provided — don't invent numbers.`;
 }
 
+function detectReportLanguage(answers: Record<string, any>): string {
+  const browserLang = answers['_browser_language'] || '';
+  const langCode = browserLang.split('-')[0]?.toLowerCase();
+  
+  const supportedLanguages: Record<string, string> = {
+    fr: 'French',
+    es: 'Spanish',
+    pt: 'Portuguese',
+    de: 'German',
+    it: 'Italian',
+    nl: 'Dutch',
+  };
+  
+  return supportedLanguages[langCode] || '';
+}
+
 function buildUserPrompt(answers: Record<string, any>): string {
-  const lines: string[] = ['Generate a comprehensive relocation report for this person:\n'];
+  const reportLanguage = detectReportLanguage(answers);
+  const languageInstruction = reportLanguage 
+    ? `\n\n⚠️ CRITICAL LANGUAGE REQUIREMENT: Write the ENTIRE report in ${reportLanguage}. All section headers, content, analysis, recommendations, pro tips, disclaimers — everything must be in ${reportLanguage}. Only keep country names, visa type names, and specific legal references in their original language/English where appropriate for clarity.`
+    : '';
+  
+  const lines: string[] = [`Generate a comprehensive relocation report for this person:${languageInstruction}\n`];
   const labels: Record<string, string> = {
     '1': 'Nationality', '2': 'Current country', '3': 'Age range',
     '4': 'Family situation', '5': 'Number of children', '6': 'Children ages',

@@ -412,6 +412,7 @@ export default function Enhanced36Questionnaire() {
           firstName: firstName.trim(),
           answers,
           skipped: Array.from(skippedQuestions),
+          browser_language: typeof navigator !== "undefined" ? navigator.language : "en",
         }),
       });
 
