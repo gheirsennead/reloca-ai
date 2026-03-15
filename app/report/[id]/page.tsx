@@ -263,19 +263,47 @@ function CountdownTimer({ createdAt }: { createdAt: string }) {
   );
 }
 
+const SHARE_OFFER_END = new Date('2026-04-05T23:59:59Z');
+
+function getShareOfferDaysLeft(): number {
+  const now = new Date();
+  const diff = SHARE_OFFER_END.getTime() - now.getTime();
+  return Math.max(0, Math.ceil(diff / (1000 * 60 * 60 * 24)));
+}
+
+function isShareOfferActive(): boolean {
+  return new Date() < SHARE_OFFER_END;
+}
+
 function ShareAndSave({ onShare, shared }: { onShare: (platform: string) => void; shared: boolean }) {
+  const daysLeft = getShareOfferDaysLeft();
+  const offerActive = isShareOfferActive();
+
+  if (!offerActive) return null;
+
   if (shared) {
     return (
       <div className="bg-green-50 border border-green-200 rounded-xl p-4 text-center">
-        <p className="text-green-700 font-semibold text-sm">✅ Share discount applied! Your price: <span className="line-through text-gray-400">$49</span> <span className="text-green-600 font-bold text-lg">$29</span></p>
+        <p className="text-green-700 font-bold text-sm mb-1">✅ Share discount applied!</p>
+        <p className="text-green-600 text-sm">
+          <span className="line-through text-gray-400">$79</span>{' '}
+          <span className="line-through text-gray-400">$49</span>{' '}
+          <span className="text-green-600 font-bold text-xl">$29</span>
+        </p>
       </div>
     );
   }
+
   return (
-    <div className="bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-100 rounded-xl p-4 text-center">
-      <p className="text-[#1a365d] font-bold text-sm mb-1">🎁 Share your result &amp; save $20</p>
-      <p className="text-gray-500 text-xs mb-3">Share with friends and get your report for just $29 instead of $49</p>
-      <div className="flex items-center justify-center gap-2">
+    <div className="bg-gradient-to-r from-orange-50 to-amber-50 border border-orange-200 rounded-xl p-5 text-center">
+      <p className="text-[#1a365d] font-bold text-base mb-1">🚀 Launch Special — Ends April 5</p>
+      <p className="text-gray-600 text-sm mb-2">Share your match card and unlock <strong>40% off</strong> your full report.</p>
+      <p className="text-sm mb-3">
+        <span className="line-through text-gray-400">$49</span>{' '}
+        <span className="text-[#38b2ac] font-bold text-xl">$29</span>{' '}
+        <span className="text-gray-500">when you share</span>
+      </p>
+      <div className="flex items-center justify-center gap-2 mb-3">
         <button onClick={() => onShare('twitter')} className="bg-black text-white text-xs font-semibold px-4 py-2 rounded-lg hover:bg-gray-800 transition">𝕏 Post</button>
         <button onClick={() => onShare('facebook')} className="bg-[#1877f2] text-white text-xs font-semibold px-4 py-2 rounded-lg hover:bg-[#166fe5] transition">Facebook</button>
         <button onClick={() => onShare('whatsapp')} className="bg-[#25d366] text-white text-xs font-semibold px-4 py-2 rounded-lg hover:bg-[#22c55e] transition">WhatsApp</button>
@@ -283,6 +311,7 @@ function ShareAndSave({ onShare, shared }: { onShare: (platform: string) => void
           <button onClick={() => onShare('native')} className="bg-gray-600 text-white text-xs font-semibold px-4 py-2 rounded-lg hover:bg-gray-500 transition">More...</button>
         )}
       </div>
+      <p className="text-xs text-orange-600 font-medium">⏰ This offer expires in {daysLeft} day{daysLeft !== 1 ? 's' : ''}</p>
     </div>
   );
 }
@@ -432,6 +461,7 @@ function ReportSection({ content, isPaid, onCheckout, checkoutLoading, couponCod
               <div className="flex items-center justify-center gap-2 mb-1">
                 {shareDiscount ? (
                   <>
+                    <span className="text-gray-300 line-through text-sm">$79</span>
                     <span className="text-gray-400 line-through text-lg">$49</span>
                     <span className="text-3xl font-bold text-green-600">$29</span>
                   </>
@@ -529,9 +559,9 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
 
   // Check for existing share discount on mount
   useEffect(() => {
-    if (typeof window !== 'undefined' && localStorage.getItem('shared_discount') === 'true') {
+    if (typeof window !== 'undefined' && localStorage.getItem('share_discount') === 'true') {
       setShareDiscount(true);
-      setCouponCode('SHARED20');
+      setCouponCode('SHARE20');
     }
   }, []);
 
@@ -624,9 +654,9 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
     }
 
     // Apply discount
-    localStorage.setItem('shared_discount', 'true');
+    localStorage.setItem('share_discount', 'true');
     setShareDiscount(true);
-    setCouponCode('SHARED20');
+    setCouponCode('SHARE20');
 
     // Track the share action
     try {
@@ -650,7 +680,7 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
       const body: Record<string, string> = { reportId: resolvedId };
       // Auto-apply share discount if earned, otherwise use manual coupon
       if (shareDiscount && !couponCode.trim()) {
-        body.couponCode = 'SHARED20';
+        body.couponCode = 'SHARE20';
       } else if (couponCode.trim()) {
         body.couponCode = couponCode.trim();
       }
@@ -996,7 +1026,7 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-bold text-[#1a365d]">
                 {shareDiscount 
-                  ? <><span className="line-through text-gray-400 font-normal">$49</span> $29 — Full Report</>
+                  ? <><span className="line-through text-gray-300 font-normal text-xs">$79</span> <span className="line-through text-gray-400 font-normal">$49</span> $29 — Full Report</>
                   : <><span className="line-through text-gray-400 font-normal">$79</span> $49 — Full Report</>
                 }
               </p>
