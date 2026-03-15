@@ -263,7 +263,31 @@ function CountdownTimer({ createdAt }: { createdAt: string }) {
   );
 }
 
-function ReportSection({ content, isPaid, onCheckout, checkoutLoading, couponCode, setCouponCode, couponError, createdAt }: { content: string; isPaid: boolean; onCheckout?: () => void; checkoutLoading?: boolean; couponCode?: string; setCouponCode?: (v: string) => void; couponError?: string; createdAt?: string }) {
+function ShareAndSave({ onShare, shared }: { onShare: (platform: string) => void; shared: boolean }) {
+  if (shared) {
+    return (
+      <div className="bg-green-50 border border-green-200 rounded-xl p-4 text-center">
+        <p className="text-green-700 font-semibold text-sm">✅ Share discount applied! Your price: <span className="line-through text-gray-400">$49</span> <span className="text-green-600 font-bold text-lg">$29</span></p>
+      </div>
+    );
+  }
+  return (
+    <div className="bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-100 rounded-xl p-4 text-center">
+      <p className="text-[#1a365d] font-bold text-sm mb-1">🎁 Share your result &amp; save $20</p>
+      <p className="text-gray-500 text-xs mb-3">Share with friends and get your report for just $29 instead of $49</p>
+      <div className="flex items-center justify-center gap-2">
+        <button onClick={() => onShare('twitter')} className="bg-black text-white text-xs font-semibold px-4 py-2 rounded-lg hover:bg-gray-800 transition">𝕏 Post</button>
+        <button onClick={() => onShare('facebook')} className="bg-[#1877f2] text-white text-xs font-semibold px-4 py-2 rounded-lg hover:bg-[#166fe5] transition">Facebook</button>
+        <button onClick={() => onShare('whatsapp')} className="bg-[#25d366] text-white text-xs font-semibold px-4 py-2 rounded-lg hover:bg-[#22c55e] transition">WhatsApp</button>
+        {typeof navigator !== 'undefined' && 'share' in navigator && (
+          <button onClick={() => onShare('native')} className="bg-gray-600 text-white text-xs font-semibold px-4 py-2 rounded-lg hover:bg-gray-500 transition">More...</button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function ReportSection({ content, isPaid, onCheckout, checkoutLoading, couponCode, setCouponCode, couponError, createdAt, onShare, shareDiscount }: { content: string; isPaid: boolean; onCheckout?: () => void; checkoutLoading?: boolean; couponCode?: string; setCouponCode?: (v: string) => void; couponError?: string; createdAt?: string; onShare?: (platform: string) => void; shareDiscount?: boolean }) {
   // Split content into free preview (first ~20%) and paid sections
   const sections = content.split(/(?=^#{1,2}\s)/m);
   const freeCount = 1; // Show only #1 match, tease the rest
@@ -349,10 +373,28 @@ function ReportSection({ content, isPaid, onCheckout, checkoutLoading, couponCod
       {/* Fade-out teaser tail */}
       <div className="relative h-16 -mt-16 bg-gradient-to-b from-transparent to-white pointer-events-none" />
       
-      {/* Locked sections indicator */}
-      <div className="mt-4 mb-4 bg-gradient-to-r from-[#38b2ac]/10 to-[#1a365d]/10 rounded-xl p-4 text-center">
-        <p className="text-[#1a365d] font-semibold">🔒 Unlock {lockedSectionCount} more sections</p>
-        <p className="text-gray-500 text-sm mt-1">Including visa roadmaps, tax strategies, cost analysis, property insights & relocation timeline</p>
+      {/* Locked sections indicator with titles */}
+      <div className="mt-4 mb-4 bg-gradient-to-r from-[#38b2ac]/5 to-[#1a365d]/5 rounded-xl p-6 border border-gray-100">
+        <p className="text-[#1a365d] font-bold text-lg mb-3">📋 Your full report includes {lockedSectionCount} more sections:</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-sm text-gray-600 mb-4">
+          <div className="flex items-center gap-2"><span className="text-gray-300">🔒</span> Detailed Country Analysis (all 3 matches)</div>
+          <div className="flex items-center gap-2"><span className="text-gray-300">🔒</span> Visa &amp; Residency Pathways</div>
+          <div className="flex items-center gap-2"><span className="text-gray-300">🔒</span> Tax Optimization Strategy</div>
+          <div className="flex items-center gap-2"><span className="text-gray-300">🔒</span> Cost of Living Breakdown</div>
+          <div className="flex items-center gap-2"><span className="text-gray-300">🔒</span> Property Market Analysis</div>
+          <div className="flex items-center gap-2"><span className="text-gray-300">🔒</span> Healthcare &amp; Insurance</div>
+          <div className="flex items-center gap-2"><span className="text-gray-300">🔒</span> Education &amp; Family Options</div>
+          <div className="flex items-center gap-2"><span className="text-gray-300">🔒</span> Safety &amp; Security Assessment</div>
+          <div className="flex items-center gap-2"><span className="text-gray-300">🔒</span> Banking &amp; Financial Setup</div>
+          <div className="flex items-center gap-2"><span className="text-gray-300">🔒</span> Cultural Integration Guide</div>
+          <div className="flex items-center gap-2"><span className="text-gray-300">🔒</span> Month-by-Month Timeline</div>
+          <div className="flex items-center gap-2"><span className="text-gray-300">🔒</span> Next Steps &amp; Expert Support</div>
+        </div>
+        <div className="text-center">
+          <button onClick={onCheckout} disabled={checkoutLoading} className="bg-[#38b2ac] hover:bg-[#2c9a94] text-white font-bold px-8 py-3 rounded-xl transition disabled:opacity-50 shadow-lg shadow-[#38b2ac]/25">
+            {checkoutLoading ? 'Redirecting...' : '🔓 Unlock all sections → $49'}
+          </button>
+        </div>
       </div>
 
       {/* Blurred preview of locked content */}
@@ -388,12 +430,23 @@ function ReportSection({ content, isPaid, onCheckout, checkoutLoading, couponCod
               </div>
 
               <div className="flex items-center justify-center gap-2 mb-1">
-                <span className="text-gray-400 line-through text-lg">$79</span>
-                <span className="text-3xl font-bold text-[#38b2ac]">$49</span>
+                {shareDiscount ? (
+                  <>
+                    <span className="text-gray-400 line-through text-lg">$49</span>
+                    <span className="text-3xl font-bold text-green-600">$29</span>
+                  </>
+                ) : (
+                  <>
+                    <span className="text-gray-400 line-through text-lg">$79</span>
+                    <span className="text-3xl font-bold text-[#38b2ac]">$49</span>
+                  </>
+                )}
               </div>
-              <p className="text-xs text-red-500 font-medium mb-3">⏰ Launch price expires soon — then it&apos;s $79</p>
+              <p className="text-xs text-red-500 font-medium mb-3">
+                {shareDiscount ? '✅ Share discount applied — you save $20!' : <>⏰ Launch price expires soon — then it&apos;s $79</>}
+              </p>
               <button onClick={onCheckout} disabled={checkoutLoading} className="w-full bg-gradient-to-r from-[#38b2ac] to-[#319795] hover:from-[#2c9a94] hover:to-[#28908a] text-white font-bold px-8 py-4 rounded-xl transition disabled:opacity-50 text-lg shadow-lg shadow-[#38b2ac]/25">
-                {checkoutLoading ? 'Redirecting to checkout...' : 'Get My Full Report →'}
+                {checkoutLoading ? 'Redirecting to checkout...' : (shareDiscount ? 'Get My Full Report — $29 →' : 'Get My Full Report →')}
               </button>
 
               {/* Money-back guarantee badge */}
@@ -402,7 +455,10 @@ function ReportSection({ content, isPaid, onCheckout, checkoutLoading, couponCod
                 <p className="text-xs text-green-700 font-medium">30-day money-back guarantee — no questions asked. If you are not satisfied, we refund you. Period.</p>
               </div>
 
-              {setCouponCode && <CouponInput couponCode={couponCode || ""} setCouponCode={setCouponCode} couponError={couponError || ""} />}
+              {/* Share & Save */}
+              {onShare && <div className="mt-3"><ShareAndSave onShare={onShare} shared={shareDiscount || false} /></div>}
+
+              {setCouponCode && !shareDiscount && <CouponInput couponCode={couponCode || ""} setCouponCode={setCouponCode} couponError={couponError || ""} />}
               
               {/* Testimonials & Social Proof */}
               <div className="mt-4 pt-4 border-t border-gray-100 text-left space-y-3">
@@ -469,6 +525,15 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
   const [checkoutLoading, setCheckoutLoading] = useState(false);
   const [couponCode, setCouponCode] = useState("");
   const [couponError, setCouponError] = useState("");
+  const [shareDiscount, setShareDiscount] = useState(false);
+
+  // Check for existing share discount on mount
+  useEffect(() => {
+    if (typeof window !== 'undefined' && localStorage.getItem('shared_discount') === 'true') {
+      setShareDiscount(true);
+      setCouponCode('SHARED20');
+    }
+  }, []);
 
   useEffect(() => {
     params.then(p => {
@@ -537,12 +602,58 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
     }
   }
 
+  async function handleShare(platform: string) {
+    const topMatch = report?.country_recommendations
+      ? sortedRecommendations(report.country_recommendations)[0]
+      : null;
+    const shareText = topMatch
+      ? `I just found my #1 relocation match: ${formatCountryName(topMatch.country)} (${topMatch.score}% compatible)! Find yours →`
+      : 'I just found my perfect relocation match! Find yours →';
+    const shareUrl = `https://reloca.ai/plan-36?ref=share`;
+
+    if (platform === 'native' && navigator.share) {
+      try {
+        await navigator.share({ title: 'My Reloca.ai Match', text: shareText, url: shareUrl });
+      } catch { /* user cancelled */ }
+    } else if (platform === 'twitter') {
+      window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`, '_blank');
+    } else if (platform === 'facebook') {
+      window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(shareText)}`, '_blank');
+    } else if (platform === 'whatsapp') {
+      window.open(`https://wa.me/?text=${encodeURIComponent(shareText + ' ' + shareUrl)}`, '_blank');
+    }
+
+    // Apply discount
+    localStorage.setItem('shared_discount', 'true');
+    setShareDiscount(true);
+    setCouponCode('SHARED20');
+
+    // Track the share action
+    try {
+      await fetch('/api/analytics', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          event: 'share_action',
+          properties: { platform, feature: 'share_discount', report_id: resolvedId },
+          timestamp: Date.now(),
+          url: window.location.href,
+        }),
+      });
+    } catch { /* non-blocking */ }
+  }
+
   async function handleCheckout() {
     setCheckoutLoading(true);
     setCouponError("");
     try {
       const body: Record<string, string> = { reportId: resolvedId };
-      if (couponCode.trim()) body.couponCode = couponCode.trim();
+      // Auto-apply share discount if earned, otherwise use manual coupon
+      if (shareDiscount && !couponCode.trim()) {
+        body.couponCode = 'SHARED20';
+      } else if (couponCode.trim()) {
+        body.couponCode = couponCode.trim();
+      }
       // Auto-attach referral code for attribution tracking
       const ref = typeof window !== "undefined" ? localStorage.getItem("reloca_ref") : null;
       if (ref) body.referralCode = ref;
@@ -795,7 +906,7 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
 
         {/* Report content */}
         <div className="bg-white rounded-2xl border border-gray-100 p-6 sm:p-8">
-          <ReportSection content={report.report_content} isPaid={isPaid} onCheckout={handleCheckout} checkoutLoading={checkoutLoading} couponCode={couponCode} setCouponCode={setCouponCode} couponError={couponError} createdAt={report.created_at} />
+          <ReportSection content={report.report_content} isPaid={isPaid} onCheckout={handleCheckout} checkoutLoading={checkoutLoading} couponCode={couponCode} setCouponCode={setCouponCode} couponError={couponError} createdAt={report.created_at} onShare={handleShare} shareDiscount={shareDiscount} />
         </div>
 
         {/* Upsell with comparison table */}
@@ -883,8 +994,13 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
         <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-200 py-3 px-4 z-50 shadow-[0_-4px_20px_rgba(0,0,0,0.08)]">
           <div className="max-w-lg mx-auto flex items-center justify-between gap-3">
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-bold text-[#1a365d]"><span className="line-through text-gray-400 font-normal">$79</span> $49 — Full Report</p>
-              <p className="text-xs text-gray-500 truncate">🛡️ 30-day money-back guarantee</p>
+              <p className="text-sm font-bold text-[#1a365d]">
+                {shareDiscount 
+                  ? <><span className="line-through text-gray-400 font-normal">$49</span> $29 — Full Report</>
+                  : <><span className="line-through text-gray-400 font-normal">$79</span> $49 — Full Report</>
+                }
+              </p>
+              <p className="text-xs text-gray-500 truncate">{shareDiscount ? '✅ Share discount applied' : '🛡️ 30-day money-back guarantee'}</p>
             </div>
             <button onClick={handleCheckout} disabled={checkoutLoading} className="bg-[#38b2ac] hover:bg-[#2c9a94] text-white font-bold px-5 py-2.5 rounded-xl transition disabled:opacity-50 text-sm whitespace-nowrap shadow-lg shadow-[#38b2ac]/25">
               {checkoutLoading ? 'Loading...' : 'Unlock Now →'}
