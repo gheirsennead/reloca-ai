@@ -258,7 +258,7 @@ function CountdownTimer({ createdAt }: { createdAt: string }) {
   return (
     <div className="bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 mb-4">
       <p className="text-amber-800 font-bold text-sm">⏰ Launch price expires in <span className="font-mono text-lg">{timeLeft}</span></p>
-      <p className="text-amber-600 text-xs">After this, the price goes back to $79</p>
+      <p className="text-amber-600 text-xs">After this, the price goes back to regular pricing</p>
     </div>
   );
 }
@@ -286,7 +286,6 @@ function ShareAndSave({ onShare, shared }: { onShare: (platform: string) => void
       <div className="bg-green-50 border border-green-200 rounded-xl p-4 text-center">
         <p className="text-green-700 font-bold text-sm mb-1">✅ Share discount applied!</p>
         <p className="text-green-600 text-sm">
-          <span className="line-through text-gray-400">$79</span>{' '}
           <span className="line-through text-gray-400">$49</span>{' '}
           <span className="text-green-600 font-bold text-xl">$29</span>
         </p>
@@ -461,19 +460,18 @@ function ReportSection({ content, isPaid, onCheckout, checkoutLoading, couponCod
               <div className="flex items-center justify-center gap-2 mb-1">
                 {shareDiscount ? (
                   <>
-                    <span className="text-gray-300 line-through text-sm">$79</span>
                     <span className="text-gray-400 line-through text-lg">$49</span>
                     <span className="text-3xl font-bold text-green-600">$29</span>
                   </>
                 ) : (
                   <>
-                    <span className="text-gray-400 line-through text-lg">$79</span>
+                    
                     <span className="text-3xl font-bold text-[#38b2ac]">$49</span>
                   </>
                 )}
               </div>
               <p className="text-xs text-red-500 font-medium mb-3">
-                {shareDiscount ? '✅ Share discount applied — you save $20!' : <>⏰ Launch price expires soon — then it&apos;s $79</>}
+                {shareDiscount ? '✅ Share discount applied — you save $20!' : <>⏰ Launch price — limited time offer</>}
               </p>
               <button onClick={onCheckout} disabled={checkoutLoading} className="w-full bg-gradient-to-r from-[#38b2ac] to-[#319795] hover:from-[#2c9a94] hover:to-[#28908a] text-white font-bold px-8 py-4 rounded-xl transition disabled:opacity-50 text-lg shadow-lg shadow-[#38b2ac]/25">
                 {checkoutLoading ? 'Redirecting to checkout...' : (shareDiscount ? 'Get My Full Report — $29 →' : 'Get My Full Report →')}
@@ -946,14 +944,14 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
             <p className="text-gray-500 text-sm mb-6 text-center max-w-md mx-auto">
               Your free summary shows WHERE to go. The full report shows HOW — visa steps, tax savings, real costs, and a timeline.
             </p>
-            <p className="text-sm font-semibold text-[#1a365d] mb-4 text-center">Unlock your complete 16-section report for <span className="line-through text-gray-400">$79</span> $49 (Launch Special):</p>
+            <p className="text-sm font-semibold text-[#1a365d] mb-4 text-center">Unlock your complete 16-section report for $49 (Launch Special):</p>
             <div className="overflow-x-auto mb-6">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-gray-200">
                     <th className="text-left py-2 pr-4 text-gray-500 font-medium">Feature</th>
                     <th className="text-center py-2 px-4 text-gray-500 font-medium">Free Summary</th>
-                    <th className="text-center py-2 pl-4 text-[#38b2ac] font-bold">Full Report (<span className="line-through text-gray-400">$79</span> $49)</th>
+                    <th className="text-center py-2 pl-4 text-[#38b2ac] font-bold">Full Report ($49)</th>
                   </tr>
                 </thead>
                 <tbody className="text-gray-600">
@@ -984,7 +982,7 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
             </div>
             <div className="text-center">
               <button onClick={handleCheckout} disabled={checkoutLoading} className="bg-[#38b2ac] hover:bg-[#2c9a94] text-white font-semibold px-8 py-3 rounded-xl transition disabled:opacity-50">
-                {checkoutLoading ? 'Redirecting to checkout...' : <>Get My Full Report — <span className="line-through text-white/50">$79</span> $49</>}
+                {checkoutLoading ? 'Redirecting to checkout...' : <>Get My Full Report — $49</>}
               </button>
               <CouponInput couponCode={couponCode} setCouponCode={setCouponCode} couponError={couponError} />
             </div>
@@ -1026,8 +1024,8 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-bold text-[#1a365d]">
                 {shareDiscount 
-                  ? <><span className="line-through text-gray-300 font-normal text-xs">$79</span> <span className="line-through text-gray-400 font-normal">$49</span> $29 — Full Report</>
-                  : <><span className="line-through text-gray-400 font-normal">$79</span> $49 — Full Report</>
+                  ? <><span className="line-through text-gray-400 font-normal">$49</span> $29 — Full Report</>
+                  : <>$49 — Full Report</>
                 }
               </p>
               <p className="text-xs text-gray-500 truncate">{shareDiscount ? '✅ Share discount applied' : '🛡️ 30-day money-back guarantee'}</p>

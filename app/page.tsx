@@ -168,7 +168,7 @@ function Hero() {
         </div>
 
         <p className="mt-4 text-sm text-gray-500 font-medium">
-          Full report: <s className="text-gray-400">$79</s> <span className="text-[#1a365d] font-bold">$49</span> — Launch Special
+          Full report: <span className="text-[#1a365d] font-bold">$49</span> — Launch Special
         </p>
         <div className="mt-4">
           <ReportPreviewButton />
@@ -210,7 +210,7 @@ const steps = [
       </svg>
     ),
     title: "Get Your Personalized Plan",
-    desc: "Instant free summary with your top 3 country matches — or unlock the full 16-section report for just $49 (normally $79).",
+    desc: "Instant free summary with your top 3 country matches — or unlock the full 16-section report for just $49 .",
   },
 ];
 
@@ -299,7 +299,7 @@ function WhatYouGet() {
             </div>
             <div className="text-sm font-bold text-[#38b2ac] mb-1">FULL REPORT</div>
             <div className="text-3xl font-bold text-white mb-1">
-              <span className="line-through text-gray-400 text-xl mr-2">$79</span>$49
+              $49
             </div>
             <p className="text-xs text-blue-300 mb-6">One-time payment. Yours forever.</p>
             <ul className="space-y-2 flex-1">
@@ -314,7 +314,7 @@ function WhatYouGet() {
               onClick={() => analytics.trackFeatureUsage('cta', 'click', { location: 'pricing_paid', destination: '/plan-36' })}
               className="mt-8 block text-center bg-[#38b2ac] hover:bg-[#2c9a94] text-white font-semibold px-6 py-3 rounded-xl transition"
             >
-              Get My Full Report — <span className="line-through text-white/50">$79</span> $49
+              Get My Full Report — $49
             </Link>
           </div>
         </div>
@@ -486,7 +486,7 @@ const faqs = [
   },
   {
     q: "Do I need to buy the full report?",
-    a: "No. The free summary gives you your top 3 matches and estimated costs. The full report (normally $79, currently $49 launch special) goes much deeper — visa options, property analysis, tax implications, personalized timeline, and a downloadable PDF.",
+    a: "No. The free summary gives you your top 3 matches and estimated costs. The full report  goes much deeper — visa options, property analysis, tax implications, personalized timeline, and a downloadable PDF.",
   },
   {
     q: "What languages is the report in?",

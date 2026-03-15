@@ -117,7 +117,7 @@ export default function TermsOfService() {
             
             <h3 className="text-base font-semibold text-[#1a365d] mt-6 mb-2">5.1 Pricing</h3>
             <ul className="list-disc ml-6 space-y-1 mt-2">
-              <li><strong>Full report:</strong> $49 one-time payment (launch pricing; regular price $79).</li>
+              <li><strong>Full report:</strong> $49 one-time payment.</li>
               <li><strong>Reloca Pro:</strong> $29/month recurring subscription.</li>
               <li>All prices are in US Dollars (USD).</li>
               <li>Prices may change with notice. Existing subscribers will be notified before any price increase takes effect.</li>

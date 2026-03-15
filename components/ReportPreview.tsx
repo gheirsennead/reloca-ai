@@ -493,7 +493,6 @@ export function ReportPreview({ isOpen, onClose }: ReportPreviewProps) {
           <div className="bg-gradient-to-r from-[#38b2ac] to-[#2c9a94] text-white rounded-xl p-6 max-w-sm mx-auto">
             <div className="text-lg font-bold mb-2">GET YOUR REPORT</div>
             <div className="text-2xl font-bold mb-1">
-              <span className="line-through text-white/60 text-lg mr-2">$79</span>
               $49
               <span className="text-sm font-normal"> (Launch Special)</span>
             </div>
