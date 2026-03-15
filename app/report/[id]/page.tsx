@@ -175,12 +175,12 @@ function MatchCard({ country, score, rank, locked, onUnlockClick }: { country: s
         <div className="flex-1">
           <div className="flex items-center gap-2">
             <span className="text-xs font-bold text-gray-400">#{rank}</span>
-            <h3 className="font-bold text-gray-400 text-lg">[Locked]</h3>
+            <h3 className="font-bold text-gray-400 text-lg">{`[Your #${rank} Match]`}</h3>
           </div>
           <p className="text-xs text-[#38b2ac] mt-1 group-hover:underline">Unlock your full report to reveal this match →</p>
         </div>
         <div className="text-right">
-          <div className="text-2xl font-bold text-gray-300">{score}%</div>
+          <div className="text-2xl font-bold text-gray-300">??%</div>
           <div className="text-xs text-gray-400">match</div>
         </div>
       </div>
@@ -333,31 +333,38 @@ function ReportSection({ content, isPaid, onCheckout, checkoutLoading, couponCod
     );
   }
 
-  // Free version: show first few sections, blur the rest
-  const freeSections = sections.slice(0, freeCount).join("\n");
-  const lockedSections = sections.slice(freeCount);
+  // Free version: show a SHORT teaser of Section 1, then lock everything
+  const firstSection = sections[0] || '';
+  // Truncate Section 1 to first ~3 paragraphs as a teaser
+  const paragraphs = firstSection.split('\n\n');
+  const teaserText = paragraphs.slice(0, 3).join('\n\n');
+  const lockedSectionCount = Math.max(sections.length - 1, 15);
 
   return (
     <div>
       <div className="prose prose-gray max-w-none">
-        <div dangerouslySetInnerHTML={{ __html: markdownToHtml(freeSections) }} />
+        <div dangerouslySetInnerHTML={{ __html: markdownToHtml(teaserText) }} />
       </div>
-      {lockedSections.length > 0 && (
-        <div className="mt-6 bg-gradient-to-r from-[#38b2ac]/10 to-[#1a365d]/10 rounded-xl p-4 text-center">
-          <p className="text-[#1a365d] font-semibold">🏆 2 more country matches + full breakdown inside your report</p>
-          <p className="text-gray-500 text-sm mt-1">Including visa roadmaps, tax strategies, cost analysis & relocation timeline</p>
+      
+      {/* Fade-out teaser tail */}
+      <div className="relative h-16 -mt-16 bg-gradient-to-b from-transparent to-white pointer-events-none" />
+      
+      {/* Locked sections indicator */}
+      <div className="mt-4 mb-4 bg-gradient-to-r from-[#38b2ac]/10 to-[#1a365d]/10 rounded-xl p-4 text-center">
+        <p className="text-[#1a365d] font-semibold">🔒 Unlock {lockedSectionCount} more sections</p>
+        <p className="text-gray-500 text-sm mt-1">Including visa roadmaps, tax strategies, cost analysis, property insights & relocation timeline</p>
+      </div>
+
+      {/* Blurred preview of locked content */}
+      <div className="relative mt-4">
+        <div className="prose prose-gray max-w-none blur-sm select-none pointer-events-none opacity-50" style={{ maxHeight: '400px', overflow: 'hidden' }}>
+          <div dangerouslySetInnerHTML={{ __html: markdownToHtml(sections.slice(1, 4).join("\n")) }} />
         </div>
-      )}
-      {lockedSections.length > 0 && (
-        <div className="relative mt-8">
-          <div className="prose prose-gray max-w-none blur-sm select-none pointer-events-none opacity-60">
-            <div dangerouslySetInnerHTML={{ __html: markdownToHtml(lockedSections.slice(0, 3).join("\n")) }} />
-          </div>
-          <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-b from-transparent via-white/80 to-white">
+        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-b from-transparent via-white/80 to-white">
             <div className="text-center p-8 max-w-md mx-auto" data-checkout-cta>
               <div className="text-3xl mb-3">🔒</div>
               <h3 className="text-xl font-bold text-[#1a365d] mb-3">
-                Unlock Your Full Relocation Report
+                Unlock {lockedSectionCount} More Sections
               </h3>
               <p className="text-gray-500 text-sm mb-2">
                 Your full report includes everything you need to make your move with confidence:
@@ -412,7 +419,6 @@ function ReportSection({ content, isPaid, onCheckout, checkoutLoading, couponCod
             </div>
           </div>
         </div>
-      )}
 
       {/* CTA Block #2 removed — keeping only block #1 (above, with blurred content) and block #3 (comparison table below) */}
     </div>
@@ -741,8 +747,8 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
               ))}
               {!isPaid && sorted.length > 1 && (
                 <p className="text-center text-sm text-[#38b2ac] mt-2">
-                  🔓 Unlock your full report to reveal your #{2} match ({sorted[1]?.score}% compatible)
-                  {sorted.length > 2 && ` and #{3} match (${sorted[2]?.score}% compatible)`}
+                  🔓 Unlock your full report to reveal [Your #2 Match]
+                  {sorted.length > 2 && ` and [Your #3 Match]`}
                 </p>
               )}
               {!allMatchesCovered && (
