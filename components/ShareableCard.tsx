@@ -110,6 +110,11 @@ export function ShareableCard({ country, score, reportId, userName, reasons = de
         const waUrl = `https://wa.me/?text=${encodeURIComponent(`${shareText}\n${shareUrl}`)}`;
         window.open(waUrl, '_blank');
         break;
+
+      case 'telegram':
+        const tgUrl = `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`;
+        window.open(tgUrl, '_blank', 'width=600,height=400');
+        break;
         
       case 'download':
         // Use html2canvas for image download
@@ -231,19 +236,31 @@ export function ShareableCard({ country, score, reportId, userName, reasons = de
       {/* Discount Banner */}
       {showDiscountBanner && discountCode && (
         <div className="bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl p-4 text-white text-center">
-          <div className="text-lg font-bold mb-2">🎉 You shared! Thanks for spreading the word!</div>
-          <div className="text-sm mb-2">Use code <span className="font-mono text-lg bg-white/20 px-2 py-1 rounded">{discountCode}</span> for $15 off your report</div>
-          <div className="text-xs opacity-90">Valid for one-time use on your report purchase</div>
+          <div className="text-lg font-bold mb-2">🎉 Share discount unlocked!</div>
+          <div className="text-sm mb-2">Your full report is now <span className="line-through opacity-75">$49</span> <span className="font-bold text-lg">$29</span></div>
+          <div className="text-xs opacity-90">$20 off applied automatically at checkout</div>
         </div>
       )}
       
       {/* Share Buttons */}
       <div className="flex flex-wrap gap-3 justify-center">
         <button
-          onClick={() => handleShare('copy')}
-          className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition text-gray-700 font-medium"
+          onClick={() => handleShare('facebook')}
+          className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition font-medium"
         >
-          📋 Copy Link
+          📘 Facebook
+        </button>
+        <button
+          onClick={() => handleShare('whatsapp')}
+          className="flex items-center gap-2 px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition font-medium"
+        >
+          💬 WhatsApp
+        </button>
+        <button
+          onClick={() => handleShare('telegram')}
+          className="flex items-center gap-2 px-4 py-2 bg-[#0088cc] hover:bg-[#006daa] text-white rounded-lg transition font-medium"
+        >
+          ✈️ Telegram
         </button>
         <button
           onClick={() => handleShare('twitter')}
@@ -252,22 +269,10 @@ export function ShareableCard({ country, score, reportId, userName, reasons = de
           𝕏 Share on X
         </button>
         <button
-          onClick={() => handleShare('facebook')}
-          className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition font-medium"
-        >
-          📘 Facebook
-        </button>
-        <button
           onClick={() => handleShare('linkedin')}
           className="flex items-center gap-2 px-4 py-2 bg-blue-700 hover:bg-blue-800 text-white rounded-lg transition font-medium"
         >
           💼 LinkedIn
-        </button>
-        <button
-          onClick={() => handleShare('whatsapp')}
-          className="flex items-center gap-2 px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition font-medium"
-        >
-          💬 WhatsApp
         </button>
         <button
           onClick={() => handleShare('download')}

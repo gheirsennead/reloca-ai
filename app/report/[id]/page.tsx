@@ -302,13 +302,11 @@ function ShareAndSave({ onShare, shared }: { onShare: (platform: string) => void
         <span className="text-[#38b2ac] font-bold text-xl">$29</span>{' '}
         <span className="text-gray-500">when you share</span>
       </p>
-      <div className="flex items-center justify-center gap-2 mb-3">
-        <button onClick={() => onShare('twitter')} className="bg-black text-white text-xs font-semibold px-4 py-2 rounded-lg hover:bg-gray-800 transition">𝕏 Post</button>
+      <div className="flex items-center justify-center gap-2 flex-wrap mb-3">
         <button onClick={() => onShare('facebook')} className="bg-[#1877f2] text-white text-xs font-semibold px-4 py-2 rounded-lg hover:bg-[#166fe5] transition">Facebook</button>
         <button onClick={() => onShare('whatsapp')} className="bg-[#25d366] text-white text-xs font-semibold px-4 py-2 rounded-lg hover:bg-[#22c55e] transition">WhatsApp</button>
-        {typeof navigator !== 'undefined' && 'share' in navigator && (
-          <button onClick={() => onShare('native')} className="bg-gray-600 text-white text-xs font-semibold px-4 py-2 rounded-lg hover:bg-gray-500 transition">More...</button>
-        )}
+        <button onClick={() => onShare('telegram')} className="bg-[#0088cc] text-white text-xs font-semibold px-4 py-2 rounded-lg hover:bg-[#006daa] transition">Telegram</button>
+        <button onClick={() => onShare('twitter')} className="bg-black text-white text-xs font-semibold px-4 py-2 rounded-lg hover:bg-gray-800 transition">𝕏 Post</button>
       </div>
       <p className="text-xs text-orange-600 font-medium">⏰ This offer expires in {daysLeft} day{daysLeft !== 1 ? 's' : ''}</p>
     </div>
@@ -649,6 +647,8 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
       window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(shareText)}`, '_blank');
     } else if (platform === 'whatsapp') {
       window.open(`https://wa.me/?text=${encodeURIComponent(shareText + ' ' + shareUrl)}`, '_blank');
+    } else if (platform === 'telegram') {
+      window.open(`https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`, '_blank');
     }
 
     // Apply discount
