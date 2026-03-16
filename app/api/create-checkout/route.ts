@@ -2,12 +2,14 @@ import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { supabaseAdmin } from '@/lib/supabase';
 
+// Initialize Stripe client at module level (reused across requests — avoids cold-start penalty)
 const STRIPE_SECRET = process.env.STRIPE_SECRET_KEY || '';
 const PRICE_ID = process.env.STRIPE_REPORT_PRICE_ID || '';
+const stripe = STRIPE_SECRET ? new Stripe(STRIPE_SECRET) : null;
 
 export async function POST(request: NextRequest) {
   try {
-    if (!STRIPE_SECRET) {
+    if (!stripe) {
       console.error('STRIPE_SECRET_KEY not set');
       return NextResponse.json({ error: 'Payment not configured', debug: 'no_key' }, { status: 500 });
     }
@@ -16,7 +18,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Payment not configured', debug: 'no_price' }, { status: 500 });
     }
 
-    const stripe = new Stripe(STRIPE_SECRET);
     const { reportId, userEmail, couponCode, referralCode } = await request.json();
 
     if (!reportId) {
@@ -39,8 +40,12 @@ export async function POST(request: NextRequest) {
 
     // 1. If user provided a coupon code, try that first
     if (couponCode) {
-      // Try as Stripe coupon (exact match, then uppercase)
-      for (const code of [couponCode, couponCode.toUpperCase()]) {
+      // Try as Stripe coupon — single lookup with case-insensitive fallback
+      const codesToTry = [couponCode];
+      const upper = couponCode.toUpperCase();
+      if (upper !== couponCode) codesToTry.push(upper);
+
+      for (const code of codesToTry) {
         if (discountApplied) break;
         try {
           const coupon = await stripe.coupons.retrieve(code);
@@ -51,7 +56,7 @@ export async function POST(request: NextRequest) {
         } catch { /* not found, try next */ }
       }
       
-      // Try as promotion code
+      // Try as promotion code only if coupon lookup failed
       if (!discountApplied) {
         try {
           const promoCodes = await stripe.promotionCodes.list({ code: couponCode, active: true, limit: 1 });
@@ -67,40 +72,47 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // 2. If referred user (has referralCode) and no coupon yet, auto-apply $10 off
-    if (!discountApplied && referralCode) {
-      try {
-        // Create a one-time $10 Stripe coupon for this referred user
-        const refCouponId = `REF10-${reportId.slice(-8)}`;
-        const refCoupon = await stripe.coupons.create({
-          id: refCouponId,
-          name: 'Referral Discount - $10 off',
-          amount_off: 1000,
-          currency: 'usd',
-          duration: 'once',
-          max_redemptions: 1,
-          metadata: { type: 'referral', referrer_code: referralCode, report_id: reportId },
-        });
-        sessionConfig.discounts = [{ coupon: refCoupon.id }];
+    // 2. If no coupon provided, check referral + credits in parallel
+    if (!discountApplied && (referralCode || userEmail)) {
+      // Fire both checks simultaneously instead of sequentially
+      const [referralResult, creditsResult] = await Promise.allSettled([
+        // Referral discount
+        referralCode ? (async () => {
+          const refCouponId = `REF10-${reportId.slice(-8)}`;
+          const refCoupon = await stripe.coupons.create({
+            id: refCouponId,
+            name: 'Referral Discount - $10 off',
+            amount_off: 1000,
+            currency: 'usd',
+            duration: 'once',
+            max_redemptions: 1,
+            metadata: { type: 'referral', referrer_code: referralCode, report_id: reportId },
+          });
+          return refCoupon;
+        })() : Promise.reject('no referral'),
+
+        // Referral credits
+        userEmail ? (async () => {
+          const { data: credits } = await supabaseAdmin
+            .from('referral_credits')
+            .select('id, credit_amount')
+            .eq('referrer_email', userEmail.toLowerCase().trim())
+            .eq('used', false)
+            .order('created_at', { ascending: true });
+          return credits;
+        })() : Promise.reject('no email'),
+      ]);
+
+      // Apply referral discount first (higher priority)
+      if (referralResult.status === 'fulfilled' && referralResult.value) {
+        sessionConfig.discounts = [{ coupon: referralResult.value.id }];
         discountApplied = true;
-      } catch (e) {
-        console.error('Failed to create referral coupon:', e);
-        // Don't block checkout if referral coupon fails
       }
-    }
-
-    // 3. If user has accumulated referral credits, apply them
-    if (!discountApplied && userEmail) {
-      try {
-        const { data: credits } = await supabaseAdmin
-          .from('referral_credits')
-          .select('id, credit_amount')
-          .eq('referrer_email', userEmail.toLowerCase().trim())
-          .eq('used', false)
-          .order('created_at', { ascending: true });
-
-        if (credits && credits.length > 0) {
-          const totalCredit = credits.reduce((sum, c) => sum + c.credit_amount, 0);
+      // Otherwise apply accumulated credits
+      else if (!discountApplied && creditsResult.status === 'fulfilled' && creditsResult.value && creditsResult.value.length > 0) {
+        try {
+          const credits = creditsResult.value;
+          const totalCredit = credits.reduce((sum: number, c: { credit_amount: number }) => sum + c.credit_amount, 0);
           const applyAmount = Math.min(totalCredit, 49) * 100; // Cap at price, in cents
           
           const creditCouponId = `CREDIT-${reportId.slice(-8)}`;
@@ -111,18 +123,18 @@ export async function POST(request: NextRequest) {
             currency: 'usd',
             duration: 'once',
             max_redemptions: 1,
-            metadata: { type: 'referral_credit', email: userEmail, credit_ids: credits.map(c => c.id).join(',') },
+            metadata: { type: 'referral_credit', email: userEmail, credit_ids: credits.map((c: { id: string }) => c.id).join(',') },
           });
           sessionConfig.discounts = [{ coupon: creditCoupon.id }];
-          sessionConfig.metadata = { ...sessionConfig.metadata, credit_ids: credits.map(c => c.id).join(',') };
+          sessionConfig.metadata = { ...sessionConfig.metadata, credit_ids: credits.map((c: { id: string }) => c.id).join(',') };
           discountApplied = true;
+        } catch (e) {
+          console.error('Failed to apply referral credits:', e);
         }
-      } catch (e) {
-        console.error('Failed to apply referral credits:', e);
       }
     }
 
-    // 4. If no discount applied, show promo code field
+    // 3. If no discount applied, show promo code field
     if (!discountApplied) {
       sessionConfig.allow_promotion_codes = true;
     }
