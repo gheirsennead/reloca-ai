@@ -271,7 +271,7 @@ export default function PartnersPage() {
                   10% off
                 </div>
                 <p className="text-xs text-gray-500">
-                  Your audience pays $44 instead of $49
+                  Your audience pays $24 instead of $29
                 </p>
               </div>
               <div className="text-sm font-semibold text-[#1a365d]">
@@ -297,7 +297,7 @@ export default function PartnersPage() {
                   15% off
                 </div>
                 <p className="text-xs text-gray-500">
-                  Your audience pays $42 instead of $49
+                  Your audience pays $22 instead of $29
                 </p>
               </div>
               <div className="text-sm font-semibold text-[#1a365d]">
@@ -320,7 +320,7 @@ export default function PartnersPage() {
                   25% off
                 </div>
                 <p className="text-xs text-gray-500">
-                  Your audience pays $37 instead of $49
+                  Your audience pays $17 instead of $29
                 </p>
               </div>
               <div className="text-sm font-semibold text-[#1a365d]">

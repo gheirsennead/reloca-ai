@@ -58,7 +58,7 @@ export default function PrivacyPolicy() {
             <ul className="list-disc ml-6 space-y-1 mt-2">
               <li><strong>Questionnaire responses:</strong> When you use our relocation planning tool, you answer up to 36 questions about your personal situation, including family composition, budget, destination preferences, employment status, and lifestyle priorities.</li>
               <li><strong>Email address:</strong> Required to receive your free summary report or purchase a full report.</li>
-              <li><strong>Payment information:</strong> When purchasing a report ($49) or subscribing to Reloca Pro ($29/month), payment is processed securely through Stripe. We do not store your credit card number, CVV, or full card details on our servers.</li>
+              <li><strong>Payment information:</strong> When purchasing a report ($29) or subscribing to Reloca Pro ($29/month), payment is processed securely through Stripe. We do not store your credit card number, CVV, or full card details on our servers.</li>
               <li><strong>Account information:</strong> If you create an account (Reloca Pro subscribers), we store your name, email, and subscription status.</li>
               <li><strong>Communications:</strong> If you contact us via email or support channels, we retain those messages.</li>
             </ul>

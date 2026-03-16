@@ -197,7 +197,7 @@ export default async function CompareVsPage({ params }: { params: Promise<{ slug
           <Link href="/plan-36" className="inline-block bg-[#38b2ac] hover:bg-[#2c9a94] text-white font-bold px-8 py-4 rounded-xl transition text-lg shadow-lg shadow-[#38b2ac]/25">
             Find My Best Country Match →
           </Link>
-          <p className="text-xs opacity-50 mt-3">Free quiz · Full report: $49 · 30-day money-back guarantee</p>
+          <p className="text-xs opacity-50 mt-3">Free quiz · Full report: $29 · 30-day money-back guarantee</p>
         </div>
       </section>
 

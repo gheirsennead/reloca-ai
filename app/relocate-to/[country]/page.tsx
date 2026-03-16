@@ -181,7 +181,7 @@ export default async function RelocateToCountryPage({ params }: { params: Promis
           <Link href="/plan-36" className="inline-block bg-[#38b2ac] hover:bg-[#2c9a94] text-white font-bold px-8 py-4 rounded-xl transition text-lg shadow-lg shadow-[#38b2ac]/25">
             Start My Free Assessment →
           </Link>
-          <p className="text-xs opacity-50 mt-3">💰 Full report: $49 · 30-day money-back guarantee</p>
+          <p className="text-xs opacity-50 mt-3">💰 Full report: $29 · 30-day money-back guarantee</p>
         </div>
       </section>
 
