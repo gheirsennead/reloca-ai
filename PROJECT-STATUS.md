@@ -38,6 +38,7 @@ Admin password (same for all admin pages): `10f34574c2510a38ae6caad89e45a7f5`
 |--------|-------------|-------------|
 | `analytics-audit` | Bug fixes (quiz completion mismatch, landing page detection), UTM tracking, revenue metrics, marketing ROI view | 2026-03-17 |
 | `stripe-revenue-dashboard` | Live Stripe revenue section with customer names/emails, daily revenue chart, recent payments table | 2026-03-17 |
+| `conversion-optimization` | Money-back badge on all CTAs, post-quiz nurture emails (auto-scheduled), quiz progress save/resume via localStorage | 2026-03-17 |
 | `fix/free-summary-page` | Hide #2/#3 country names, fix UAE capitalization, remove fake testimonials, countdown timer | 2026-03-14 |
 | `fix/paid-report-page` | Remove mid-report upsells, add education section, improve personalization | 2026-03-14 |
 | `fix/fast-checkout` | Module-level Stripe client, parallel discount checks, $49→$29 pricing | 2026-03-16 |
@@ -79,6 +80,16 @@ Client management with:
 - Quiz completion status, report generation status
 - UTM tracking data per user
 - Expandable detail view per client
+
+## 📧 Email BCC
+
+All outgoing emails are BCC'd to `myjobisamazing@gmail.com` (hidden copy of every email to customers, quiz takers, partners).
+
+Files with email sends:
+- `app/api/send-emails/route.ts` — nurture/abandoned cart sequences
+- `app/api/process-reports/route.ts` — report delivery
+- `app/api/partner-apply/route.ts` — partner application confirmation + team notification
+- `app/api/approve-partner/route.ts` — partner approval + team notification
 
 ## 📝 Pending / Deferred
 
