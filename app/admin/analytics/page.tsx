@@ -435,27 +435,7 @@ export default function AnalyticsDashboard() {
               </div>
             )}
 
-            {/* REVENUE METRICS (from analytics events) */}
-            {stats.revenue && (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-lg shadow p-6 border border-green-200">
-                  <div className="text-sm font-medium text-green-700">💰 Total Revenue</div>
-                  <div className="text-3xl font-bold text-green-800">${stats.revenue.total_revenue.toLocaleString(undefined, { minimumFractionDigits: 2 })}</div>
-                </div>
-                <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg shadow p-6 border border-blue-200">
-                  <div className="text-sm font-medium text-blue-700">📊 Paid Reports</div>
-                  <div className="text-3xl font-bold text-blue-800">{stats.revenue.paid_reports}</div>
-                </div>
-                <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg shadow p-6 border border-purple-200">
-                  <div className="text-sm font-medium text-purple-700">💎 Avg Order Value</div>
-                  <div className="text-3xl font-bold text-purple-800">${stats.revenue.avg_order_value.toFixed(2)}</div>
-                </div>
-                <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg shadow p-6 border border-orange-200">
-                  <div className="text-sm font-medium text-orange-700">📈 Revenue/Visitor</div>
-                  <div className="text-3xl font-bold text-orange-800">${stats.revenue.avg_revenue_per_visitor.toFixed(2)}</div>
-                </div>
-              </div>
-            )}
+            {/* Revenue metrics from analytics events removed — Stripe live data above is the single source of truth */}
 
             {/* MARKETING ROI TABLE */}
             {stats.marketing_roi && stats.marketing_roi.platforms.length > 0 && (
