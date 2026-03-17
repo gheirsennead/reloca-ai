@@ -44,6 +44,28 @@ interface AnalyticsStats {
     top_seo_pages: Array<{ page: string; views: number; visitors: number }>;
     organic_by_day: Array<{ date: string; count: number }>;
   };
+  revenue: {
+    total_revenue: number;
+    paid_reports: number;
+    avg_revenue_per_visitor: number;
+    avg_order_value: number;
+    revenue_by_day: Array<{ date: string; amount: number }>;
+  };
+  marketing_roi: {
+    platforms: Array<{
+      platform: string;
+      visitors: number;
+      quiz_starts: number;
+      quiz_completes: number;
+      paid: number;
+      revenue: number;
+      cost_per_acquisition: string;
+    }>;
+  };
+  enhanced_funnel: {
+    steps: Array<{ label: string; count: number; rate: number }>;
+    overall_rate: number;
+  };
 }
 
 export default function AnalyticsDashboard() {
@@ -121,7 +143,16 @@ export default function AnalyticsDashboard() {
           seo_conversion_rate: '0',
           top_seo_pages: [],
           organic_by_day: [],
-        }
+        },
+        revenue: {
+          total_revenue: 0,
+          paid_reports: 0,
+          avg_revenue_per_visitor: 0,
+          avg_order_value: 0,
+          revenue_by_day: [],
+        },
+        marketing_roi: { platforms: [] },
+        enhanced_funnel: { steps: [], overall_rate: 0 },
       });
     } finally {
       setLoading(false);
@@ -251,6 +282,104 @@ export default function AnalyticsDashboard() {
                 <div className="text-2xl font-bold text-red-600">{stats.bounce_rate}%</div>
               </div>
             </div>
+
+            {/* REVENUE METRICS */}
+            {stats.revenue && (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-lg shadow p-6 border border-green-200">
+                  <div className="text-sm font-medium text-green-700">💰 Total Revenue</div>
+                  <div className="text-3xl font-bold text-green-800">${stats.revenue.total_revenue.toLocaleString(undefined, { minimumFractionDigits: 2 })}</div>
+                </div>
+                <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg shadow p-6 border border-blue-200">
+                  <div className="text-sm font-medium text-blue-700">📊 Paid Reports</div>
+                  <div className="text-3xl font-bold text-blue-800">{stats.revenue.paid_reports}</div>
+                </div>
+                <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg shadow p-6 border border-purple-200">
+                  <div className="text-sm font-medium text-purple-700">💎 Avg Order Value</div>
+                  <div className="text-3xl font-bold text-purple-800">${stats.revenue.avg_order_value.toFixed(2)}</div>
+                </div>
+                <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg shadow p-6 border border-orange-200">
+                  <div className="text-sm font-medium text-orange-700">📈 Revenue/Visitor</div>
+                  <div className="text-3xl font-bold text-orange-800">${stats.revenue.avg_revenue_per_visitor.toFixed(2)}</div>
+                </div>
+              </div>
+            )}
+
+            {/* MARKETING ROI TABLE - TOP PRIORITY */}
+            {stats.marketing_roi && stats.marketing_roi.platforms.length > 0 && (
+              <div className="bg-white rounded-xl shadow-lg p-6 border-2 border-teal-200">
+                <h3 className="text-xl font-bold text-gray-900 mb-4">🎯 Marketing ROI by Platform</h3>
+                <p className="text-sm text-gray-500 mb-4">Attribution: first-touch UTM → referrer → direct. Add UTM params to all marketing links for accurate tracking.</p>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b-2 border-gray-200">
+                        <th className="text-left py-3 px-4 font-semibold text-gray-700">Platform</th>
+                        <th className="text-right py-3 px-4 font-semibold text-gray-700">Visitors</th>
+                        <th className="text-right py-3 px-4 font-semibold text-gray-700">Quiz Starts</th>
+                        <th className="text-right py-3 px-4 font-semibold text-gray-700">Quiz Done</th>
+                        <th className="text-right py-3 px-4 font-semibold text-gray-700">Paid</th>
+                        <th className="text-right py-3 px-4 font-semibold text-gray-700">Revenue</th>
+                        <th className="text-right py-3 px-4 font-semibold text-gray-700">Conv. Rate</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {stats.marketing_roi.platforms.map((p, i) => (
+                        <tr key={p.platform} className={`border-b ${i % 2 === 0 ? 'bg-gray-50' : ''} hover:bg-teal-50 transition`}>
+                          <td className="py-3 px-4 font-medium capitalize">{p.platform}</td>
+                          <td className="py-3 px-4 text-right">{p.visitors.toLocaleString()}</td>
+                          <td className="py-3 px-4 text-right">{p.quiz_starts.toLocaleString()}</td>
+                          <td className="py-3 px-4 text-right">{p.quiz_completes.toLocaleString()}</td>
+                          <td className="py-3 px-4 text-right font-semibold text-green-700">{p.paid}</td>
+                          <td className="py-3 px-4 text-right font-semibold text-green-700">${p.revenue.toFixed(2)}</td>
+                          <td className="py-3 px-4 text-right">
+                            {p.visitors > 0 ? ((p.paid / p.visitors) * 100).toFixed(1) : '0'}%
+                          </td>
+                        </tr>
+                      ))}
+                      {/* Totals row */}
+                      <tr className="border-t-2 border-gray-300 font-bold bg-gray-100">
+                        <td className="py-3 px-4">TOTAL</td>
+                        <td className="py-3 px-4 text-right">{stats.marketing_roi.platforms.reduce((s, p) => s + p.visitors, 0).toLocaleString()}</td>
+                        <td className="py-3 px-4 text-right">{stats.marketing_roi.platforms.reduce((s, p) => s + p.quiz_starts, 0).toLocaleString()}</td>
+                        <td className="py-3 px-4 text-right">{stats.marketing_roi.platforms.reduce((s, p) => s + p.quiz_completes, 0).toLocaleString()}</td>
+                        <td className="py-3 px-4 text-right text-green-700">{stats.marketing_roi.platforms.reduce((s, p) => s + p.paid, 0)}</td>
+                        <td className="py-3 px-4 text-right text-green-700">${stats.marketing_roi.platforms.reduce((s, p) => s + p.revenue, 0).toFixed(2)}</td>
+                        <td className="py-3 px-4 text-right">—</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
+            {/* ENHANCED FUNNEL */}
+            {stats.enhanced_funnel && stats.enhanced_funnel.steps.length > 0 && (
+              <div className="bg-white rounded-xl shadow-lg p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-2">📊 Full Conversion Funnel</h3>
+                <p className="text-sm text-gray-500 mb-4">Overall conversion rate: <span className="font-bold text-teal-600">{stats.enhanced_funnel.overall_rate}%</span></p>
+                <div className="space-y-3">
+                  {stats.enhanced_funnel.steps.map((step, i) => {
+                    const maxCount = Math.max(...stats.enhanced_funnel.steps.map(s => s.count), 1);
+                    const widthPercent = Math.max((step.count / maxCount) * 100, 3);
+                    const colors = ['bg-blue-500', 'bg-yellow-500', 'bg-green-500', 'bg-purple-500', 'bg-orange-500', 'bg-red-500'];
+                    return (
+                      <div key={step.label} className="flex items-center gap-4">
+                        <div className="w-40 text-sm font-medium text-gray-700 text-right">{step.label}</div>
+                        <div className="flex-1 relative">
+                          <div className={`h-10 ${colors[i % colors.length]} rounded-r-lg flex items-center justify-end pr-3 transition-all`} style={{ width: `${widthPercent}%` }}>
+                            <span className="text-white text-sm font-bold">{step.count.toLocaleString()}</span>
+                          </div>
+                        </div>
+                        <div className="w-16 text-sm text-gray-500 text-right">
+                          {i === 0 ? '—' : `${step.rate}%`}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
 
             {/* CONVERSION ANALYTICS - TOP PRIORITY */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">

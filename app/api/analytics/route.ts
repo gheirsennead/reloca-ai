@@ -29,10 +29,14 @@ export async function POST(request: NextRequest) {
     const vercelRegion = request.headers.get('x-vercel-ip-country-region');
     const vercelCity = request.headers.get('x-vercel-ip-city');
     
-    // Merge server-side geo and visitor ID with client-side data
+    // Merge server-side geo, visitor ID, and UTM data with client-side data
     const properties = { ...data.properties };
     if (data.visitorId) {
       properties.visitor_id = data.visitorId;
+    }
+    // Persist UTM attribution data into event properties
+    if (data.utm && data.utm.source) {
+      properties.utm = data.utm;
     }
     if (vercelCountry && (!properties.geo || properties.geo.country === 'Unknown')) {
       properties.geo = {
@@ -161,8 +165,14 @@ export async function GET(request: NextRequest) {
       conversion_funnel: getConversionFunnel(data || []),
       bounce_rate: getBounceRate(data || []),
       seo_performance: getSeoPerformance(data || []),
+      // NEW: Revenue metrics
+      revenue: getRevenueMetrics(data || []),
+      // NEW: Marketing ROI by UTM source
+      marketing_roi: getMarketingROI(data || []),
+      // NEW: Enhanced funnel with summary viewed + payment initiated
+      enhanced_funnel: getEnhancedFunnel(data || []),
       // Debug info to verify API deployment
-      _api_version: 'v5_pagination',
+      _api_version: 'v6_analytics_audit',
       _generated_at: new Date().toISOString(),
       _query_method: 'pagination_batches',
       _actual_returned: data?.length || 0
@@ -385,7 +395,7 @@ function getQuestionnaireFunnel(events: any[]) {
       const progress = e.properties?.progress_percent || e.properties?.progress || 0;
       
       if (action === 'start') started.add(vid);
-      else if (action === 'completion') completed.add(vid);
+      else if (action === 'completion' || action === 'complete') completed.add(vid);
       else if (action === 'progress') {
         // Track highest milestone reached per visitor
         if (progress >= 25) reached25.add(vid);
@@ -450,12 +460,12 @@ function getConversionFunnel(events: any[]) {
     if (!vid) return;
     
     if (e.event_type === 'page_view') {
-      const page = e.properties?.page || e.url;
-      if (page === '/' || (page?.includes('reloca.ai') && !page?.includes('/admin'))) landingVisitors.add(vid);
+      const page = e.properties?.page || (e.url ? (() => { try { return new URL(e.url).pathname; } catch { return e.url; } })() : '');
+      if (page && !page.includes('/admin')) landingVisitors.add(vid);
       if (page?.includes('/plan')) planVisitors.add(vid);
     } else if (e.event_type === 'feature_usage' && e.properties?.feature === 'questionnaire') {
       if (e.properties?.action === 'start') quizStartVisitors.add(vid);
-      if (e.properties?.action === 'completion') quizCompleteVisitors.add(vid);
+      if (e.properties?.action === 'completion' || e.properties?.action === 'complete') quizCompleteVisitors.add(vid);
     } else if (e.event_type === 'conversion') {
       conversionVisitors.add(vid);
     }
@@ -562,5 +572,225 @@ function getSeoPerformance(events: any[]) {
     seo_conversion_rate: seoVisitorIds.size > 0 ? ((conversionsFromSeo / seoVisitorIds.size) * 100).toFixed(2) : '0',
     top_seo_pages: topSeoPages,
     organic_by_day: Object.entries(organicByDay).sort(([a], [b]) => a.localeCompare(b)).map(([date, count]) => ({ date, count })),
+  };
+}
+
+// ==========================================
+// NEW: Revenue Metrics
+// ==========================================
+function getRevenueMetrics(events: any[]) {
+  const conversions = events.filter(e => e.event_type === 'conversion');
+  
+  let totalRevenue = 0;
+  let paidReports = 0;
+  const revenueByDay: Record<string, number> = {};
+  
+  conversions.forEach(e => {
+    const value = e.properties?.value || e.properties?.price || 0;
+    totalRevenue += value;
+    paidReports++;
+    
+    const day = e.timestamp?.split('T')[0];
+    if (day) revenueByDay[day] = (revenueByDay[day] || 0) + value;
+  });
+  
+  const uniqueVisitors = getUniqueVisitors(events);
+  
+  return {
+    total_revenue: totalRevenue,
+    paid_reports: paidReports,
+    avg_revenue_per_visitor: uniqueVisitors > 0 ? parseFloat((totalRevenue / uniqueVisitors).toFixed(2)) : 0,
+    avg_order_value: paidReports > 0 ? parseFloat((totalRevenue / paidReports).toFixed(2)) : 0,
+    revenue_by_day: Object.entries(revenueByDay)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([date, amount]) => ({ date, amount })),
+  };
+}
+
+// ==========================================
+// NEW: Marketing ROI by UTM Source
+// ==========================================
+function getMarketingROI(events: any[]) {
+  // Build a map: visitor_id -> UTM source (from their first event with UTM data)
+  const visitorUtm: Record<string, { source: string; medium: string; campaign: string }> = {};
+  
+  // Sort events by timestamp ascending to get first touch attribution
+  const sortedEvents = [...events].sort((a, b) => 
+    new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+  );
+  
+  sortedEvents.forEach(e => {
+    const vid = e.properties?.visitor_id || e.session_id;
+    if (!vid) return;
+    
+    // Check for UTM data in properties
+    const utm = e.properties?.utm || e.properties?.utm_params;
+    if (utm && utm.source && !visitorUtm[vid]) {
+      visitorUtm[vid] = {
+        source: utm.source,
+        medium: utm.medium || '',
+        campaign: utm.campaign || '',
+      };
+    }
+    
+    // Also check URL params directly
+    if (!visitorUtm[vid] && e.url) {
+      try {
+        const url = new URL(e.url);
+        const utmSource = url.searchParams.get('utm_source');
+        if (utmSource) {
+          visitorUtm[vid] = {
+            source: utmSource,
+            medium: url.searchParams.get('utm_medium') || '',
+            campaign: url.searchParams.get('utm_campaign') || '',
+          };
+        }
+      } catch {}
+    }
+    
+    // Fallback: categorize by referrer
+    if (!visitorUtm[vid] && e.referrer && e.event_type === 'page_view') {
+      try {
+        const domain = new URL(e.referrer).hostname;
+        let source = 'referral';
+        if (domain.includes('google') || domain.includes('bing') || domain.includes('duckduckgo')) source = 'organic';
+        else if (domain.includes('facebook') || domain.includes('fb.com') || domain.includes('fbclid')) source = 'facebook';
+        else if (domain.includes('twitter') || domain.includes('t.co') || domain.includes('x.com')) source = 'x';
+        else if (domain.includes('telegram') || domain.includes('t.me')) source = 'telegram';
+        else if (domain.includes('linkedin')) source = 'linkedin';
+        
+        visitorUtm[vid] = { source, medium: 'referral', campaign: '' };
+      } catch {}
+    }
+  });
+  
+  // Assign 'direct' to remaining visitors
+  const allVisitorIds = new Set<string>();
+  events.forEach(e => {
+    const vid = e.properties?.visitor_id || e.session_id;
+    if (vid) allVisitorIds.add(vid);
+  });
+  allVisitorIds.forEach(vid => {
+    if (!visitorUtm[vid]) visitorUtm[vid] = { source: 'direct', medium: '', campaign: '' };
+  });
+  
+  // Now build ROI table by source
+  const roi: Record<string, { visitors: Set<string>; quiz_starts: Set<string>; quiz_completes: Set<string>; paid: Set<string>; revenue: number }> = {};
+  
+  const getSourceKey = (vid: string) => {
+    const utm = visitorUtm[vid];
+    if (!utm) return 'direct';
+    // Group X campaigns separately if they have different campaigns
+    if (utm.source === 'x' && utm.campaign) {
+      return `x (${utm.campaign})`;
+    }
+    return utm.source;
+  };
+  
+  const ensureBucket = (key: string) => {
+    if (!roi[key]) roi[key] = { visitors: new Set(), quiz_starts: new Set(), quiz_completes: new Set(), paid: new Set(), revenue: 0 };
+  };
+  
+  events.forEach(e => {
+    const vid = e.properties?.visitor_id || e.session_id;
+    if (!vid) return;
+    const key = getSourceKey(vid);
+    ensureBucket(key);
+    
+    if (e.event_type === 'page_view') {
+      roi[key].visitors.add(vid);
+    }
+    
+    if (e.event_type === 'feature_usage' && e.properties?.feature === 'questionnaire') {
+      if (e.properties?.action === 'start') roi[key].quiz_starts.add(vid);
+      if (e.properties?.action === 'completion' || e.properties?.action === 'complete') roi[key].quiz_completes.add(vid);
+    }
+    
+    if (e.event_type === 'conversion') {
+      roi[key].paid.add(vid);
+      roi[key].revenue += e.properties?.value || e.properties?.price || 0;
+    }
+  });
+  
+  // Convert to array
+  const platforms = Object.entries(roi)
+    .map(([platform, data]) => ({
+      platform,
+      visitors: data.visitors.size,
+      quiz_starts: data.quiz_starts.size,
+      quiz_completes: data.quiz_completes.size,
+      paid: data.paid.size,
+      revenue: parseFloat(data.revenue.toFixed(2)),
+      cost_per_acquisition: data.paid.size > 0 ? 'N/A' : '-', // Placeholder — ad spend must be entered manually
+    }))
+    .sort((a, b) => b.visitors - a.visitors);
+  
+  return { platforms };
+}
+
+// ==========================================
+// NEW: Enhanced Funnel (with summary viewed + payment initiated)
+// ==========================================
+function getEnhancedFunnel(events: any[]) {
+  const visitors = new Set<string>();
+  const quizStarters = new Set<string>();
+  const quizCompleters = new Set<string>();
+  const summaryViewers = new Set<string>();
+  const paymentInitiated = new Set<string>();
+  const paymentCompleted = new Set<string>();
+  
+  events.forEach(e => {
+    const vid = e.properties?.visitor_id || e.session_id;
+    if (!vid) return;
+    
+    // All visitors
+    if (e.event_type === 'page_view') {
+      const page = e.properties?.page || '';
+      if (!page.includes('/admin')) visitors.add(vid);
+      
+      // Summary/report page viewed (free summary)
+      if (page.includes('/report/') || page.includes('/summary')) {
+        summaryViewers.add(vid);
+      }
+      // Plan/payment page viewed = payment initiated
+      if (page.includes('/plan') || page.includes('/payment') || page.includes('/checkout')) {
+        paymentInitiated.add(vid);
+      }
+    }
+    
+    // Quiz starts/completions
+    if (e.event_type === 'feature_usage' && e.properties?.feature === 'questionnaire') {
+      if (e.properties?.action === 'start') quizStarters.add(vid);
+      if (e.properties?.action === 'completion' || e.properties?.action === 'complete') quizCompleters.add(vid);
+    }
+    
+    // Also count 'questionnaire_start' event type (some components use this)
+    if (e.event_type === 'questionnaire_start') {
+      quizStarters.add(vid);
+    }
+    
+    // Purchase intent = payment initiated
+    if (e.event_type === 'purchase_intent' || e.event_type === 'purchase_start') {
+      paymentInitiated.add(vid);
+    }
+    
+    // Conversion = payment completed
+    if (e.event_type === 'conversion') {
+      paymentCompleted.add(vid);
+    }
+  });
+  
+  const rate = (num: number, denom: number) => denom > 0 ? parseFloat(((num / denom) * 100).toFixed(1)) : 0;
+  
+  return {
+    steps: [
+      { label: 'Visitors', count: visitors.size, rate: 100 },
+      { label: 'Quiz Started', count: quizStarters.size, rate: rate(quizStarters.size, visitors.size) },
+      { label: 'Quiz Completed', count: quizCompleters.size, rate: rate(quizCompleters.size, quizStarters.size) },
+      { label: 'Summary Viewed', count: summaryViewers.size, rate: rate(summaryViewers.size, quizCompleters.size) },
+      { label: 'Payment Initiated', count: paymentInitiated.size, rate: rate(paymentInitiated.size, summaryViewers.size) },
+      { label: 'Payment Completed', count: paymentCompleted.size, rate: rate(paymentCompleted.size, paymentInitiated.size) },
+    ],
+    overall_rate: rate(paymentCompleted.size, visitors.size),
   };
 }
