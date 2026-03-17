@@ -87,6 +87,7 @@ export async function POST(req: Request) {
     await resend.emails.send({
       from: "Reloca.ai Partners <partners@reloca.ai>",
       to: app.email,
+      bcc: 'myjobisamazing@gmail.com',
       subject: "🎉 You're Approved! Welcome to the Reloca.ai Partner Program",
       html: `
         <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px;">
@@ -133,6 +134,7 @@ export async function POST(req: Request) {
     await resend.emails.send({
       from: "Reloca.ai Partners <partners@reloca.ai>",
       to: "aftcreations@protonmail.com",
+      bcc: 'myjobisamazing@gmail.com',
       subject: `✅ Partner Approved: ${app.name} → ${referralCode}`,
       html: `
         <div style="font-family: sans-serif; padding: 20px;">

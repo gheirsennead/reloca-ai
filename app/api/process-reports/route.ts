@@ -91,7 +91,7 @@ async function sendReportEmail(reportId: string, userId: string) {
     body: JSON.stringify({
       from: 'Reloca.ai <reports@reloca.ai>',
       to: user.email,
-      bcc: 'nexus_cdb@proton.me',
+      bcc: ['nexus_cdb@proton.me', 'myjobisamazing@gmail.com'],
       subject: `Your Relocation Plan is Ready — Top Match: ${topMatch}`,
       html: `
 <!DOCTYPE html>

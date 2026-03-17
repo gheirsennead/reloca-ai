@@ -65,7 +65,7 @@ export async function GET(request: NextRequest) {
       await getResend().emails.send({
         from: 'Reloca.ai <hello@reloca.ai>',
         to: user.email,
-        bcc: process.env.ADMIN_BCC_EMAIL || 'muse.adb@proton.me',
+        bcc: [process.env.ADMIN_BCC_EMAIL || 'muse.adb@proton.me', 'myjobisamazing@gmail.com'],
         subject: template.subject.replace('[First Name]', firstName),
         html,
       });
