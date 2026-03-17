@@ -488,7 +488,7 @@ function getConversionFunnel(events: any[]) {
     } else if (e.event_type === 'feature_usage' && e.properties?.feature === 'questionnaire') {
       if (e.properties?.action === 'start') quizStartVisitors.add(vid);
       if (e.properties?.action === 'completion' || e.properties?.action === 'complete') quizCompleteVisitors.add(vid);
-    } else if (e.event_type === 'conversion') {
+    } else if (e.event_type === 'conversion' && !isTestConversion(e)) {
       conversionVisitors.add(vid);
     }
   });

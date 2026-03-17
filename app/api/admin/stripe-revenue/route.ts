@@ -57,7 +57,8 @@ export async function GET(request: NextRequest) {
       const batch = await stripe.charges.list(params);
       const successfulCharges = batch.data.filter(c => 
         c.status === 'succeeded' && !c.refunded &&
-        !isExcludedEmail(c)
+        !isExcludedEmail(c) &&
+        c.amount > 0  // Exclude $0 coupon conversions
       );
       charges.push(...successfulCharges);
       hasMore = batch.has_more;
@@ -78,7 +79,8 @@ export async function GET(request: NextRequest) {
       const batch = await stripe.charges.list(params);
       const successfulCharges = batch.data.filter(c => 
         c.status === 'succeeded' && !c.refunded &&
-        !isExcludedEmail(c)
+        !isExcludedEmail(c) &&
+        c.amount > 0  // Exclude $0 coupon conversions
       );
       allTimeCharges.push(...successfulCharges);
       allHasMore = batch.has_more;
