@@ -337,8 +337,41 @@ function EarlyEmailCapture({ email, onEmailChange, onDismiss }: { email: string;
   );
 }
 
+const QUIZ_STORAGE_KEY = 'reloca_quiz_progress';
+const QUIZ_STORAGE_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
+
+interface SavedQuizProgress {
+  currentQuestion: number;
+  answers: Record<number, Answer>;
+  skippedQuestions: number[];
+  savedAt: number;
+}
+
+function loadSavedProgress(): SavedQuizProgress | null {
+  if (typeof window === 'undefined') return null;
+  try {
+    const raw = localStorage.getItem(QUIZ_STORAGE_KEY);
+    if (!raw) return null;
+    const data: SavedQuizProgress = JSON.parse(raw);
+    if (Date.now() - data.savedAt > QUIZ_STORAGE_TTL_MS) {
+      localStorage.removeItem(QUIZ_STORAGE_KEY);
+      return null;
+    }
+    return data;
+  } catch {
+    return null;
+  }
+}
+
+function clearSavedProgress() {
+  if (typeof window !== 'undefined') {
+    localStorage.removeItem(QUIZ_STORAGE_KEY);
+  }
+}
+
 export default function Enhanced36Questionnaire() {
   const [showIntro, setShowIntro] = useState(true);
+  const [showResumePrompt, setShowResumePrompt] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Record<number, Answer>>({});
   const [skippedQuestions, setSkippedQuestions] = useState<Set<number>>(new Set());
@@ -352,6 +385,14 @@ export default function Enhanced36Questionnaire() {
   const answer = answers[question.id];
   const isNewSection = currentQuestion === 0 || questions36Enhanced[currentQuestion].section !== questions36Enhanced[currentQuestion - 1].section;
   const currentSection = SECTIONS_36.find(s => s.id === question.section);
+
+  // Check for saved progress on mount
+  useEffect(() => {
+    const saved = loadSavedProgress();
+    if (saved && saved.currentQuestion > 0) {
+      setShowResumePrompt(true);
+    }
+  }, []);
 
   // Track quiz start
   useEffect(() => {
@@ -367,6 +408,23 @@ export default function Enhanced36Questionnaire() {
       });
     }
   }, [currentQuestion, question.id, question.section]);
+
+  // Save progress to localStorage after every answer change
+  useEffect(() => {
+    if (!showIntro && !showEmailCapture && currentQuestion > 0) {
+      try {
+        const progress: SavedQuizProgress = {
+          currentQuestion,
+          answers,
+          skippedQuestions: Array.from(skippedQuestions),
+          savedAt: Date.now(),
+        };
+        localStorage.setItem(QUIZ_STORAGE_KEY, JSON.stringify(progress));
+      } catch {
+        // localStorage may be unavailable — fail silently
+      }
+    }
+  }, [currentQuestion, answers, skippedQuestions, showIntro, showEmailCapture]);
 
   const canProceed = useMemo(() => {
     if (!question.mandatory) return true;
@@ -424,6 +482,9 @@ export default function Enhanced36Questionnaire() {
           skipped_questions: skippedQuestions.size
         });
         
+        // Clear saved progress on successful submission
+        clearSavedProgress();
+
         // Redirect to report/payment page
         window.location.href = `/report/${data.reportId}`;
       } else {
@@ -436,6 +497,73 @@ export default function Enhanced36Questionnaire() {
       setIsSubmitting(false);
     }
   }, [email, firstName, answers, skippedQuestions]);
+
+  // Resume prompt — shown when saved progress is detected
+  if (showResumePrompt) {
+    const saved = loadSavedProgress();
+    const savedQuestion = saved?.currentQuestion ?? 0;
+    const savedPct = Math.round(((savedQuestion + 1) / TOTAL_QUESTIONS_36) * 100);
+
+    const handleResume = () => {
+      if (saved) {
+        setCurrentQuestion(saved.currentQuestion);
+        setAnswers(saved.answers);
+        setSkippedQuestions(new Set(saved.skippedQuestions));
+      }
+      setShowIntro(false);
+      setShowResumePrompt(false);
+    };
+
+    const handleStartFresh = () => {
+      clearSavedProgress();
+      setShowResumePrompt(false);
+      setShowIntro(true);
+    };
+
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-[#fafaf9] to-[#f5f5f4] flex items-center justify-center p-4">
+        <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-lg w-full text-center">
+          <Link href="/" className="inline-block mb-6">
+            <img src="/images/reloca-logo.png" alt="Reloca.ai" className="h-12 w-auto mx-auto" />
+          </Link>
+          <div className="w-16 h-16 bg-[#38b2ac]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span className="text-3xl">👋</span>
+          </div>
+          <h2 className="text-2xl font-bold text-[#1a365d] mb-2">Welcome back!</h2>
+          <p className="text-gray-600 mb-6">You made it to question {savedQuestion + 1} of {TOTAL_QUESTIONS_36}. Want to pick up where you left off?</p>
+
+          {/* Progress preview */}
+          <div className="mb-6">
+            <div className="flex justify-between text-xs text-gray-500 mb-2">
+              <span>Progress saved</span>
+              <span className="font-semibold text-[#38b2ac]">{savedPct}%</span>
+            </div>
+            <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-gradient-to-r from-[#38b2ac] to-[#2c9a94] rounded-full"
+                style={{ width: `${savedPct}%` }}
+              />
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            <button
+              onClick={handleResume}
+              className="w-full py-4 bg-gradient-to-r from-[#38b2ac] to-[#319795] text-white font-bold rounded-xl hover:shadow-lg shadow-lg shadow-[#38b2ac]/25 transition-all text-lg"
+            >
+              Continue where I left off →
+            </button>
+            <button
+              onClick={handleStartFresh}
+              className="w-full py-3 text-gray-500 hover:text-[#1a365d] text-sm transition"
+            >
+              Start fresh instead
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (showEmailCapture) {
     return (
@@ -494,6 +622,11 @@ export default function Enhanced36Questionnaire() {
             >
               {isSubmitting ? "Generating Your Report..." : "Get My Relocation Report →"}
             </button>
+            {/* Money-back guarantee badge */}
+            <div className="flex items-center justify-center gap-2 mt-3 bg-green-50 rounded-lg px-3 py-2">
+              <span className="text-base">🛡️</span>
+              <p className="text-xs text-green-700 font-medium">30-day money-back guarantee — no questions asked</p>
+            </div>
           </div>
         </div>
       </div>
@@ -537,6 +670,24 @@ export default function Enhanced36Questionnaire() {
                 <p className="font-semibold text-[#1a365d] text-sm">What you{"'"}ll get</p>
                 <p className="text-xs text-gray-500">A professional, personalized relocation plan covering visa pathways, tax optimization, cost of living, healthcare, education, and lifestyle — tailored to your situation. A strategic roadmap you can actually act on.</p>
               </div>
+            </div>
+          </div>
+
+          {/* Progress preview — shows what the quiz looks like */}
+          <div className="mb-5 px-1">
+            <div className="flex justify-between text-xs text-gray-400 mb-1.5">
+              <span>36 questions · ~10 min</span>
+              <span>0%</span>
+            </div>
+            <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+              <div className="h-full w-0 bg-gradient-to-r from-[#38b2ac] to-[#2c9a94] rounded-full" />
+            </div>
+            <div className="flex justify-between mt-2 text-xs text-gray-400">
+              <span>Your profile</span>
+              <span>Finances</span>
+              <span>Lifestyle</span>
+              <span>Practical</span>
+              <span>Goals</span>
             </div>
           </div>
 

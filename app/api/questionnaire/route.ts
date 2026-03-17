@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase';
+import { ABANDONED_CART_SEQUENCE } from '@/lib/email-sequences';
+
+const TEST_EMAILS_EXCLUDE = ['vitagreg@gmail.com'];
 
 export async function POST(request: NextRequest) {
   try {
@@ -130,6 +133,39 @@ export async function POST(request: NextRequest) {
         });
       }
     } catch { /* non-blocking */ }
+
+    // 5. Schedule abandoned cart nurture email sequence (if user hasn't paid)
+    // Excluded: test emails
+    const normalizedEmail = email.toLowerCase().trim();
+    if (!TEST_EMAILS_EXCLUDE.includes(normalizedEmail)) {
+      try {
+        const now = new Date();
+        // Offsets in milliseconds
+        const scheduleOffsets = [
+          30 * 60 * 1000,              // Email 1: 30 minutes
+          24 * 60 * 60 * 1000,         // Email 2: 24 hours
+          3 * 24 * 60 * 60 * 1000,     // Email 3: 3 days
+          7 * 24 * 60 * 60 * 1000,     // Email 4: 7 days
+        ];
+
+        const emailRows = ABANDONED_CART_SEQUENCE.map((emailDef, index) => ({
+          user_id: userId,
+          report_id: report.id,
+          email_index: index,
+          subject: emailDef.subject,
+          sequence_type: 'abandoned_cart',
+          day_offset: emailDef.dayOffset,
+          scheduled_at: new Date(now.getTime() + scheduleOffsets[index]).toISOString(),
+          sent: false,
+        }));
+
+        await supabaseAdmin.from('scheduled_emails').insert(emailRows);
+        console.log(`Scheduled ${emailRows.length} abandoned cart emails for user ${userId}`);
+      } catch (emailErr: any) {
+        console.error('Failed to schedule abandoned cart emails:', emailErr?.message);
+        // Non-blocking — don't fail the request
+      }
+    }
 
     return NextResponse.json({
       reportId: report.id,

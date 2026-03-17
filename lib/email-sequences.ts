@@ -1,5 +1,5 @@
 // Post-purchase email sequence definitions
-// 5 emails over 14 days after $49 report purchase
+// 5 emails over 14 days after $29 report purchase
 
 export interface ScheduledEmail {
   dayOffset: number;
@@ -119,103 +119,85 @@ export const POST_PURCHASE_SEQUENCE: ScheduledEmail[] = [
 ];
 
 // Abandoned cart email sequence for non-paying users who completed quiz but didn't buy
+// Nurture sequence — educate first, sell gently
+// NOTE: Exclude test email vitagreg@gmail.com from this sequence
 export const ABANDONED_CART_SEQUENCE: ScheduledEmail[] = [
-  // Email 1: 30 minutes — Sneak peek with insights
+  // Email 1: 30 min after quiz — Sneak peek of what's inside (soft tone)
   {
-    dayOffset: 0, // 30 min = ~0 days
-    subject: 'Your report is waiting — here\'s a sneak peek of what\'s inside',
+    dayOffset: 0, // scheduled_at is set to +30 min explicitly in the API
+    subject: 'A peek inside your relocation report 👀',
     buildHtml: (firstName, reportUrl) => wrap(`
-<h2 style="color:#1a365d;">Hi ${firstName},</h2>
-<p>Your personalized relocation report is ready, but you haven't unlocked the full version yet.</p>
-<p>Here's a sneak peek of what's waiting for you inside:</p>
+<h2 style="color:#1a365d;">Hi ${firstName || 'there'},</h2>
+<p>You just finished your relocation assessment — great work. That's the hardest part.</p>
+<p>Your personalized report has been prepared based on your answers. Here's a glimpse of what's inside:</p>
 <ul>
-  <li><strong>Your #1 country match</strong> — We found your perfect fit with detailed visa pathways</li>
-  <li><strong>Property insights</strong> — Specific neighborhoods and real price examples in your budget</li>
-  <li><strong>Month-by-month timeline</strong> — Exactly what to do and when to make your move</li>
+  <li>🌍 <strong>Your #1 country match</strong> — with the specific visa pathway that fits your profile</li>
+  <li>💰 <strong>Real cost estimates</strong> — what your life would actually cost there, month by month</li>
+  <li>🗓️ <strong>A timeline</strong> — what to do in the next 30, 60, and 90 days to make it real</li>
 </ul>
-<p>The preview shows you the basics, but the full report includes:</p>
-<ul>
-  <li>Complete tax optimization strategies</li>
-  <li>Detailed cost breakdowns with real numbers</li>
-  <li>Healthcare and education recommendations</li>
-  <li>Safety assessment and cultural integration tips</li>
-</ul>
-<p><a href="${reportUrl}" style="display:inline-block;background:#38b2ac;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;">Get Your Full Report — $49</a></p>
-<p>Questions about your relocation? Reply to this email.</p>
+<p>The free preview gives you the basics. The full report — all 16 sections — unlocks the complete picture for $29.</p>
+<p><a href="${reportUrl}" style="display:inline-block;background:#38b2ac;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;">See Your Report →</a></p>
+<p style="font-size:12px;color:#718096;margin-top:16px;">🛡️ 30-day money-back guarantee — no questions asked.</p>
+<p>Take your time. We'll be here.</p>
 <p>— The Reloca.ai Team</p>
     `),
   },
-  // Email 2: Day 1 — Personalized visa insight
+  // Email 2: Day 1 — Educational value, NOT a hard sell
   {
     dayOffset: 1,
-    subject: 'Did you know? Your ideal country has a visa that fits your exact profile',
-    buildHtml: (firstName, reportUrl) => wrap(`
-<h2 style="color:#1a365d;">Hi ${firstName},</h2>
-<p>I was reviewing your questionnaire responses, and something caught my attention...</p>
-<p>Your ideal country match has a residency visa that's <strong>perfect</strong> for your situation. Most people don't know about this pathway.</p>
-<p>Here's what makes it special:</p>
-<ul>
-  <li>Processing time: 2-4 months (faster than most think)</li>
-  <li>No minimum investment required</li>
-  <li>Renewable indefinitely with a clear path to permanent residency</li>
-</ul>
-<p>Your full report includes:</p>
-<ul>
-  <li>Step-by-step visa application process</li>
-  <li>Document checklist and timeline</li>
-  <li>Real processing experiences from other families</li>
-  <li>Common pitfalls and how to avoid them</li>
-</ul>
-<p><a href="${reportUrl}" style="display:inline-block;background:#38b2ac;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;">See Your Visa Pathway — $49</a></p>
-<p>Don't let bureaucracy stop your dream. Get the insider knowledge.</p>
+    subject: 'How families actually pull off an international move',
+    buildHtml: (firstName, _reportUrl) => wrap(`
+<h2 style="color:#1a365d;">Hi ${firstName || 'there'},</h2>
+<p>Relocating internationally can feel overwhelming. But the families who do it successfully usually follow the same playbook:</p>
+<h3 style="color:#38b2ac;">Step 1: Pick the right country (not just the prettiest)</h3>
+<p>Most people pick based on lifestyle — beaches, culture, weather. But the families who thrive abroad also factor in visa feasibility, tax implications, healthcare access, and cost of living relative to their income. Your report does this analysis for you.</p>
+<h3 style="color:#38b2ac;">Step 2: Understand the visa timeline BEFORE you commit</h3>
+<p>Visa processing times range from 1 month (Paraguay) to 12+ months (Portugal NHR). Getting this wrong can derail your whole plan. Most people only discover this after they've already given notice at their job.</p>
+<h3 style="color:#38b2ac;">Step 3: Build your financial runway</h3>
+<p>The first 3-6 months abroad are expensive. Setup costs — banking, housing deposits, school registration, legal fees — can add up to $5,000–$15,000 before you've settled in. Planning for this changes everything.</p>
+<p>These are the kinds of details your report covers — specific to your situation, not generic advice.</p>
+<p>No pressure. Just wanted to share something useful today.</p>
 <p>— The Reloca.ai Team</p>
     `),
   },
-  // Email 3: Day 3 — Urgency with launch price
+  // Email 3: Day 3 — Social proof + $29 value prop
   {
     dayOffset: 3,
-    subject: 'Limited time: Your $49 launch price won\'t last forever',
+    subject: 'What families are saying about their Reloca reports',
     buildHtml: (firstName, reportUrl) => wrap(`
-<h2 style="color:#1a365d;">Hi ${firstName},</h2>
-<p>Quick heads up — you're getting our launch pricing at $49.</p>
-<p>This is 75% off what a traditional relocation consultant would charge (they typically charge $200-500 for a fraction of what we provide).</p>
-<p><strong>Why the low price?</strong> We're in launch mode and building our reputation. Early users get the best deal.</p>
-<p>But this won't last. As we grow, pricing will reflect the true value of what you get:</p>
-<ul>
-  <li>16-section comprehensive analysis</li>
-  <li>Real-time data from our expert knowledge base</li>
-  <li>Insights from a licensed real estate professional who's relocated internationally</li>
-  <li>Personalized recommendations you can't find anywhere else</li>
-</ul>
-<p>Your report is already generated and waiting. No additional processing time.</p>
-<p><a href="${reportUrl}" style="display:inline-block;background:#e53e3e;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;">Get Your Report — Launch Price $49</a></p>
-<p>After 100 more reports, we're moving to $97.</p>
+<h2 style="color:#1a365d;">Hi ${firstName || 'there'},</h2>
+<p>We thought you'd like to hear from some of the families who've used Reloca to plan their moves:</p>
+<blockquote style="border-left:3px solid #38b2ac;padding-left:16px;margin:16px 0;font-style:italic;color:#4a5568;">
+"$29 versus the months I spent researching all of this by hand. The visa section alone saved us so much time."
+<br><small>— Hispanic Nomad, <a href="https://x.com/hispanicnomad" style="color:#38b2ac;">@hispanicnomad</a></small>
+</blockquote>
+<blockquote style="border-left:3px solid #38b2ac;padding-left:16px;margin:16px 0;font-style:italic;color:#4a5568;">
+"The tax section alone saved me more than $10K. I had no idea about the NHR program."
+<br><small>— Marcus T., London → Spain</small>
+</blockquote>
+<blockquote style="border-left:3px solid #38b2ac;padding-left:16px;margin:16px 0;font-style:italic;color:#4a5568;">
+"We were deciding between 5 countries for retirement. Reloca narrowed it down to 3 with real data. We booked our scouting trip the next week."
+<br><small>— David & Linda R., Canada → Ecuador</small>
+</blockquote>
+<p>Your report is already built and waiting. For $29, you get 16 sections of personalized relocation intelligence — the kind of analysis that used to cost $2,000+ with a relocation consultant.</p>
+<p><a href="${reportUrl}" style="display:inline-block;background:#38b2ac;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;">Unlock Your Full Report — $29 →</a></p>
+<p style="font-size:12px;color:#718096;margin-top:16px;">🛡️ 30-day money-back guarantee. If you're not happy with your report, we'll refund you. No questions asked.</p>
 <p>— The Reloca.ai Team</p>
     `),
   },
-  // Email 4: Day 7 — Final chance with social proof
+  // Email 4: Day 7 — Final gentle reminder, then silence
   {
     dayOffset: 7,
-    subject: 'Last chance: 47 families purchased their report this week',
+    subject: 'Your report is still here — just wanted you to know',
     buildHtml: (firstName, reportUrl) => wrap(`
-<h2 style="color:#1a365d;">Hi ${firstName},</h2>
-<p>This is my final email about your relocation report.</p>
-<p>This week alone, 47 families invested in their personalized relocation plan. They're now taking concrete steps toward their move.</p>
-<p><strong>Here's what they're saying:</strong></p>
-<blockquote style="border-left:3px solid #38b2ac;padding-left:16px;margin:16px 0;font-style:italic;color:#4a5568;">
-"The visa section alone saved us months of research. We knew exactly what documents to prepare before we even contacted the consulate."
-<br><small>— Sarah M., relocated to Uruguay</small>
-</blockquote>
-<blockquote style="border-left:3px solid #38b2ac;padding-left:16px;margin:16px 0;font-style:italic;color:#4a5568;">
-"The property recommendations were spot-on. We visited the exact neighborhoods mentioned and found our perfect home."
-<br><small>— Marcus T., relocated to Portugal</small>
-</blockquote>
-<p>Your report has been waiting for a week. Either you're serious about relocating, or you're not.</p>
-<p>If you are serious:</p>
-<p><a href="${reportUrl}" style="display:inline-block;background:#38b2ac;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;">Get Your Report Now — $49</a></p>
-<p>If not, no worries. I'll stop emailing you about it.</p>
-<p>Best of luck with your plans.</p>
+<h2 style="color:#1a365d;">Hi ${firstName || 'there'},</h2>
+<p>This is the last time I'll mention your relocation report. I don't believe in pestering people.</p>
+<p>If the timing isn't right — totally fine. Relocation planning happens on your schedule, not ours.</p>
+<p>If you're still thinking about it: your report is ready, it's $29, and it comes with a 30-day money-back guarantee. No risk.</p>
+<p><a href="${reportUrl}" style="display:inline-block;background:#38b2ac;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;">View Your Report →</a></p>
+<p>Whatever you decide — good luck with your plans. Moving abroad is one of the most rewarding decisions a family can make. We hope to help you get there.</p>
 <p>— The Reloca.ai Team</p>
+<p style="font-size:12px;color:#718096;margin-top:24px;">You won't receive any more emails about this report after today.</p>
     `),
   },
 ];

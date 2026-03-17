@@ -878,6 +878,10 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
               <button onClick={handleCheckout} disabled={checkoutLoading} className="bg-[#38b2ac] hover:bg-[#2c9a94] text-white font-semibold px-8 py-3 rounded-xl transition disabled:opacity-50">
                 {checkoutLoading ? 'Redirecting to checkout...' : <>Get My Full Report — <span className="line-through text-white/50">$49</span> $29</>}
               </button>
+              <div className="flex items-center justify-center gap-2 mt-3 mb-1 bg-green-50 rounded-lg px-3 py-2">
+                <span className="text-base">🛡️</span>
+                <p className="text-xs text-green-700 font-medium">30-day money-back guarantee — no questions asked</p>
+              </div>
               <CouponInput couponCode={couponCode} setCouponCode={setCouponCode} couponError={couponError} />
             </div>
           </div>
