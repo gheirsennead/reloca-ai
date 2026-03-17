@@ -32,7 +32,11 @@ export function ShareableCard({ country, score, reportId, userName, reasons = de
   const [isGeneratingDiscount, setIsGeneratingDiscount] = useState(false);
   
   const flag = countryFlags[country.toUpperCase()] || '🌎';
-  const displayName = country.charAt(0).toUpperCase() + country.slice(1).toLowerCase();
+  // Proper casing: UAE, USA stay uppercase; multi-word names handled correctly
+  const SPECIAL_NAMES: Record<string, string> = {
+    uae: 'UAE', usa: 'USA', 'el salvador': 'El Salvador', 'costa rica': 'Costa Rica',
+  };
+  const displayName = SPECIAL_NAMES[country.toLowerCase()] || country.replace(/\b\w/g, c => c.toUpperCase());
   const header = userName ? `${userName}'s #1 Country Match` : 'My #1 Country Match';
   
   // Calculate ring animation
@@ -228,7 +232,7 @@ export function ShareableCard({ country, score, reportId, userName, reasons = de
       {showDiscountBanner && discountCode && (
         <div className="bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl p-4 text-white text-center">
           <div className="text-lg font-bold mb-2">🎉 You shared! Thanks for spreading the word!</div>
-          <div className="text-sm mb-2">Use code <span className="font-mono text-lg bg-white/20 px-2 py-1 rounded">{discountCode}</span> for $10 off your report</div>
+          <div className="text-sm mb-2">Use code <span className="font-mono text-lg bg-white/20 px-2 py-1 rounded">{discountCode}</span> for $15 off your report</div>
           <div className="text-xs opacity-90">Valid for one-time use on your report purchase</div>
         </div>
       )}

@@ -2,6 +2,31 @@
 
 import { useState, useEffect } from 'react';
 
+interface StripeRevenue {
+  period: { days: number; start: string; end: string };
+  summary: {
+    period_revenue: number;
+    period_payments: number;
+    all_time_revenue: number;
+    all_time_payments: number;
+    avg_order_value: number;
+    period_refunds: number;
+    period_refund_amount: number;
+    last_payment_at: string | null;
+  };
+  daily_revenue: Array<{ date: string; revenue: number; count: number }>;
+  payments: Array<{
+    id: string;
+    amount: number;
+    currency: string;
+    status: string;
+    created: string;
+    customer_email: string | null;
+    customer_name: string | null;
+    description: string | null;
+  }>;
+}
+
 interface AnalyticsStats {
   total_events: number;
   unique_sessions: number;
@@ -70,6 +95,7 @@ interface AnalyticsStats {
 
 export default function AnalyticsDashboard() {
   const [stats, setStats] = useState<AnalyticsStats | null>(null);
+  const [stripeRevenue, setStripeRevenue] = useState<StripeRevenue | null>(null);
   const [loading, setLoading] = useState(true);
   const [days, setDays] = useState(7);
   const [authenticated, setAuthenticated] = useState(false);
@@ -90,14 +116,29 @@ export default function AnalyticsDashboard() {
     try {
       setLoading(true);
       const cacheBuster = bustCache ? `&_t=${Date.now()}` : '';
-      const response = await fetch(`/api/analytics?days=${days}${cacheBuster}`, {
-        headers: bustCache ? { 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' } : {}
-      });
-      if (!response.ok) {
-        throw new Error(`API Error: ${response.status}`);
+      
+      // Fetch analytics + Stripe revenue in parallel
+      const [analyticsResponse, stripeResponse] = await Promise.all([
+        fetch(`/api/analytics?days=${days}${cacheBuster}`, {
+          headers: bustCache ? { 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' } : {}
+        }),
+        fetch(`/api/admin/stripe-revenue?days=${days}${cacheBuster}`, {
+          headers: { 'x-admin-password': AUTH_PASSWORD }
+        }).catch(() => null)
+      ]);
+      
+      if (!analyticsResponse.ok) {
+        throw new Error(`API Error: ${analyticsResponse.status}`);
       }
-      const data = await response.json();
+      const data = await analyticsResponse.json();
       setStats(data);
+      
+      // Parse Stripe revenue (non-blocking)
+      if (stripeResponse?.ok) {
+        const stripeData = await stripeResponse.json();
+        setStripeRevenue(stripeData);
+      }
+      
       setLastRefresh(new Date());
     } catch (error) {
       console.error('Error fetching analytics:', error);
@@ -283,7 +324,118 @@ export default function AnalyticsDashboard() {
               </div>
             </div>
 
-            {/* REVENUE METRICS */}
+            {/* 💰 STRIPE REVENUE - REAL DATA */}
+            {stripeRevenue && (
+              <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl shadow-lg p-6 border border-green-200">
+                <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                  💰 Revenue <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full font-normal">Live from Stripe</span>
+                </h2>
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-6">
+                  <div className="bg-white rounded-lg p-4 shadow-sm">
+                    <div className="text-sm text-gray-500">Period Revenue</div>
+                    <div className="text-2xl font-bold text-green-600">${stripeRevenue.summary.period_revenue.toLocaleString()}</div>
+                    <div className="text-xs text-gray-400">Last {days} days</div>
+                  </div>
+                  <div className="bg-white rounded-lg p-4 shadow-sm">
+                    <div className="text-sm text-gray-500">All-Time Revenue</div>
+                    <div className="text-2xl font-bold text-emerald-700">${stripeRevenue.summary.all_time_revenue.toLocaleString()}</div>
+                    <div className="text-xs text-gray-400">{stripeRevenue.summary.all_time_payments} payments</div>
+                  </div>
+                  <div className="bg-white rounded-lg p-4 shadow-sm">
+                    <div className="text-sm text-gray-500">Period Payments</div>
+                    <div className="text-2xl font-bold text-blue-600">{stripeRevenue.summary.period_payments}</div>
+                    <div className="text-xs text-gray-400">Last {days} days</div>
+                  </div>
+                  <div className="bg-white rounded-lg p-4 shadow-sm">
+                    <div className="text-sm text-gray-500">Avg Order Value</div>
+                    <div className="text-2xl font-bold text-purple-600">${stripeRevenue.summary.avg_order_value.toFixed(2)}</div>
+                  </div>
+                  <div className="bg-white rounded-lg p-4 shadow-sm">
+                    <div className="text-sm text-gray-500">Refunds</div>
+                    <div className="text-2xl font-bold text-red-500">{stripeRevenue.summary.period_refunds}</div>
+                    <div className="text-xs text-gray-400">${stripeRevenue.summary.period_refund_amount}</div>
+                  </div>
+                  <div className="bg-white rounded-lg p-4 shadow-sm">
+                    <div className="text-sm text-gray-500">Last Payment</div>
+                    <div className="text-lg font-bold text-gray-700">
+                      {stripeRevenue.summary.last_payment_at 
+                        ? new Date(stripeRevenue.summary.last_payment_at).toLocaleDateString()
+                        : 'None'}
+                    </div>
+                    <div className="text-xs text-gray-400">
+                      {stripeRevenue.summary.last_payment_at 
+                        ? new Date(stripeRevenue.summary.last_payment_at).toLocaleTimeString()
+                        : ''}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Daily Revenue Chart */}
+                <div className="bg-white rounded-lg p-4 shadow-sm mb-4">
+                  <h3 className="text-sm font-semibold text-gray-700 mb-3">📈 Daily Revenue</h3>
+                  <div className="space-y-1">
+                    {stripeRevenue.daily_revenue.filter(d => d.revenue > 0 || d.count > 0).length > 0 ? (
+                      stripeRevenue.daily_revenue.map((day) => (
+                        <div key={day.date} className="flex items-center gap-2 text-sm">
+                          <span className="text-gray-500 w-24">{day.date.slice(5)}</span>
+                          <div className="flex-1 bg-gray-100 rounded-full h-5 overflow-hidden">
+                            <div
+                              className="h-5 bg-green-500 rounded-full flex items-center pl-2 text-xs text-white font-medium"
+                              style={{
+                                width: `${Math.min((day.revenue / Math.max(...stripeRevenue.daily_revenue.map(x => x.revenue), 1)) * 100, 100)}%`,
+                                minWidth: day.revenue > 0 ? '60px' : '0'
+                              }}
+                            >
+                              {day.revenue > 0 ? `$${day.revenue}` : ''}
+                            </div>
+                          </div>
+                          <span className="text-gray-400 w-20 text-right">
+                            {day.count > 0 ? `${day.count} sale${day.count > 1 ? 's' : ''}` : '—'}
+                          </span>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="text-gray-400 text-sm italic">No revenue in this period</div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Recent Payments Table */}
+                {stripeRevenue.payments.length > 0 && (
+                  <div className="bg-white rounded-lg p-4 shadow-sm">
+                    <h3 className="text-sm font-semibold text-gray-700 mb-3">🧾 Recent Payments</h3>
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-sm">
+                        <thead>
+                          <tr className="text-left text-gray-500 border-b">
+                            <th className="pb-2 pr-4">Date</th>
+                            <th className="pb-2 pr-4">Amount</th>
+                            <th className="pb-2 pr-4">Customer</th>
+                            <th className="pb-2">Email</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {stripeRevenue.payments.slice(0, 20).map((payment) => (
+                            <tr key={payment.id} className="border-b border-gray-50 hover:bg-gray-50">
+                              <td className="py-2 pr-4 text-gray-600">
+                                {new Date(payment.created).toLocaleDateString()} {new Date(payment.created).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                              </td>
+                              <td className="py-2 pr-4 font-semibold text-green-600">
+                                ${payment.amount.toFixed(2)} {payment.currency.toUpperCase()}
+                              </td>
+                              <td className="py-2 pr-4 text-gray-700">{payment.customer_name || '—'}</td>
+                              <td className="py-2 text-gray-500">{payment.customer_email || '—'}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* REVENUE METRICS (from analytics events) */}
             {stats.revenue && (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-lg shadow p-6 border border-green-200">
@@ -305,7 +457,7 @@ export default function AnalyticsDashboard() {
               </div>
             )}
 
-            {/* MARKETING ROI TABLE - TOP PRIORITY */}
+            {/* MARKETING ROI TABLE */}
             {stats.marketing_roi && stats.marketing_roi.platforms.length > 0 && (
               <div className="bg-white rounded-xl shadow-lg p-6 border-2 border-teal-200">
                 <h3 className="text-xl font-bold text-gray-900 mb-4">🎯 Marketing ROI by Platform</h3>

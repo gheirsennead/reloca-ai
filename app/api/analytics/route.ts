@@ -1,6 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase';
 
+// Emails to exclude from conversion/revenue stats (test purchases, admin, coupons)
+const EXCLUDED_EMAILS = [
+  'vitagreg@gmail.com',
+];
+
+function isTestConversion(event: any): boolean {
+  if (event.event_type !== 'conversion') return false;
+  const email = event.properties?.customer_email?.toLowerCase();
+  if (email && EXCLUDED_EMAILS.includes(email)) return true;
+  // Exclude $0 or null-value conversions (100% coupons)
+  const value = event.properties?.value;
+  if (value === 0 || value === null || value === undefined) return true;
+  return false;
+}
+
 function countryCodeToName(code: string): string {
   const map: Record<string, string> = {
     US: 'United States', GB: 'United Kingdom', FR: 'France', DE: 'Germany', SE: 'Sweden', AD: 'Andorra',
@@ -143,6 +158,10 @@ export async function GET(request: NextRequest) {
       });
     }
 
+    // Filter out test conversions from stats
+    const realConversions = (data || []).filter(d => d.event_type === 'conversion' && !isTestConversion(d));
+    const testConversions = (data || []).filter(d => d.event_type === 'conversion' && isTestConversion(d));
+    
     // Process data for dashboard with enhanced tracking
     const stats = {
       total_events: data?.length || 0,
@@ -152,8 +171,9 @@ export async function GET(request: NextRequest) {
       unique_visitors: getUniqueVisitors(data || []),
       page_views: data?.filter(d => d.event_type === 'page_view').length || 0,
       country_interests: data?.filter(d => d.event_type === 'country_interest').length || 0,
-      conversions: data?.filter(d => d.event_type === 'conversion').length || 0,
-      conversion_rate: getConversionRate(data || []),
+      conversions: realConversions.length,
+      conversions_excluded: testConversions.length,
+      conversion_rate: getConversionRate(data || [], true),
       top_countries: getTopCountries(data || []),
       visitor_countries: getVisitorCountries(data || []),
       top_pages: getTopPages(data || []),
@@ -439,9 +459,11 @@ function getLiveVisitors(events: any[]) {
   return liveSessions.size;
 }
 
-function getConversionRate(events: any[]) {
+function getConversionRate(events: any[], excludeTest = false) {
   const uniqueVisitors = new Set(events.map(e => e.properties?.visitor_id || e.session_id)).size;
-  const conversions = events.filter(e => e.event_type === 'conversion').length;
+  const conversions = events.filter(e => 
+    e.event_type === 'conversion' && (!excludeTest || !isTestConversion(e))
+  ).length;
   
   if (uniqueVisitors === 0) return 0;
   return ((conversions / uniqueVisitors) * 100).toFixed(2);
