@@ -97,10 +97,16 @@ Files with email sends:
 - **Visa package feature** — scoped but not built
 - **Phase 2 KB content** — in progress on branch
 
-## ⚠️ Known Issues
+## ⚠️ Known Issues (resolved)
 
-- Zero real Stripe sales as of 2026-03-16 (all "paid" reports in DB were test purchases)
-- Stripe API key was expired as of 2026-03-16 — was regenerated and updated in Vercel env vars
+- ~~Zero real Stripe sales as of 2026-03-16~~ — checkout was broken due to trailing newline in STRIPE_REPORT_PRICE_ID env var (fixed 2026-03-26)
+- ~~Stripe API key was expired as of 2026-03-16~~ — regenerated and updated in Vercel env vars
+- **CRITICAL BUG FIXED 2026-03-26**: `STRIPE_REPORT_PRICE_ID` in Vercel had a trailing `\n`, causing ALL checkouts to fail with "No such price" for ~10 days (Mar 16–26). ~40+ potential customers lost. Fixed by cleaning env var + adding `.trim()` safeguard in code.
+
+## 🎟️ Stripe Coupons
+
+- `GiftfromGreg` — 100% off, one-time use
+- `VIC` — 95% off ($29 → $1.45), created Mar 26
 
 ---
 
