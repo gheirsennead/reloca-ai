@@ -3,8 +3,8 @@ import Stripe from 'stripe';
 import { supabaseAdmin } from '@/lib/supabase';
 
 // Initialize Stripe client at module level (reused across requests — avoids cold-start penalty)
-const STRIPE_SECRET = process.env.STRIPE_SECRET_KEY || '';
-const PRICE_ID = process.env.STRIPE_REPORT_PRICE_ID || '';
+const STRIPE_SECRET = (process.env.STRIPE_SECRET_KEY || '').trim();
+const PRICE_ID = (process.env.STRIPE_REPORT_PRICE_ID || '').trim();
 const stripe = STRIPE_SECRET ? new Stripe(STRIPE_SECRET) : null;
 
 export async function POST(request: NextRequest) {
