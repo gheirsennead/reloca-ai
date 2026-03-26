@@ -108,6 +108,31 @@ Files with email sends:
 - `GiftfromGreg` — 100% off, one-time use
 - `VIC` — 95% off ($29 → $1.45), created Mar 26
 
+## 🔧 Maintenance Checklist (recurring)
+
+**After every deploy:**
+- [ ] Test checkout end-to-end (create a real Stripe session, verify it loads)
+- [ ] Verify Vercel env vars have no trailing whitespace/newlines
+- [ ] Confirm coupon codes work (test with GiftfromGreg or VIC)
+
+**Weekly:**
+- [ ] Automated checkout health check (hit `/api/create-checkout` with a test payload)
+- [ ] Review Stripe dashboard for failed charges or errors
+- [ ] Check analytics for 100% cart abandonment (signals broken checkout)
+
+**After env var changes:**
+- [ ] Always use `.trim()` when reading env vars in code
+- [ ] Pull env vars with `vercel env pull` and verify no hidden characters
+- [ ] Redeploy and test immediately
+
+## 🎟️ Active Coupons
+
+| Code | Discount | Expiry | Purpose |
+|------|----------|--------|---------|
+| `GiftfromGreg` | 100% off | None | Free report gift |
+| `VIC` | 95% off | None | Victoria's coupon |
+| `SORRY30` | 30% off | Apr 2, 2026 | Apology for broken checkout (sent to 11 users) |
+
 ---
 
 *Update this file after every significant code change or deployment.*
