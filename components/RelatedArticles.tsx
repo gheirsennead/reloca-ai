@@ -1,6 +1,9 @@
 import Link from 'next/link';
 
 const ALL_ARTICLES = [
+  { slug: 'moving-abroad-with-kids-2026', title: 'Moving Abroad with Kids in 2026: Complete Family Guide', country: 'Family' },
+  { slug: 'cost-of-living-abroad-2026', title: 'Cost of Living Abroad 2026: Real Numbers from 15 Countries', country: 'Global' },
+  { slug: 'quit-job-moved-abroad-25-years-expat', title: "I Quit My Job and Moved Abroad — 25-Year Expat's Honest Take", country: 'Story' },
   { slug: 'portugal-taxes-expats', title: 'Complete Guide to Portugal Taxes for Expats (2026)', country: 'Portugal' },
   { slug: 'mexico-taxes-expats', title: 'Mexico Taxes for Expat Retirees — Complete 2026 Guide', country: 'Mexico' },
   { slug: 'costa-rica-tax-guide-expats', title: 'Costa Rica Tax Guide for Expats (2026)', country: 'Costa Rica' },
@@ -38,6 +41,8 @@ export function RelatedArticles({ currentSlug }: RelatedArticlesProps) {
                article.country === 'Paraguay' ? '🇵🇾' :
                article.country === 'Argentina' ? '🇦🇷' :
                article.country === 'Middle East' ? '🌍' :
+               article.country === 'Family' ? '👨‍👩‍👧‍👦' :
+               article.country === 'Story' ? '✈️' :
                article.country === 'Global' ? '🌐' : '🇦🇪'}
             </span>
             <h4 className="font-semibold text-[#1a365d] text-sm leading-snug">{article.title}</h4>

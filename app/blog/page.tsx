@@ -23,6 +23,27 @@ export const metadata: Metadata = {
 
 const articles = [
   {
+    slug: 'moving-abroad-with-kids-2026',
+    flag: '👨‍👩‍👧‍👦',
+    title: 'Moving Abroad with Kids in 2026: The Complete Family Relocation Guide',
+    excerpt: 'Planning a family move abroad? Real data on schools, costs, healthcare and visas for the 7 best countries in 2026.',
+    readTime: '12 min read',
+  },
+  {
+    slug: 'cost-of-living-abroad-2026',
+    flag: '💰',
+    title: 'Cost of Living Abroad 2026: Real Numbers from 15 Countries (Not the Outdated Stuff)',
+    excerpt: 'Verified 2026 cost-of-living data for 15 countries. Monthly budgets for singles, couples and families — not Numbeo averages.',
+    readTime: '14 min read',
+  },
+  {
+    slug: 'quit-job-moved-abroad-25-years-expat',
+    flag: '✈️',
+    title: "I Quit My Job and Moved Abroad at 45: What I Wish I'd Known (A 25-Year Expat's Honest Take)",
+    excerpt: "After 25 years as an expat, here's the honest truth about moving abroad. The wins, the losses, and what Gregory would do differently.",
+    readTime: '10 min read',
+  },
+  {
     slug: 'portugal-taxes-expats',
     flag: '🇵🇹',
     title: 'Complete Guide to Portugal Taxes for Expats (2026 Update)',
