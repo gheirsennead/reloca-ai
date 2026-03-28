@@ -18,7 +18,6 @@ const COMPARISONS = [
 const BLOG_SLUGS = [
   'moving-abroad-with-kids-2026',
   'cost-of-living-abroad-2026',
-  'quit-job-moved-abroad-25-years-expat',
   'portugal-taxes-expats',
   'mexico-taxes-expats',
   'costa-rica-tax-guide-expats',

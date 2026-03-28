@@ -37,13 +37,6 @@ const articles = [
     readTime: '14 min read',
   },
   {
-    slug: 'quit-job-moved-abroad-25-years-expat',
-    flag: '✈️',
-    title: "I Quit My Job and Moved Abroad at 45: What I Wish I'd Known (A 25-Year Expat's Honest Take)",
-    excerpt: "After 25 years as an expat, here's the honest truth about moving abroad. The wins, the losses, and what Gregory would do differently.",
-    readTime: '10 min read',
-  },
-  {
     slug: 'portugal-taxes-expats',
     flag: '🇵🇹',
     title: 'Complete Guide to Portugal Taxes for Expats (2026 Update)',
