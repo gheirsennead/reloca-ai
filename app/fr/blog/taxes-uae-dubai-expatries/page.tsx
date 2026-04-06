@@ -21,8 +21,8 @@ export const metadata: Metadata = {
 
 export default function TaxesUaeDubaiExpatriesArticle() {
   return (
-    <>
-      <BreadcrumbSchema
+    &lt;>
+      &lt;BreadcrumbSchema
         items={[
           { name: 'Accueil', url: 'https://reloca.ai/fr' },
           { name: 'Blog', url: 'https://reloca.ai/fr/blog' },
@@ -30,10 +30,10 @@ export default function TaxesUaeDubaiExpatriesArticle() {
         ]}
       />
       
-      <BlogLayout>
-        <article className="max-w-4xl mx-auto px-4 py-16">
+      &lt;BlogLayout>
+        &lt;article className="max-w-4xl mx-auto px-4 py-16">
           {/* Content will be AI-translated */}
-          <div>Translation in progress...</div>
+          &lt;div&gt;Translation in progress...</div>
         </article>
       </BlogLayout>
     </>

@@ -118,37 +118,37 @@ const articles = [
 
 export default function BlogHomeFR() {
   return (
-    <>
-      <FrenchBlogTracking />
-      <BreadcrumbSchema
+    &lt;>
+      &lt;FrenchBlogTracking />
+      &lt;BreadcrumbSchema
         items={[
           { name: 'Accueil', url: 'https://reloca.ai/fr' },
           { name: 'Blog', url: 'https://reloca.ai/fr/blog' },
         ]}
       />
       
-      <div className="min-h-screen bg-[#fafaf9]">
+      &lt;div className="min-h-screen bg-[#fafaf9]">
         {/* Header */}
-        <div className="bg-white border-b border-gray-100">
-          <div className="max-w-4xl mx-auto px-4 py-16">
-            <div className="text-center">
-              <h1 className="text-4xl font-bold text-[#1a365d] mb-4">
+        &lt;div className="bg-white border-b border-gray-100">
+          &lt;div className="max-w-4xl mx-auto px-4 py-16">
+            &lt;div className="text-center">
+              &lt;h1 className="text-4xl font-bold text-[#1a365d] mb-4">
                 Blog Reloca.ai 🇫🇷
               </h1>
-              <p className="text-xl text-gray-600 mb-8">
+              &lt;p className="text-xl text-gray-600 mb-8">
                 Guides d'experts sur les taxes, visas et relocalisation pour les expatriés
               </p>
-              <div className="flex items-center justify-center gap-4 text-sm text-gray-500">
-                <span className="flex items-center gap-2">
-                  <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+              &lt;div className="flex items-center justify-center gap-4 text-sm text-gray-500">
+                &lt;span className="flex items-center gap-2">
+                  &lt;span className="w-2 h-2 bg-green-500 rounded-full"></span>
                   Mis à jour pour 2026
                 </span>
-                <span className="flex items-center gap-2">
-                  <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+                &lt;span className="flex items-center gap-2">
+                  &lt;span className="w-2 h-2 bg-blue-500 rounded-full"></span>
                   Écrit par des expatriés
                 </span>
-                <span className="flex items-center gap-2">
-                  <span className="w-2 h-2 bg-purple-500 rounded-full"></span>
+                &lt;span className="flex items-center gap-2">
+                  &lt;span className="w-2 h-2 bg-purple-500 rounded-full"></span>
                   Données vérifiées
                 </span>
               </div>
@@ -157,30 +157,30 @@ export default function BlogHomeFR() {
         </div>
 
         {/* Articles Grid */}
-        <div className="max-w-6xl mx-auto px-4 py-16">
-          <div className="grid lg:grid-cols-2 gap-8">
-            {articles.map((article) => (
-              <article
+        &lt;div className="max-w-6xl mx-auto px-4 py-16">
+          &lt;div className="grid lg:grid-cols-2 gap-8">
+            {articles.map((article) =&gt; (
+              &lt;article
                 key={article.slug}
                 className="bg-white rounded-2xl border border-gray-100 p-8 hover:shadow-lg transition-shadow group"
               >
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="text-3xl">{article.flag}</div>
-                  <div className="flex-1">
-                    <Link 
+                &lt;div className="flex items-start gap-4 mb-4">
+                  &lt;div className="text-3xl"&gt;{article.flag}</div>
+                  &lt;div className="flex-1">
+                    &lt;Link 
                       href={`/fr/blog/${article.slug}`}
                       className="group-hover:text-[#38b2ac] transition-colors"
                     >
-                      <h2 className="text-xl font-bold text-[#1a365d] mb-3 leading-tight">
+                      &lt;h2 className="text-xl font-bold text-[#1a365d] mb-3 leading-tight">
                         {article.title}
                       </h2>
                     </Link>
-                    <p className="text-gray-600 leading-relaxed mb-4">
+                    &lt;p className="text-gray-600 leading-relaxed mb-4">
                       {article.excerpt}
                     </p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-400">{article.readTime}</span>
-                      <Link 
+                    &lt;div className="flex items-center justify-between">
+                      &lt;span className="text-sm text-gray-400"&gt;{article.readTime}</span>
+                      &lt;Link 
                         href={`/fr/blog/${article.slug}`}
                         className="text-[#38b2ac] hover:text-[#2c9a94] font-medium text-sm transition-colors"
                       >
@@ -195,25 +195,25 @@ export default function BlogHomeFR() {
         </div>
 
         {/* Newsletter CTA */}
-        <div className="bg-[#1a365d] py-16">
-          <div className="max-w-4xl mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold text-white mb-4">
+        &lt;div className="bg-[#1a365d] py-16">
+          &lt;div className="max-w-4xl mx-auto px-4 text-center">
+            &lt;h2 className="text-3xl font-bold text-white mb-4">
               Restez informé des dernières stratégies d'expatriation
             </h2>
-            <p className="text-blue-200 mb-8 text-lg">
+            &lt;p className="text-blue-200 mb-8 text-lg">
               Recevez nos guides d'experts et les mises à jour fiscales directement dans votre boîte mail.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <input
+            &lt;div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+              &lt;input
                 type="email"
                 placeholder="votre@email.com"
                 className="flex-1 px-4 py-3 rounded-xl text-gray-900 border-0 focus:outline-none focus:ring-2 focus:ring-[#38b2ac]"
               />
-              <button className="bg-[#38b2ac] hover:bg-[#2c9a94] text-white font-semibold px-6 py-3 rounded-xl transition">
+              &lt;button className="bg-[#38b2ac] hover:bg-[#2c9a94] text-white font-semibold px-6 py-3 rounded-xl transition">
                 S'abonner
               </button>
             </div>
-            <p className="text-xs text-blue-300 mt-4">
+            &lt;p className="text-xs text-blue-300 mt-4">
               Pas de spam. Désabonnez-vous à tout moment.
             </p>
           </div>

@@ -22,8 +22,8 @@ export const metadata: Metadata = {
 
 export default function TaxesMexiqueExpatriésArticle() {
   return (
-    <>
-      <BreadcrumbSchema
+    &lt;>
+      &lt;BreadcrumbSchema
         items={[
           { name: 'Accueil', url: 'https://reloca.ai/fr' },
           { name: 'Blog', url: 'https://reloca.ai/fr/blog' },
@@ -31,280 +31,280 @@ export default function TaxesMexiqueExpatriésArticle() {
         ]}
       />
       
-      <BlogLayout>
-        <article className="max-w-4xl mx-auto px-4 py-16">
-          <header className="mb-12 text-center">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <span className="text-4xl">🇲🇽</span>
-              <span className="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">
+      &lt;BlogLayout>
+        &lt;article className="max-w-4xl mx-auto px-4 py-16">
+          &lt;header className="mb-12 text-center">
+            &lt;div className="flex items-center justify-center gap-2 mb-4">
+              &lt;span className="text-4xl"&gt;🇲🇽</span>
+              &lt;span className="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">
                 Mis à jour 2026
               </span>
             </div>
-            <h1 className="text-4xl font-bold text-[#1a365d] mb-6 leading-tight">
+            &lt;h1 className="text-4xl font-bold text-[#1a365d] mb-6 leading-tight">
               Guide Fiscal Mexique 2026 : Impôts pour Expatriés Français
             </h1>
-            <p className="text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
+            &lt;p className="text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
               Tout savoir sur la fiscalité mexicaine pour expatriés : résidence temporaire, RFC, 
               taux d'imposition et stratégies d'optimisation. Guide complet 2026.
             </p>
-            <div className="flex items-center justify-center gap-6 text-sm text-gray-500 mt-6">
-              <span>📅 12 min de lecture</span>
-              <span>✍️ Experts fiscalité Mexique</span>
-              <span>🔄 Mars 2026</span>
+            &lt;div className="flex items-center justify-center gap-6 text-sm text-gray-500 mt-6">
+              &lt;span&gt;📅 12 min de lecture</span>
+              &lt;span&gt;✍️ Experts fiscalité Mexique</span>
+              &lt;span&gt;🔄 Mars 2026</span>
             </div>
           </header>
 
-          <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 mb-12">
-            <h2 className="text-lg font-bold text-blue-900 mb-4 flex items-center gap-2">
+          &lt;div className="bg-blue-50 border border-blue-200 rounded-xl p-6 mb-12">
+            &lt;h2 className="text-lg font-bold text-blue-900 mb-4 flex items-center gap-2">
               🎯 Points Clés Fiscalité Mexique
             </h2>
-            <div className="grid md:grid-cols-2 gap-4 text-blue-800">
-              <div>
-                <p><strong>💰 Taux max :</strong> 35% (vs 45% France)</p>
-                <p><strong>🏠 Résidence fiscale :</strong> 183+ jours/an au Mexique</p>
+            &lt;div className="grid md:grid-cols-2 gap-4 text-blue-800">
+              &lt;div>
+                &lt;p&gt;&lt;strong&gt;💰 Taux max :</strong&gt; 35% (vs 45% France)</p>
+                &lt;p&gt;&lt;strong&gt;🏠 Résidence fiscale :</strong&gt; 183+ jours/an au Mexique</p>
               </div>
-              <div>
-                <p><strong>📋 RFC obligatoire :</strong> Numéro fiscal pour tous revenus</p>
-                <p><strong>🔄 Double imposition :</strong> Convention France-Mexique</p>
+              &lt;div>
+                &lt;p&gt;&lt;strong&gt;📋 RFC obligatoire :</strong&gt; Numéro fiscal pour tous revenus</p>
+                &lt;p&gt;&lt;strong&gt;🔄 Double imposition :</strong&gt; Convention France-Mexique</p>
               </div>
             </div>
           </div>
 
-          <div className="prose prose-lg max-w-none">
-            <h2>🏛️ Système Fiscal Mexicain : Vue d'Ensemble</h2>
-            <p>
+          &lt;div className="prose prose-lg max-w-none">
+            &lt;h2&gt;🏛️ Système Fiscal Mexicain : Vue d'Ensemble</h2>
+            &lt;p>
               Le Mexique impose ses résidents fiscaux sur leurs revenus mondiaux, tandis que les non-résidents 
               ne paient que sur leurs revenus de source mexicaine. Le système est progressif avec des taux 
               allant de 1.92% à 35%.
             </p>
 
-            <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 my-6">
-              <h3 className="text-yellow-800 font-bold">⚠️ Important à Retenir :</h3>
-              <ul className="text-yellow-700 mt-2 space-y-1">
-                <li>• <strong>Année fiscale :</strong> Janvier-Décembre (comme la France)</li>
-                <li>• <strong>Devise :</strong> Tous calculs en pesos mexicains (MXN)</li>
-                <li>• <strong>Déclaration :</strong> Avant le 30 avril de l'année suivante</li>
-                <li>• <strong>Paiements :</strong> Mensuels pour les salariés, trimestriels pour indépendants</li>
+            &lt;div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 my-6">
+              &lt;h3 className="text-yellow-800 font-bold"&gt;⚠️ Important à Retenir :</h3>
+              &lt;ul className="text-yellow-700 mt-2 space-y-1">
+                &lt;li&gt;• &lt;strong&gt;Année fiscale :</strong&gt; Janvier-Décembre (comme la France)</li>
+                &lt;li&gt;• &lt;strong&gt;Devise :</strong&gt; Tous calculs en pesos mexicains (MXN)</li>
+                &lt;li&gt;• &lt;strong&gt;Déclaration :</strong&gt; Avant le 30 avril de l'année suivante</li>
+                &lt;li&gt;• &lt;strong&gt;Paiements :</strong&gt; Mensuels pour les salariés, trimestriels pour indépendants</li>
               </ul>
             </div>
 
-            <h2>🎯 Résidence Fiscale au Mexique : Les Règles</h2>
-            <p>Vous êtes considéré comme résident fiscal mexicain si :</p>
+            &lt;h2&gt;🎯 Résidence Fiscale au Mexique : Les Règles</h2>
+            &lt;p&gt;Vous êtes considéré comme résident fiscal mexicain si :</p>
             
-            <div className="grid md:grid-cols-2 gap-6 my-8">
-              <div className="bg-green-50 border border-green-200 rounded-lg p-6">
-                <h3 className="font-bold text-green-900 mb-4">✅ Critères de Résidence Fiscale</h3>
-                <ul className="space-y-2 text-green-800">
-                  <li>• <strong>183+ jours</strong> de présence physique dans l'année</li>
-                  <li>• <strong>Centre d'intérêts vitaux</strong> au Mexique (famille, biens, activité principale)</li>
-                  <li>• <strong>Résidence habituelle</strong> au Mexique</li>
-                  <li>• <strong>Nationalité mexicaine</strong> (sauf preuve de résidence fiscale ailleurs)</li>
+            &lt;div className="grid md:grid-cols-2 gap-6 my-8">
+              &lt;div className="bg-green-50 border border-green-200 rounded-lg p-6">
+                &lt;h3 className="font-bold text-green-900 mb-4"&gt;✅ Critères de Résidence Fiscale</h3>
+                &lt;ul className="space-y-2 text-green-800">
+                  &lt;li&gt;• &lt;strong&gt;183+ jours</strong&gt; de présence physique dans l'année</li>
+                  &lt;li&gt;• &lt;strong&gt;Centre d'intérêts vitaux</strong&gt; au Mexique (famille, biens, activité principale)</li>
+                  &lt;li&gt;• &lt;strong&gt;Résidence habituelle</strong&gt; au Mexique</li>
+                  &lt;li&gt;• &lt;strong&gt;Nationalité mexicaine</strong&gt; (sauf preuve de résidence fiscale ailleurs)</li>
                 </ul>
               </div>
 
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-                <h3 className="font-bold text-blue-900 mb-4">📋 Obligations des Résidents</h3>
-                <ul className="space-y-2 text-blue-800">
-                  <li>• <strong>Déclaration annuelle</strong> de tous revenus mondiaux</li>
-                  <li>• <strong>Obtention RFC</strong> (Registro Federal de Contribuyentes)</li>
-                  <li>• <strong>Paiements provisionnels</strong> mensuels/trimestriels</li>
-                  <li>• <strong>Tenue livres comptables</strong> si activité indépendante</li>
+              &lt;div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                &lt;h3 className="font-bold text-blue-900 mb-4"&gt;📋 Obligations des Résidents</h3>
+                &lt;ul className="space-y-2 text-blue-800">
+                  &lt;li&gt;• &lt;strong&gt;Déclaration annuelle</strong&gt; de tous revenus mondiaux</li>
+                  &lt;li&gt;• &lt;strong&gt;Obtention RFC</strong&gt; (Registro Federal de Contribuyentes)</li>
+                  &lt;li&gt;• &lt;strong&gt;Paiements provisionnels</strong&gt; mensuels/trimestriels</li>
+                  &lt;li&gt;• &lt;strong&gt;Tenue livres comptables</strong&gt; si activité indépendante</li>
                 </ul>
               </div>
             </div>
 
-            <h2>💰 Barème d'Imposition 2026</h2>
-            <div className="overflow-x-auto my-8">
-              <table className="w-full border-collapse bg-white rounded-lg overflow-hidden shadow-sm">
-                <thead>
-                  <tr className="bg-gray-50">
-                    <th className="border border-gray-200 px-4 py-3 text-left">Tranche de Revenus Annuels</th>
-                    <th className="border border-gray-200 px-4 py-3 text-center">Taux d'Imposition</th>
-                    <th className="border border-gray-200 px-4 py-3 text-center">Équivalent € (approx)</th>
+            &lt;h2&gt;💰 Barème d'Imposition 2026</h2>
+            &lt;div className="overflow-x-auto my-8">
+              &lt;table className="w-full border-collapse bg-white rounded-lg overflow-hidden shadow-sm">
+                &lt;thead>
+                  &lt;tr className="bg-gray-50">
+                    &lt;th className="border border-gray-200 px-4 py-3 text-left"&gt;Tranche de Revenus Annuels</th>
+                    &lt;th className="border border-gray-200 px-4 py-3 text-center"&gt;Taux d'Imposition</th>
+                    &lt;th className="border border-gray-200 px-4 py-3 text-center"&gt;Équivalent € (approx)</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td className="border border-gray-200 px-4 py-3">0 - $125,900 MXN</td>
-                    <td className="border border-gray-200 px-4 py-3 text-center text-green-600 font-bold">1.92%</td>
-                    <td className="border border-gray-200 px-4 py-3 text-center">0 - €6,300</td>
+                &lt;tbody>
+                  &lt;tr>
+                    &lt;td className="border border-gray-200 px-4 py-3"&gt;0 - $125,900 MXN</td>
+                    &lt;td className="border border-gray-200 px-4 py-3 text-center text-green-600 font-bold"&gt;1.92%</td>
+                    &lt;td className="border border-gray-200 px-4 py-3 text-center"&gt;0 - €6,300</td>
                   </tr>
-                  <tr className="bg-gray-50">
-                    <td className="border border-gray-200 px-4 py-3">$125,901 - $1,000,000 MXN</td>
-                    <td className="border border-gray-200 px-4 py-3 text-center">6.4% - 21.36%</td>
-                    <td className="border border-gray-200 px-4 py-3 text-center">€6,301 - €50,000</td>
+                  &lt;tr className="bg-gray-50">
+                    &lt;td className="border border-gray-200 px-4 py-3"&gt;$125,901 - $1,000,000 MXN</td>
+                    &lt;td className="border border-gray-200 px-4 py-3 text-center"&gt;6.4% - 21.36%</td>
+                    &lt;td className="border border-gray-200 px-4 py-3 text-center"&gt;€6,301 - €50,000</td>
                   </tr>
-                  <tr>
-                    <td className="border border-gray-200 px-4 py-3">$1,000,001 - $3,000,000 MXN</td>
-                    <td className="border border-gray-200 px-4 py-3 text-center">23.52% - 30%</td>
-                    <td className="border border-gray-200 px-4 py-3 text-center">€50,001 - €150,000</td>
+                  &lt;tr>
+                    &lt;td className="border border-gray-200 px-4 py-3"&gt;$1,000,001 - $3,000,000 MXN</td>
+                    &lt;td className="border border-gray-200 px-4 py-3 text-center"&gt;23.52% - 30%</td>
+                    &lt;td className="border border-gray-200 px-4 py-3 text-center"&gt;€50,001 - €150,000</td>
                   </tr>
-                  <tr className="bg-gray-50">
-                    <td className="border border-gray-200 px-4 py-3">$3,000,001+ MXN</td>
-                    <td className="border border-gray-200 px-4 py-3 text-center text-red-600 font-bold">35%</td>
-                    <td className="border border-gray-200 px-4 py-3 text-center">€150,001+</td>
+                  &lt;tr className="bg-gray-50">
+                    &lt;td className="border border-gray-200 px-4 py-3"&gt;$3,000,001+ MXN</td>
+                    &lt;td className="border border-gray-200 px-4 py-3 text-center text-red-600 font-bold"&gt;35%</td>
+                    &lt;td className="border border-gray-200 px-4 py-3 text-center"&gt;€150,001+</td>
                   </tr>
                 </tbody>
               </table>
             </div>
 
-            <p className="text-sm text-gray-600 italic">
+            &lt;p className="text-sm text-gray-600 italic">
               * Taux de change : 1 EUR = ~20 MXN (variable). Ces équivalences sont approximatives.
             </p>
 
-            <BlogEmailGate 
+            &lt;BlogEmailGate 
               title="Calculateur d'Impôts Mexique Gratuit 🧮" 
               description="Calculez vos impôts mexicains vs français. Simulation complète avec résidence temporaire et RFC."
               buttonText="Calculer mes impôts"
               language="fr"
             />
 
-            <h2>📋 RFC : Votre Numéro Fiscal Mexicain</h2>
-            <p>
+            &lt;h2&gt;📋 RFC : Votre Numéro Fiscal Mexicain</h2>
+            &lt;p>
               Le RFC (Registro Federal de Contribuyentes) est obligatoire pour toute personne générant des revenus au Mexique. 
               C'est l'équivalent de votre numéro fiscal français.
             </p>
 
-            <div className="bg-white border border-gray-200 rounded-lg p-6 my-8">
-              <h3 className="font-bold text-gray-900 mb-4">🔤 Format du RFC</h3>
-              <div className="bg-gray-100 p-4 rounded font-mono text-center text-lg mb-4">
+            &lt;div className="bg-white border border-gray-200 rounded-lg p-6 my-8">
+              &lt;h3 className="font-bold text-gray-900 mb-4"&gt;🔤 Format du RFC</h3>
+              &lt;div className="bg-gray-100 p-4 rounded font-mono text-center text-lg mb-4">
                 ABCD123456XYZ
               </div>
-              <div className="grid md:grid-cols-3 gap-4 text-sm">
-                <div>
-                  <strong>ABCD :</strong> 4 premières lettres du nom/prénom
+              &lt;div className="grid md:grid-cols-3 gap-4 text-sm">
+                &lt;div>
+                  &lt;strong&gt;ABCD :</strong&gt; 4 premières lettres du nom/prénom
                 </div>
-                <div>
-                  <strong>123456 :</strong> Date de naissance (AAMMJJ)
+                &lt;div>
+                  &lt;strong&gt;123456 :</strong&gt; Date de naissance (AAMMJJ)
                 </div>
-                <div>
-                  <strong>XYZ :</strong> Code de vérification
+                &lt;div>
+                  &lt;strong&gt;XYZ :</strong&gt; Code de vérification
                 </div>
               </div>
             </div>
 
-            <div className="space-y-6 my-8">
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-                <h3 className="font-bold text-blue-900 mb-4">📝 Comment Obtenir son RFC</h3>
-                <ol className="space-y-2 text-blue-800">
-                  <li><strong>1.</strong> Se rendre au SAT (Service des Impôts) avec documents requis</li>
-                  <li><strong>2.</strong> Remplir le formulaire R1 (Inscription au registre fiscal)</li>
-                  <li><strong>3.</strong> Présenter pièces d'identité + preuve d'adresse au Mexique</li>
-                  <li><strong>4.</strong> Choisir son régime fiscal (voir options ci-dessous)</li>
-                  <li><strong>5.</strong> Recevoir son RFC immédiatement</li>
+            &lt;div className="space-y-6 my-8">
+              &lt;div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                &lt;h3 className="font-bold text-blue-900 mb-4"&gt;📝 Comment Obtenir son RFC</h3>
+                &lt;ol className="space-y-2 text-blue-800">
+                  &lt;li&gt;&lt;strong&gt;1.</strong&gt; Se rendre au SAT (Service des Impôts) avec documents requis</li>
+                  &lt;li&gt;&lt;strong&gt;2.</strong&gt; Remplir le formulaire R1 (Inscription au registre fiscal)</li>
+                  &lt;li&gt;&lt;strong&gt;3.</strong&gt; Présenter pièces d'identité + preuve d'adresse au Mexique</li>
+                  &lt;li&gt;&lt;strong&gt;4.</strong&gt; Choisir son régime fiscal (voir options ci-dessous)</li>
+                  &lt;li&gt;&lt;strong&gt;5.</strong&gt; Recevoir son RFC immédiatement</li>
                 </ol>
               </div>
 
-              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
-                <h3 className="font-bold text-yellow-900 mb-4">📄 Documents Requis pour RFC</h3>
-                <ul className="space-y-2 text-yellow-800">
-                  <li>• <strong>Passeport</strong> + visa ou carte de résidence mexicaine</li>
-                  <li>• <strong>Acte de naissance</strong> apostillé et traduit</li>
-                  <li>• <strong>Preuve d'adresse</strong> au Mexique (facture services, contrat location)</li>
-                  <li>• <strong>CURP</strong> (Clave Única de Registro de Población) - obtenu sur place</li>
+              &lt;div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+                &lt;h3 className="font-bold text-yellow-900 mb-4"&gt;📄 Documents Requis pour RFC</h3>
+                &lt;ul className="space-y-2 text-yellow-800">
+                  &lt;li&gt;• &lt;strong&gt;Passeport</strong&gt; + visa ou carte de résidence mexicaine</li>
+                  &lt;li&gt;• &lt;strong&gt;Acte de naissance</strong&gt; apostillé et traduit</li>
+                  &lt;li&gt;• &lt;strong&gt;Preuve d'adresse</strong&gt; au Mexique (facture services, contrat location)</li>
+                  &lt;li&gt;• &lt;strong&gt;CURP</strong&gt; (Clave Única de Registro de Población) - obtenu sur place</li>
                 </ul>
               </div>
             </div>
 
-            <h2>🏢 Régimes Fiscaux Disponibles</h2>
-            <p>
+            &lt;h2&gt;🏢 Régimes Fiscaux Disponibles</h2>
+            &lt;p>
               Lors de l'inscription RFC, vous devez choisir votre régime fiscal. Voici les principales options 
               pour les expatriés français :
             </p>
 
-            <div className="space-y-8 my-8">
-              <div className="bg-white border border-gray-200 rounded-lg p-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="text-2xl">💼</span>
-                  <h3 className="text-xl font-bold">Régime Général (Régimen General)</h3>
-                  <span className="bg-blue-100 text-blue-800 text-sm px-2 py-1 rounded">Le Plus Courant</span>
+            &lt;div className="space-y-8 my-8">
+              &lt;div className="bg-white border border-gray-200 rounded-lg p-6">
+                &lt;div className="flex items-center gap-3 mb-4">
+                  &lt;span className="text-2xl"&gt;💼</span>
+                  &lt;h3 className="text-xl font-bold"&gt;Régime Général (Régimen General)</h3>
+                  &lt;span className="bg-blue-100 text-blue-800 text-sm px-2 py-1 rounded"&gt;Le Plus Courant</span>
                 </div>
                 
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <h4 className="font-bold text-green-600 mb-2">✅ Avantages</h4>
-                    <ul className="text-sm text-green-700 space-y-1">
-                      <li>• Déductions multiples possibles</li>
-                      <li>• Pas de limite de revenus</li>
-                      <li>• Facturation avec TVA possible</li>
-                      <li>• Adapté aux consultants/freelances</li>
+                &lt;div className="grid md:grid-cols-2 gap-6">
+                  &lt;div>
+                    &lt;h4 className="font-bold text-green-600 mb-2"&gt;✅ Avantages</h4>
+                    &lt;ul className="text-sm text-green-700 space-y-1">
+                      &lt;li&gt;• Déductions multiples possibles</li>
+                      &lt;li&gt;• Pas de limite de revenus</li>
+                      &lt;li&gt;• Facturation avec TVA possible</li>
+                      &lt;li&gt;• Adapté aux consultants/freelances</li>
                     </ul>
                   </div>
-                  <div>
-                    <h4 className="font-bold text-red-600 mb-2">❌ Inconvénients</h4>
-                    <ul className="text-sm text-red-700 space-y-1">
-                      <li>• Comptabilité complexe requise</li>
-                      <li>• Déclarations mensuelles obligatoires</li>
-                      <li>• Taux d'imposition progressif complet</li>
+                  &lt;div>
+                    &lt;h4 className="font-bold text-red-600 mb-2"&gt;❌ Inconvénients</h4>
+                    &lt;ul className="text-sm text-red-700 space-y-1">
+                      &lt;li&gt;• Comptabilité complexe requise</li>
+                      &lt;li&gt;• Déclarations mensuelles obligatoires</li>
+                      &lt;li&gt;• Taux d'imposition progressif complet</li>
                     </ul>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-white border border-gray-200 rounded-lg p-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="text-2xl">🏠</span>
-                  <h3 className="text-xl font-bold">Régime Activités Professionnelles</h3>
-                  <span className="bg-green-100 text-green-800 text-sm px-2 py-1 rounded">Simplifié</span>
+              &lt;div className="bg-white border border-gray-200 rounded-lg p-6">
+                &lt;div className="flex items-center gap-3 mb-4">
+                  &lt;span className="text-2xl"&gt;🏠</span>
+                  &lt;h3 className="text-xl font-bold"&gt;Régime Activités Professionnelles</h3>
+                  &lt;span className="bg-green-100 text-green-800 text-sm px-2 py-1 rounded"&gt;Simplifié</span>
                 </div>
                 
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <h4 className="font-bold text-green-600 mb-2">✅ Avantages</h4>
-                    <ul className="text-sm text-green-700 space-y-1">
-                      <li>• Comptabilité simplifiée</li>
-                      <li>• Déductions forfaitaires</li>
-                      <li>• Pas de TVA à facturer</li>
-                      <li>• Idéal pour revenus étrangers</li>
+                &lt;div className="grid md:grid-cols-2 gap-6">
+                  &lt;div>
+                    &lt;h4 className="font-bold text-green-600 mb-2"&gt;✅ Avantages</h4>
+                    &lt;ul className="text-sm text-green-700 space-y-1">
+                      &lt;li&gt;• Comptabilité simplifiée</li>
+                      &lt;li&gt;• Déductions forfaitaires</li>
+                      &lt;li&gt;• Pas de TVA à facturer</li>
+                      &lt;li&gt;• Idéal pour revenus étrangers</li>
                     </ul>
                   </div>
-                  <div>
-                    <h4 className="font-bold text-red-600 mb-2">❌ Limites</h4>
-                    <ul className="text-sm text-red-700 space-y-1">
-                      <li>• Limite : $3.5M MXN/an (~€175K)</li>
-                      <li>• Moins de déductions possibles</li>
-                      <li>• Pas de facturation TVA</li>
+                  &lt;div>
+                    &lt;h4 className="font-bold text-red-600 mb-2"&gt;❌ Limites</h4>
+                    &lt;ul className="text-sm text-red-700 space-y-1">
+                      &lt;li&gt;• Limite : $3.5M MXN/an (~€175K)</li>
+                      &lt;li&gt;• Moins de déductions possibles</li>
+                      &lt;li&gt;• Pas de facturation TVA</li>
                     </ul>
                   </div>
                 </div>
               </div>
             </div>
 
-            <h2>🔄 Convention Fiscale France-Mexique</h2>
-            <p>
+            &lt;h2&gt;🔄 Convention Fiscale France-Mexique</h2>
+            &lt;p>
               La convention entre la France et le Mexique évite la double imposition. Voici comment elle s'applique :
             </p>
 
-            <div className="grid md:grid-cols-2 gap-6 my-8">
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-                <h3 className="font-bold text-blue-900 mb-4">🇫🇷 Revenus Imposables en France</h3>
-                <ul className="space-y-2 text-blue-800 text-sm">
-                  <li>• <strong>Immobilier français :</strong> Loyers, plus-values</li>
-                  <li>• <strong>Pensions françaises :</strong> Retraites publiques</li>
-                  <li>• <strong>Salaires français :</strong> Si employeur français</li>
-                  <li>• <strong>Dividendes :</strong> Sociétés françaises (avec crédit d'impôt)</li>
+            &lt;div className="grid md:grid-cols-2 gap-6 my-8">
+              &lt;div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                &lt;h3 className="font-bold text-blue-900 mb-4"&gt;🇫🇷 Revenus Imposables en France</h3>
+                &lt;ul className="space-y-2 text-blue-800 text-sm">
+                  &lt;li&gt;• &lt;strong&gt;Immobilier français :</strong&gt; Loyers, plus-values</li>
+                  &lt;li&gt;• &lt;strong&gt;Pensions françaises :</strong&gt; Retraites publiques</li>
+                  &lt;li&gt;• &lt;strong&gt;Salaires français :</strong&gt; Si employeur français</li>
+                  &lt;li&gt;• &lt;strong&gt;Dividendes :</strong&gt; Sociétés françaises (avec crédit d'impôt)</li>
                 </ul>
               </div>
 
-              <div className="bg-green-50 border border-green-200 rounded-lg p-6">
-                <h3 className="font-bold text-green-900 mb-4">🇲🇽 Revenus Imposables au Mexique</h3>
-                <ul className="space-y-2 text-green-800 text-sm">
-                  <li>• <strong>Immobilier mexicain :</strong> Loyers, plus-values</li>
-                  <li>• <strong>Activité professionnelle :</strong> Exercée au Mexique</li>
-                  <li>• <strong>Salaires mexicains :</strong> Employeur mexicain</li>
-                  <li>• <strong>Tous autres revenus :</strong> Si résident fiscal mexicain</li>
+              &lt;div className="bg-green-50 border border-green-200 rounded-lg p-6">
+                &lt;h3 className="font-bold text-green-900 mb-4"&gt;🇲🇽 Revenus Imposables au Mexique</h3>
+                &lt;ul className="space-y-2 text-green-800 text-sm">
+                  &lt;li&gt;• &lt;strong&gt;Immobilier mexicain :</strong&gt; Loyers, plus-values</li>
+                  &lt;li&gt;• &lt;strong&gt;Activité professionnelle :</strong&gt; Exercée au Mexique</li>
+                  &lt;li&gt;• &lt;strong&gt;Salaires mexicains :</strong&gt; Employeur mexicain</li>
+                  &lt;li&gt;• &lt;strong&gt;Tous autres revenus :</strong&gt; Si résident fiscal mexicain</li>
                 </ul>
               </div>
             </div>
 
-            <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 my-6">
-              <p className="text-yellow-800">
-                <strong>💡 Astuce :</strong> Si vous payez plus d'impôts au Mexique qu'en France, vous pouvez déduire 
+            &lt;div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 my-6">
+              &lt;p className="text-yellow-800">
+                &lt;strong&gt;💡 Astuce :</strong&gt; Si vous payez plus d'impôts au Mexique qu'en France, vous pouvez déduire 
                 la différence de votre déclaration française. L'inverse n'est pas vrai.
               </p>
             </div>
 
-            <BlogCTA 
+            &lt;BlogCTA 
               title="Optimisez votre fiscalité France-Mexique"
               description="Notre rapport personnalisé analyse votre situation et recommande la stratégie fiscale optimale."
               buttonText="Obtenir mon analyse fiscale"
@@ -312,112 +312,112 @@ export default function TaxesMexiqueExpatriésArticle() {
               language="fr"
             />
 
-            <h2>💡 Stratégies d'Optimisation Fiscale</h2>
-            <div className="space-y-6 my-8">
-              <div className="bg-green-50 border border-green-200 rounded-lg p-6">
-                <h3 className="font-bold text-green-900 mb-4">🎯 Pour Nomades Digitaux</h3>
-                <ul className="space-y-2 text-green-800">
-                  <li>• <strong>Éviter résidence fiscale :</strong> &lt; 183 jours/an au Mexique</li>
-                  <li>• <strong>Facturation offshore :</strong> Société européenne/US</li>
-                  <li>• <strong>Revenus passifs :</strong> Investissements hors Mexique</li>
-                  <li>• <strong>Régime touriste :</strong> 6 mois max par entrée</li>
+            &lt;h2&gt;💡 Stratégies d'Optimisation Fiscale</h2>
+            &lt;div className="space-y-6 my-8">
+              &lt;div className="bg-green-50 border border-green-200 rounded-lg p-6">
+                &lt;h3 className="font-bold text-green-900 mb-4"&gt;🎯 Pour Nomades Digitaux</h3>
+                &lt;ul className="space-y-2 text-green-800">
+                  &lt;li&gt;• &lt;strong&gt;Éviter résidence fiscale :</strong&gt; &lt; 183 jours/an au Mexique</li>
+                  &lt;li&gt;• &lt;strong&gt;Facturation offshore :</strong&gt; Société européenne/US</li>
+                  &lt;li&gt;• &lt;strong&gt;Revenus passifs :</strong&gt; Investissements hors Mexique</li>
+                  &lt;li&gt;• &lt;strong&gt;Régime touriste :</strong&gt; 6 mois max par entrée</li>
                 </ul>
               </div>
 
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-                <h3 className="font-bold text-blue-900 mb-4">🏠 Pour Résidents Permanents</h3>
-                <ul className="space-y-2 text-blue-800">
-                  <li>• <strong>Déductions maximales :</strong> Formation, équipement, déplacements</li>
-                  <li>• <strong>Investissements locaux :</strong> CETES, fonds mexicains</li>
-                  <li>• <strong>Conjoint sans revenus :</strong> Déclaration séparée possible</li>
-                  <li>• <strong>Plan retraite :</strong> Contributions déductibles (AFORE)</li>
+              &lt;div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                &lt;h3 className="font-bold text-blue-900 mb-4"&gt;🏠 Pour Résidents Permanents</h3>
+                &lt;ul className="space-y-2 text-blue-800">
+                  &lt;li&gt;• &lt;strong&gt;Déductions maximales :</strong&gt; Formation, équipement, déplacements</li>
+                  &lt;li&gt;• &lt;strong&gt;Investissements locaux :</strong&gt; CETES, fonds mexicains</li>
+                  &lt;li&gt;• &lt;strong&gt;Conjoint sans revenus :</strong&gt; Déclaration séparée possible</li>
+                  &lt;li&gt;• &lt;strong&gt;Plan retraite :</strong&gt; Contributions déductibles (AFORE)</li>
                 </ul>
               </div>
             </div>
 
-            <h2>⚠️ Pièges Fiscaux à Éviter</h2>
-            <div className="bg-red-50 border border-red-200 rounded-lg p-6 my-8">
-              <ul className="space-y-3 text-red-800">
-                <li><strong>Oublier le RFC :</strong> Obligation dès le premier peso gagné au Mexique</li>
-                <li><strong>Mélanger statuts :</strong> Résident temporaire ≠ résident fiscal</li>
-                <li><strong>Ignorer les échéances :</strong> Pénalités lourdes pour retards</li>
-                <li><strong>Facturation sans TVA :</strong> Vérifiez si vous devez facturer 16% IVA</li>
-                <li><strong>Double déclaration :</strong> Même revenu déclaré France ET Mexique sans crédit d'impôt</li>
+            &lt;h2&gt;⚠️ Pièges Fiscaux à Éviter</h2>
+            &lt;div className="bg-red-50 border border-red-200 rounded-lg p-6 my-8">
+              &lt;ul className="space-y-3 text-red-800">
+                &lt;li&gt;&lt;strong&gt;Oublier le RFC :</strong&gt; Obligation dès le premier peso gagné au Mexique</li>
+                &lt;li&gt;&lt;strong&gt;Mélanger statuts :</strong&gt; Résident temporaire ≠ résident fiscal</li>
+                &lt;li&gt;&lt;strong&gt;Ignorer les échéances :</strong&gt; Pénalités lourdes pour retards</li>
+                &lt;li&gt;&lt;strong&gt;Facturation sans TVA :</strong&gt; Vérifiez si vous devez facturer 16% IVA</li>
+                &lt;li&gt;&lt;strong&gt;Double déclaration :</strong&gt; Même revenu déclaré France ET Mexique sans crédit d'impôt</li>
               </ul>
             </div>
 
-            <h2>📅 Calendrier Fiscal 2026</h2>
-            <div className="overflow-x-auto my-8">
-              <table className="w-full border-collapse bg-white rounded-lg overflow-hidden shadow-sm">
-                <thead>
-                  <tr className="bg-gray-50">
-                    <th className="border border-gray-200 px-4 py-3 text-left">Date Limite</th>
-                    <th className="border border-gray-200 px-4 py-3 text-left">Obligation</th>
-                    <th className="border border-gray-200 px-4 py-3 text-left">Concerne</th>
+            &lt;h2&gt;📅 Calendrier Fiscal 2026</h2>
+            &lt;div className="overflow-x-auto my-8">
+              &lt;table className="w-full border-collapse bg-white rounded-lg overflow-hidden shadow-sm">
+                &lt;thead>
+                  &lt;tr className="bg-gray-50">
+                    &lt;th className="border border-gray-200 px-4 py-3 text-left"&gt;Date Limite</th>
+                    &lt;th className="border border-gray-200 px-4 py-3 text-left"&gt;Obligation</th>
+                    &lt;th className="border border-gray-200 px-4 py-3 text-left"&gt;Concerne</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td className="border border-gray-200 px-4 py-3 font-bold">17 chaque mois</td>
-                    <td className="border border-gray-200 px-4 py-3">Paiement provisoire</td>
-                    <td className="border border-gray-200 px-4 py-3">Activités indépendantes</td>
+                &lt;tbody>
+                  &lt;tr>
+                    &lt;td className="border border-gray-200 px-4 py-3 font-bold"&gt;17 chaque mois</td>
+                    &lt;td className="border border-gray-200 px-4 py-3"&gt;Paiement provisoire</td>
+                    &lt;td className="border border-gray-200 px-4 py-3"&gt;Activités indépendantes</td>
                   </tr>
-                  <tr className="bg-gray-50">
-                    <td className="border border-gray-200 px-4 py-3 font-bold">30 avril 2026</td>
-                    <td className="border border-gray-200 px-4 py-3">Déclaration annuelle 2025</td>
-                    <td className="border border-gray-200 px-4 py-3">Tous résidents fiscaux</td>
+                  &lt;tr className="bg-gray-50">
+                    &lt;td className="border border-gray-200 px-4 py-3 font-bold"&gt;30 avril 2026</td>
+                    &lt;td className="border border-gray-200 px-4 py-3"&gt;Déclaration annuelle 2025</td>
+                    &lt;td className="border border-gray-200 px-4 py-3"&gt;Tous résidents fiscaux</td>
                   </tr>
-                  <tr>
-                    <td className="border border-gray-200 px-4 py-3 font-bold">30 juin 2026</td>
-                    <td className="border border-gray-200 px-4 py-3">Déclaration patrimoine</td>
-                    <td className="border border-gray-200 px-4 py-3">Patrimoine &gt; $15M MXN</td>
+                  &lt;tr>
+                    &lt;td className="border border-gray-200 px-4 py-3 font-bold"&gt;30 juin 2026</td>
+                    &lt;td className="border border-gray-200 px-4 py-3"&gt;Déclaration patrimoine</td>
+                    &lt;td className="border border-gray-200 px-4 py-3"&gt;Patrimoine &gt; $15M MXN</td>
                   </tr>
-                  <tr className="bg-gray-50">
-                    <td className="border border-gray-200 px-4 py-3 font-bold">31 décembre</td>
-                    <td className="border border-gray-200 px-4 py-3">Factures électroniques</td>
-                    <td className="border border-gray-200 px-4 py-3">Toutes dépenses déductibles</td>
+                  &lt;tr className="bg-gray-50">
+                    &lt;td className="border border-gray-200 px-4 py-3 font-bold"&gt;31 décembre</td>
+                    &lt;td className="border border-gray-200 px-4 py-3"&gt;Factures électroniques</td>
+                    &lt;td className="border border-gray-200 px-4 py-3"&gt;Toutes dépenses déductibles</td>
                   </tr>
                 </tbody>
               </table>
             </div>
 
-            <h2>🎯 Conclusion : Mexique vs France Fiscalement</h2>
-            <div className="bg-green-50 border border-green-200 rounded-lg p-6 my-8">
-              <h3 className="text-green-900 font-bold mb-4">🏆 Avantages Fiscaux Mexique :</h3>
-              <div className="grid md:grid-cols-2 gap-4 text-green-800">
-                <ul className="space-y-2">
-                  <li>• Taux maximum 35% vs 45% France</li>
-                  <li>• Coût de la vie 50-70% moins cher</li>
-                  <li>• Déductions généreuses possibles</li>
-                  <li>• Pas d'ISF/IFI</li>
+            &lt;h2&gt;🎯 Conclusion : Mexique vs France Fiscalement</h2>
+            &lt;div className="bg-green-50 border border-green-200 rounded-lg p-6 my-8">
+              &lt;h3 className="text-green-900 font-bold mb-4"&gt;🏆 Avantages Fiscaux Mexique :</h3>
+              &lt;div className="grid md:grid-cols-2 gap-4 text-green-800">
+                &lt;ul className="space-y-2">
+                  &lt;li&gt;• Taux maximum 35% vs 45% France</li>
+                  &lt;li&gt;• Coût de la vie 50-70% moins cher</li>
+                  &lt;li&gt;• Déductions généreuses possibles</li>
+                  &lt;li&gt;• Pas d'ISF/IFI</li>
                 </ul>
-                <ul className="space-y-2">
-                  <li>• Convention anti-double imposition</li>
-                  <li>• Facilité obtention résidence temporaire</li>
-                  <li>• Régimes fiscaux simplifiés</li>
-                  <li>• Optimisation nomade digital possible</li>
+                &lt;ul className="space-y-2">
+                  &lt;li&gt;• Convention anti-double imposition</li>
+                  &lt;li&gt;• Facilité obtention résidence temporaire</li>
+                  &lt;li&gt;• Régimes fiscaux simplifiés</li>
+                  &lt;li&gt;• Optimisation nomade digital possible</li>
                 </ul>
               </div>
             </div>
 
-            <div className="bg-red-50 border border-red-200 rounded-lg p-6 my-8">
-              <h3 className="text-red-900 font-bold mb-4">⚠️ Défis à Considérer :</h3>
-              <ul className="space-y-2 text-red-800">
-                <li>• Bureaucratie complexe (SAT, RFC, CURP...)</li>
-                <li>• Barrière linguistique pour démarches</li>
-                <li>• Comptabilité électronique obligatoire</li>
-                <li>• Système déclaratif moins mature qu'en France</li>
+            &lt;div className="bg-red-50 border border-red-200 rounded-lg p-6 my-8">
+              &lt;h3 className="text-red-900 font-bold mb-4"&gt;⚠️ Défis à Considérer :</h3>
+              &lt;ul className="space-y-2 text-red-800">
+                &lt;li&gt;• Bureaucratie complexe (SAT, RFC, CURP...)</li>
+                &lt;li&gt;• Barrière linguistique pour démarches</li>
+                &lt;li&gt;• Comptabilité électronique obligatoire</li>
+                &lt;li&gt;• Système déclaratif moins mature qu'en France</li>
               </ul>
             </div>
 
-            <p>
-              <strong>Verdict :</strong> Le Mexique peut offrir des avantages fiscaux significatifs, 
+            &lt;p>
+              &lt;strong&gt;Verdict :</strong&gt; Le Mexique peut offrir des avantages fiscaux significatifs, 
               particulièrement pour les revenus moyens-élevés (€30K-150K). La clé est de bien structurer 
               sa situation dès l'arrivée et de s'entourer de professionnels locaux compétents.
             </p>
           </div>
 
-          <RelatedArticles 
+          &lt;RelatedArticles 
             articles={[
               {
                 title: "Coût de la Vie à l'Étranger 2026 : Chiffres Réels de 15 Pays",
