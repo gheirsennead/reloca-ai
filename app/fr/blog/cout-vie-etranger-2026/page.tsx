@@ -442,7 +442,7 @@ export default function CoûtVieÉtrangerArticle() {
 
             <div className="grid md:grid-cols-2 gap-6 my-8">
               <div className="bg-green-50 border border-green-200 rounded-lg p-6">
-                <h3 className="text-green-900 font-bold mb-3">💰 Pour les Budgets Serrés (< €2000/mois) :</h3>
+                <h3 className="text-green-900 font-bold mb-3">💰 Pour les Budgets Serrés (&lt; €2000/mois) :</h3>
                 <ul className="space-y-2 text-green-800">
                   <li>• Paraguay : Coût minimal, 0% impôts revenus étrangers</li>
                   <li>• Mexique (hors zones touristiques) : Climat + culture</li>

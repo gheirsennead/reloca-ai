@@ -281,7 +281,7 @@ export default function ImpôtsPortugalExpatriésArticle() {
             <ul>
               <li><strong>Seuil d'exemption :</strong> 12 500€ de chiffre d'affaires annuel</li>
               <li><strong>Taux normal :</strong> 23% (l'un des plus élevés d'Europe)</li>
-              <li><strong>Déclarations :</strong> Trimestrielles si CA > 650 000€, sinon annuelles</li>
+              <li><strong>Déclarations :</strong> Trimestrielles si CA &gt; 650 000€, sinon annuelles</li>
             </ul>
 
             <h3>🏠 Impôts Fonciers (IMI)</h3>
@@ -384,7 +384,7 @@ export default function ImpôtsPortugalExpatriésArticle() {
                   <ul className="space-y-2 text-gray-700">
                     <li>☐ Activité professionnelle éligible</li>
                     <li>☐ Pas de résidence fiscale portugaise dans les 5 dernières années</li>
-                    <li>☐ Plan de résider au Portugal > 183 jours/an</li>
+                    <li>☐ Plan de résider au Portugal &gt; 183 jours/an</li>
                     <li>☐ Documents professionnels traduits et apostillés</li>
                   </ul>
                 </div>

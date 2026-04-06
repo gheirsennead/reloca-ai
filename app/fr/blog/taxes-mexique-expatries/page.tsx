@@ -317,7 +317,7 @@ export default function TaxesMexiqueExpatriésArticle() {
               <div className="bg-green-50 border border-green-200 rounded-lg p-6">
                 <h3 className="font-bold text-green-900 mb-4">🎯 Pour Nomades Digitaux</h3>
                 <ul className="space-y-2 text-green-800">
-                  <li>• <strong>Éviter résidence fiscale :</strong> < 183 jours/an au Mexique</li>
+                  <li>• <strong>Éviter résidence fiscale :</strong> &lt; 183 jours/an au Mexique</li>
                   <li>• <strong>Facturation offshore :</strong> Société européenne/US</li>
                   <li>• <strong>Revenus passifs :</strong> Investissements hors Mexique</li>
                   <li>• <strong>Régime touriste :</strong> 6 mois max par entrée</li>

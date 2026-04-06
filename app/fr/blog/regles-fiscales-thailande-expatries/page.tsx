@@ -343,7 +343,7 @@ export default function RèglesFiscalesThaïlandeArticle() {
               <div className="bg-green-50 border border-green-200 rounded-lg p-6">
                 <h3 className="font-bold text-green-900 mb-4">🏝️ Stratégie "Île-Hopping" (Nomades)</h3>
                 <ul className="space-y-2 text-green-800">
-                  <li>• <strong>Principe :</strong> Rester < 180 jours en Thaïlande</li>
+                  <li>• <strong>Principe :</strong> Rester &lt; 180 jours en Thaïlande</li>
                   <li>• <strong>Rotation :</strong> Thaïlande (179j) → Malaisie (2 mois) → Bali (2 mois) → Repeat</li>
                   <li>• <strong>Avantage :</strong> Pas de résidence fiscale nulle part</li>
                   <li>• <strong>Inconvénient :</strong> Instabilité, coûts de voyage, visa runs</li>

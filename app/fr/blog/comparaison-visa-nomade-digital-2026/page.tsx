@@ -60,7 +60,7 @@ export default function ComparaisonVisaNomadeDigitalArticle() {
             </h2>
             <div className="grid md:grid-cols-3 gap-4 text-purple-800">
               <div>
-                <p><strong>💰 Budget serré (< €3000/mois) :</strong> Albanie, Géorgie, Argentine</p>
+                <p><strong>💰 Budget serré (&lt; €3000/mois) :</strong> Albanie, Géorgie, Argentine</p>
                 <p><strong>⚖️ Équilibre coût/qualité :</strong> Portugal, Espagne, Estonie</p>
               </div>
               <div>

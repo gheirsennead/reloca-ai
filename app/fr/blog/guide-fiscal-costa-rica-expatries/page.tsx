@@ -299,7 +299,7 @@ export default function GuideFiscalCostaRicaArticle() {
                 <ul className="space-y-2 text-blue-800 text-sm">
                   <li>• <strong>Taux :</strong> 0.25% de la valeur cadastrale/an</li>
                   <li>• <strong>Paiement :</strong> Trimestriel ou annuel</li>
-                  <li>• <strong>Exemption :</strong> Résidence principale < ₡10M</li>
+                  <li>• <strong>Exemption :</strong> Résidence principale &lt; ₡10M</li>
                   <li>• <strong>Évaluation :</strong> Basée sur valeur cadastrale (souvent sous-évaluée)</li>
                 </ul>
               </div>
