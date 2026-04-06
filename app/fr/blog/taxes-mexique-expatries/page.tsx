@@ -370,7 +370,7 @@ export default function TaxesMexiqueExpatriésArticle() {
                   <tr>
                     <td className="border border-gray-200 px-4 py-3 font-bold">30 juin 2026</td>
                     <td className="border border-gray-200 px-4 py-3">Déclaration patrimoine</td>
-                    <td className="border border-gray-200 px-4 py-3">Patrimoine > $15M MXN</td>
+                    <td className="border border-gray-200 px-4 py-3">Patrimoine &gt; $15M MXN</td>
                   </tr>
                   <tr className="bg-gray-50">
                     <td className="border border-gray-200 px-4 py-3 font-bold">31 décembre</td>

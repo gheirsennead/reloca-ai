@@ -307,7 +307,7 @@ export default function GuideFiscalCostaRicaArticle() {
               <div className="bg-green-50 border border-green-200 rounded-lg p-6">
                 <h3 className="font-bold text-green-900 mb-4">💰 Taxe de Luxe (Impuesto Solidario)</h3>
                 <ul className="space-y-2 text-green-800 text-sm">
-                  <li>• <strong>Seuil :</strong> Biens > $204,000 (€185,000)</li>
+                  <li>• <strong>Seuil :</strong> Biens &gt; $204,000 (€185,000)</li>
                   <li>• <strong>Taux :</strong> 0.25% - 0.55% selon valeur</li>
                   <li>• <strong>Base :</strong> Valeur de construction uniquement</li>
                   <li>• <strong>Paiement :</strong> Annuel avec la déclaration revenus</li>
@@ -344,7 +344,7 @@ export default function GuideFiscalCostaRicaArticle() {
                   <ul className="text-sm text-green-700 space-y-1">
                     <li>• 0% d'impôt au Costa Rica</li>
                     <li>• Payer uniquement pays de résidence fiscale</li>
-                    <li>• Ou optimisation non-résidence si < 183j/pays</li>
+                    <li>• Ou optimisation non-résidence si &lt; 183j/pays</li>
                     <li>• Accès système santé Caja si résident</li>
                   </ul>
                 </div>

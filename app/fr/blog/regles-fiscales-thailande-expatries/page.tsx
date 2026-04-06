@@ -376,7 +376,7 @@ export default function RèglesFiscalesThaïlandeArticle() {
                   <li>• <strong>Principe :</strong> Obtenir LTR pour avantages fiscaux</li>
                   <li>• <strong>Combinaison :</strong> LTR + structure offshore pour non-couverts</li>
                   <li>• <strong>Cible :</strong> Expatriés hauts revenus (€100K+/an)</li>
-                  <li>• <strong>ROI :</strong> Économies fiscales > coût setup</li>
+                  <li>• <strong>ROI :</strong> Économies fiscales &gt; coût setup</li>
                 </ul>
               </div>
             </div>
@@ -404,7 +404,7 @@ export default function RèglesFiscalesThaïlandeArticle() {
                 <ul className="space-y-2 text-blue-800 text-sm">
                   <li>• <strong>Pensions publiques françaises :</strong> Exclusivement en France</li>
                   <li>• <strong>Immobilier français :</strong> Loyers, plus-values</li>
-                  <li>• <strong>Salaires français :</strong> Si employeur français et séjour < 183j</li>
+                  <li>• <strong>Salaires français :</strong> Si employeur français et séjour &lt; 183j</li>
                   <li>• <strong>Activité française :</strong> Exercée physiquement en France</li>
                 </ul>
               </div>

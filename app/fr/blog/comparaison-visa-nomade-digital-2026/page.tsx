@@ -386,7 +386,7 @@ export default function ComparaisonVisaNomadeDigitalArticle() {
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
                 <h3 className="font-bold text-blue-900 mb-4">💼 Freelance / Consultant</h3>
                 <div className="space-y-3 text-blue-800">
-                  <p><strong>Revenus < €3000/mois :</strong></p>
+                  <p><strong>Revenus &lt; €3000/mois :</strong></p>
                   <ul className="list-disc ml-4 space-y-1 text-sm">
                     <li>🥇 Albanie (€1400 min) - Coût dérisoire</li>
                     <li>🥈 Argentine (€1200 min) - 0% taxe revenus étrangers</li>
