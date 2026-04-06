@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase';
 import { ABANDONED_CART_SEQUENCE } from '@/lib/email-sequences';
+import { detectLanguage } from '@/lib/language-detection';
 
 const TEST_EMAILS_EXCLUDE = ['vitagreg@gmail.com'];
 
@@ -12,6 +13,15 @@ export async function POST(request: NextRequest) {
     if (!email || !email.includes('@')) {
       return NextResponse.json({ error: 'Valid email required' }, { status: 400 });
     }
+
+    // Detect user language from email and headers
+    const acceptLanguage = request.headers.get('accept-language') || '';
+    const userAgent = request.headers.get('user-agent') || '';
+    const detectedLanguage = detectLanguage({ 
+      email, 
+      acceptLanguage, 
+      userAgent 
+    });
 
     // 1. Upsert user
     const { data: existingUser } = await supabaseAdmin
@@ -26,7 +36,10 @@ export async function POST(request: NextRequest) {
       userId = existingUser.id;
       await supabaseAdmin
         .from('users')
-        .update({ questionnaire_completed: true })
+        .update({ 
+          questionnaire_completed: true,
+          language: detectedLanguage
+        })
         .eq('id', userId);
     } else {
       const { data: newUser, error: userError } = await supabaseAdmin
@@ -34,6 +47,7 @@ export async function POST(request: NextRequest) {
         .insert({
           email: email.toLowerCase().trim(),
           questionnaire_completed: true,
+          language: detectedLanguage,
           utm_source: body.utm_source || null,
           utm_medium: body.utm_medium || null,
           utm_campaign: body.utm_campaign || null,

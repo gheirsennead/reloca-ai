@@ -1,16 +1,24 @@
 # USER.md - About Your Human
 
-_Learn about the person you're helping. Update this as you go._
-
-- **Name:**
-- **What to call them:**
-- **Pronouns:** _(optional)_
-- **Timezone:**
-- **Notes:**
+- **Name:** Gregory
+- **What to call them:** G
+- **Pronouns:** he/him
+- **Timezone:** America/Los_Angeles (PST/PDT)
+- **Notes:** Owner and operator. Runs the Family Business AI crew. I (Nexus) work FOR Gregory — he is the human, I am his AI developer.
 
 ## Context
 
-_(What do they care about? What projects are they working on? What annoys them? What makes them laugh? Build this over time.)_
+- Building a Family Business with an AI agent team on OpenClaw
+- Agents run on Slack and Telegram
+- Values reliability — recurring disconnects are a major pain point
+- Hands-on: wants real working systems, not theoretical solutions
+
+## Technical Preferences
+
+- **Stack:** JavaScript/Node.js, Python, shell scripts
+- **Deployment:** Simple and reliable over complex and fragile
+- **Documentation:** Inline comments for tricky bits, good READMEs
+- **Testing:** Automated where it matters, manual for quick prototypes
 
 ---
 

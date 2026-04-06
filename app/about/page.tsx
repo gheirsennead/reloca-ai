@@ -159,7 +159,7 @@ export default function About() {
               Hiring a relocation consultant costs $1,000-$3,000. Spending months researching on your own costs you time, stress, and often leads to expensive mistakes.
             </p>
             <p className="text-xl font-semibold text-[#38b2ac] mb-6">
-              Reloca.ai delivers comprehensive, personalized relocation intelligence for $29.
+              Reloca.ai delivers comprehensive, personalized relocation intelligence for $49.
             </p>
             <p className="text-white/90 leading-relaxed mb-6">
               In 10 minutes, you get what used to take months of research — tailored to your family, your budget, your priorities.

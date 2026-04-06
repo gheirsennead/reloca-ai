@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { supabaseAdmin } from '@/lib/supabase';
 import { POST_PURCHASE_SEQUENCE, ABANDONED_CART_SEQUENCE } from '@/lib/email-sequences';
+import { POST_PURCHASE_SEQUENCE_FR, ABANDONED_CART_SEQUENCE_FR } from '@/lib/email-sequences-fr';
+import { detectLanguage, getEmailFromName } from '@/lib/language-detection';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://reloca.ai';
 
@@ -38,10 +40,10 @@ export async function GET(request: NextRequest) {
 
   for (const row of dueEmails) {
     try {
-      // Get user email and name
+      // Get user email, name, and language
       const { data: user } = await supabaseAdmin
         .from('users')
-        .select('email')
+        .select('email, language')
         .eq('id', row.user_id)
         .single();
 
@@ -50,20 +52,35 @@ export async function GET(request: NextRequest) {
         continue;
       }
 
-      // Get the correct email sequence based on type
-      const sequence = row.sequence_type === 'abandoned_cart' ? ABANDONED_CART_SEQUENCE : POST_PURCHASE_SEQUENCE;
+      // Detect user language if not set
+      let userLanguage = (user as any).language || 'en';
+      if (!userLanguage || userLanguage === 'en') {
+        userLanguage = detectLanguage({ email: user.email });
+        // Update user language in background (don't await)
+        if (userLanguage === 'fr') {
+          supabaseAdmin.from('users').update({ language: userLanguage }).eq('id', row.user_id).then();
+        }
+      }
+
+      // Get the correct email sequence based on type and language
+      let sequence;
+      if (row.sequence_type === 'abandoned_cart') {
+        sequence = userLanguage === 'fr' ? ABANDONED_CART_SEQUENCE_FR : ABANDONED_CART_SEQUENCE;
+      } else {
+        sequence = userLanguage === 'fr' ? POST_PURCHASE_SEQUENCE_FR : POST_PURCHASE_SEQUENCE;
+      }
       const template = sequence[row.email_index];
       if (!template) {
         await supabaseAdmin.from('scheduled_emails').update({ sent: true }).eq('id', row.id);
         continue;
       }
 
-      const firstName = (user as any).first_name || 'there';
+      const firstName = (user as any).first_name || (userLanguage === 'fr' ? 'là' : 'there');
       const reportUrl = `${SITE_URL}/report/${row.report_id}?paid=true`;
       const html = template.buildHtml(firstName, reportUrl);
 
       await getResend().emails.send({
-        from: 'Reloca.ai <hello@reloca.ai>',
+        from: getEmailFromName(userLanguage as 'fr' | 'en'),
         to: user.email,
         bcc: [process.env.ADMIN_BCC_EMAIL || 'muse.adb@proton.me', 'myjobisamazing@gmail.com'],
         subject: template.subject.replace('[First Name]', firstName),

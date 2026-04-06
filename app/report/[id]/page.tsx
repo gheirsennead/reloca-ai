@@ -213,7 +213,7 @@ function CountdownTimer({ createdAt }: { createdAt: string }) {
   if (expired) {
     return (
       <div className="bg-red-50 border border-red-200 rounded-xl px-4 py-3 mb-4">
-        <p className="text-red-600 font-bold text-sm">⚠️ Launch price has expired — but we&apos;ll honor $29 if you act now</p>
+        <p className="text-blue-600 font-bold text-sm">Standard pricing now in effect: $49</p>
       </div>
     );
   }
@@ -221,7 +221,7 @@ function CountdownTimer({ createdAt }: { createdAt: string }) {
   return (
     <div className="bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 mb-4">
       <p className="text-amber-800 font-bold text-sm">⏰ Launch price expires in <span className="font-mono text-lg">{timeLeft}</span></p>
-      <p className="text-amber-600 text-xs">After April 5th, the price goes back to $49</p>
+
     </div>
   );
 }
@@ -332,7 +332,7 @@ function ReportSection({ content, isPaid, onCheckout, checkoutLoading, couponCod
             </p>
             <p className="text-sm">
               <a href="/plan-36?gift=true" className="text-[#1a365d] hover:underline font-medium">
-                🎁 Buy Reloca for a Friend — $29
+                🎁 Buy Reloca for a Friend — $49
               </a>
             </p>
             <p className="text-sm">
@@ -390,14 +390,13 @@ function ReportSection({ content, isPaid, onCheckout, checkoutLoading, couponCod
                 <div className="flex justify-between"><span>Immigration lawyer consultation</span><span className="line-through text-gray-400">$200–$500/hr</span></div>
                 <div className="flex justify-between"><span>Relocation consultant</span><span className="line-through text-gray-400">$2,000–$5,000</span></div>
                 <div className="flex justify-between"><span>DIY research (your time)</span><span className="line-through text-gray-400">40–100+ hours</span></div>
-                <div className="flex justify-between mt-1 pt-1 border-t border-gray-200 font-bold text-[#38b2ac]"><span>Your Reloca report</span><span>$29</span></div>
+                <div className="flex justify-between mt-1 pt-1 border-t border-gray-200 font-bold text-[#38b2ac]"><span>Your Reloca report</span><span>$49</span></div>
               </div>
 
               <div className="flex items-center justify-center gap-2 mb-1">
-                <span className="text-gray-400 line-through text-lg">$49</span>
-                <span className="text-3xl font-bold text-[#38b2ac]">$29</span>
+                <span className="text-3xl font-bold text-[#38b2ac]">$49</span>
               </div>
-              <p className="text-xs text-red-500 font-medium mb-3">⏰ $29 launch price ends April 5th — then it&apos;s $49</p>
+
               <button onClick={onCheckout} disabled={checkoutLoading} className="w-full bg-gradient-to-r from-[#38b2ac] to-[#319795] hover:from-[#2c9a94] hover:to-[#28908a] text-white font-bold px-8 py-4 rounded-xl transition disabled:opacity-50 text-lg shadow-lg shadow-[#38b2ac]/25">
                 {checkoutLoading ? 'Redirecting to checkout...' : 'Get My Full Report →'}
               </button>
@@ -412,7 +411,7 @@ function ReportSection({ content, isPaid, onCheckout, checkoutLoading, couponCod
               
               {/* Testimonials */}
               <div className="mt-4 pt-4 border-t border-gray-100 text-left space-y-3">
-                <p className="text-xs text-gray-600 italic">&ldquo;$29 versus the months I spent researching all of this by hand.&rdquo;</p>
+                <p className="text-xs text-gray-600 italic">&ldquo;Worth every penny versus the months I spent researching all of this by hand.&rdquo;</p>
                 <p className="text-xs text-gray-400">— Hispanic Nomad, 60+ countries visited · <a href="https://x.com/hispanicnomad" target="_blank" rel="noopener noreferrer" className="underline">@hispanicnomad</a></p>
                 <p className="text-xs text-gray-600 italic">&ldquo;The tax section alone saved me more than $10K. I had no idea about the NHR program.&rdquo;</p>
                 <p className="text-xs text-gray-400">— Marcus T., London → Spain</p>
@@ -453,8 +452,7 @@ function ReportSection({ content, isPaid, onCheckout, checkoutLoading, couponCod
           <div className="text-center">
             <p className="text-sm text-gray-600 italic mb-3">💡 People who relocate with a plan save an average of 6 months and thousands in avoidable mistakes.</p>
             <div className="flex items-center justify-center gap-2 mb-2">
-              <span className="text-gray-400 line-through text-lg">$49</span>
-              <span className="text-3xl font-bold text-[#38b2ac]">$29</span>
+              <span className="text-3xl font-bold text-[#38b2ac]">$49</span>
             </div>
             <p className="text-xs text-gray-400 mb-4">One report. One investment. A lifetime of clarity.</p>
             <button onClick={onCheckout} disabled={checkoutLoading} className="w-full bg-gradient-to-r from-[#38b2ac] to-[#319795] hover:from-[#2c9a94] hover:to-[#28908a] text-white font-bold px-8 py-4 rounded-xl transition disabled:opacity-50 text-lg shadow-lg shadow-[#38b2ac]/25">
@@ -838,14 +836,14 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
             <p className="text-gray-500 text-sm mb-6 text-center max-w-md mx-auto">
               Your free summary shows WHERE to go. The full report shows HOW — visa steps, tax savings, real costs, and a timeline.
             </p>
-            <p className="text-sm font-semibold text-[#1a365d] mb-4 text-center">Unlock your complete 16-section report for <span className="line-through text-gray-400">$49</span> $29 (Launch Special — ends April 5th):</p>
+            <p className="text-sm font-semibold text-[#1a365d] mb-4 text-center">Unlock your complete 16-section report for $49:</p>
             <div className="overflow-x-auto mb-6">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-gray-200">
                     <th className="text-left py-2 pr-4 text-gray-500 font-medium">Feature</th>
                     <th className="text-center py-2 px-4 text-gray-500 font-medium">Free Summary</th>
-                    <th className="text-center py-2 pl-4 text-[#38b2ac] font-bold">Full Report (<span className="line-through text-gray-400">$49</span> $29)</th>
+                    <th className="text-center py-2 pl-4 text-[#38b2ac] font-bold">Full Report ($49)</th>
                   </tr>
                 </thead>
                 <tbody className="text-gray-600">
@@ -876,7 +874,7 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
             </div>
             <div className="text-center">
               <button onClick={handleCheckout} disabled={checkoutLoading} className="bg-[#38b2ac] hover:bg-[#2c9a94] text-white font-semibold px-8 py-3 rounded-xl transition disabled:opacity-50">
-                {checkoutLoading ? 'Redirecting to checkout...' : <>Get My Full Report — <span className="line-through text-white/50">$49</span> $29</>}
+                {checkoutLoading ? 'Redirecting to checkout...' : 'Get My Full Report — $49'}
               </button>
               <div className="flex items-center justify-center gap-2 mt-3 mb-1 bg-green-50 rounded-lg px-3 py-2">
                 <span className="text-base">🛡️</span>
@@ -920,7 +918,7 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
         <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-200 py-3 px-4 z-50 shadow-[0_-4px_20px_rgba(0,0,0,0.08)]">
           <div className="max-w-lg mx-auto flex items-center justify-between gap-3">
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-bold text-[#1a365d]"><span className="line-through text-gray-400 font-normal">$49</span> $29 — Full Report</p>
+              <p className="text-sm font-bold text-[#1a365d]">$49 — Full Report</p>
               <p className="text-xs text-gray-500 truncate">🛡️ 30-day money-back guarantee</p>
             </div>
             <button onClick={handleCheckout} disabled={checkoutLoading} className="bg-[#38b2ac] hover:bg-[#2c9a94] text-white font-bold px-5 py-2.5 rounded-xl transition disabled:opacity-50 text-sm whitespace-nowrap shadow-lg shadow-[#38b2ac]/25">

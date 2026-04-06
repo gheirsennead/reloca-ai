@@ -56,8 +56,8 @@ export default function TermsOfService() {
             <p>Reloca.ai is an AI-powered relocation planning platform that generates personalized relocation reports based on user-provided questionnaire responses. The Service includes:</p>
             <ul className="list-disc ml-6 space-y-1 mt-2">
               <li><strong>Free summary reports:</strong> A brief overview of your top country matches.</li>
-              <li><strong>Paid full reports ($29):</strong> A comprehensive, multi-section relocation plan including visa options, cost of living, property market analysis, tax considerations, healthcare, education, and more.</li>
-              <li><strong>Reloca Pro subscription ($29/month):</strong> Monthly access to generate one new report per month and receive Relocation Pulse intelligence updates.</li>
+              <li><strong>Paid full reports ($49):</strong> A comprehensive, multi-section relocation plan including visa options, cost of living, property market analysis, tax considerations, healthcare, education, and more.</li>
+              <li><strong>Reloca Pro subscription ($49/month):</strong> Monthly access to generate one new report per month and receive Relocation Pulse intelligence updates.</li>
             </ul>
           </section>
 
@@ -117,8 +117,8 @@ export default function TermsOfService() {
             
             <h3 className="text-base font-semibold text-[#1a365d] mt-6 mb-2">5.1 Pricing</h3>
             <ul className="list-disc ml-6 space-y-1 mt-2">
-              <li><strong>Full report:</strong> $29 one-time payment (launch pricing until April 5th; regular price $49).</li>
-              <li><strong>Reloca Pro:</strong> $29/month recurring subscription.</li>
+              <li><strong>Full report:</strong> $49 one-time payment.</li>
+              <li><strong>Reloca Pro:</strong> $49/month recurring subscription.</li>
               <li>All prices are in US Dollars (USD).</li>
               <li>Prices may change with notice. Existing subscribers will be notified before any price increase takes effect.</li>
             </ul>
@@ -128,7 +128,7 @@ export default function TermsOfService() {
 
             <h3 className="text-base font-semibold text-[#1a365d] mt-6 mb-2">5.3 Refund Policy</h3>
             <ul className="list-disc ml-6 space-y-1 mt-2">
-              <li><strong>Full reports ($29):</strong> All sales are final. Your report is generated and delivered immediately upon purchase. If you believe your report contains significant factual errors, contact <a href="mailto:support@reloca.ai" className="text-[#38b2ac] hover:underline">support@reloca.ai</a> within 7 days and we will either correct the report or issue a refund at our discretion.</li>
+              <li><strong>Full reports ($49):</strong> All sales are final. Your report is generated and delivered immediately upon purchase. If you believe your report contains significant factual errors, contact <a href="mailto:support@reloca.ai" className="text-[#38b2ac] hover:underline">support@reloca.ai</a> within 7 days and we will either correct the report or issue a refund at our discretion.</li>
               <li><strong>Reloca Pro ($29/month):</strong> Cancel anytime. No refund for the current billing period. Cancellation takes effect at the end of the current billing period.</li>
               <li><strong>Free reports:</strong> No payment, no refund applicable.</li>
             </ul>

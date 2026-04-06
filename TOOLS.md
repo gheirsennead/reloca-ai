@@ -2,39 +2,45 @@
 
 Skills define _how_ tools work. This file is for _your_ specifics — the stuff that's unique to your setup.
 
-## What Goes Here
+## Development Environment
 
-Things like:
+### Preferred Stack
+- **Languages:** JavaScript/Node.js, Python, bash/zsh
+- **Editors:** VS Code, vim for quick edits
+- **Version Control:** Git (obviously)
+- **Package Managers:** npm/yarn for Node.js, pip for Python
 
-- Camera names and locations
-- SSH hosts and aliases
-- Preferred voices for TTS
-- Speaker/room names
-- Device nicknames
-- Anything environment-specific
+### Deployment Preferences
+- **Containerization:** Docker for consistency
+- **CI/CD:** Keep it simple — GitHub Actions or similar
+- **Hosting:** Whatever works reliably (prefer managed services)
 
-## Examples
+### Testing Philosophy
+- **Unit tests:** For core business logic
+- **Integration tests:** For critical user flows  
+- **E2E tests:** Sparingly, for key happy paths
+- **Manual testing:** Always before shipping
 
-```markdown
-### Cameras
+### Code Quality Tools
+- **Linting:** ESLint for JS, Black for Python
+- **Formatting:** Prettier for JS, Black for Python
+- **Type checking:** TypeScript when complexity warrants it
 
-- living-room → Main area, 180° wide angle
-- front-door → Entrance, motion-triggered
+## Development Workflow
 
-### SSH
+1. **Start with working code** — get something functional first
+2. **Iterate and improve** — refactor once you understand the problem
+3. **Document as you go** — README files and inline comments
+4. **Test the important bits** — not everything needs 100% coverage
+5. **Ship when ready** — perfect is the enemy of done
 
-- home-server → 192.168.1.100, user: admin
+## Debugging Approach
 
-### TTS
-
-- Preferred voice: "Nova" (warm, slightly British)
-- Default speaker: Kitchen HomePod
-```
-
-## Why Separate?
-
-Skills are shared. Your setup is yours. Keeping them apart means you can update skills without losing your notes, and share skills without leaking your infrastructure.
+1. **Reproduce the issue** — can't fix what you can't recreate
+2. **Check the logs** — they usually tell you what's wrong
+3. **Simplify** — strip away complexity until you find the root cause
+4. **Fix once, properly** — band-aids become technical debt
 
 ---
 
-Add whatever helps you do your job. This is your cheat sheet.
+Add whatever helps you code better. This is your development cheat sheet.

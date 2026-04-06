@@ -113,7 +113,7 @@ async function sendReportEmail(reportId: string, userId: string) {
           <p style="margin:8px 0 0;font-size:22px;font-weight:bold;color:#1a365d;">${topMatch}</p>
         </div>
         <p style="color:#333;font-size:16px;line-height:1.6;">
-          Your free report includes your top 3 country matches. Unlock the full 16-section report for $29 — detailed visa pathways, cost breakdowns, property analysis, and a personalized month-by-month timeline.
+          Your free report includes your top 3 country matches. Unlock the full 16-section report for $49 — detailed visa pathways, cost breakdowns, property analysis, and a personalized month-by-month timeline.
         </p>
         <div style="text-align:center;margin:32px 0;">
           <a href="${reportUrl}" style="display:inline-block;background:#38b2ac;color:white;text-decoration:none;padding:14px 32px;border-radius:8px;font-size:16px;font-weight:600;">

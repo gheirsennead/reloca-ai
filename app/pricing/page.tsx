@@ -31,7 +31,7 @@ export default function PricingPage() {
             </div>
             <div className="text-sm font-bold text-[#38b2ac] mb-1">FULL REPORT</div>
             <div className="text-3xl font-bold text-white mb-1">
-              <span className="line-through text-gray-400 text-xl mr-2">$49</span>$29
+              $49
             </div>
             <p className="text-xs text-blue-300 mb-6">One-time payment. Yours forever.</p>
             <ul className="space-y-2 flex-1 text-sm text-blue-100">
@@ -46,7 +46,7 @@ export default function PricingPage() {
               <li className="flex items-start gap-2"><span className="text-[#38b2ac] shrink-0">✓</span> Downloadable PDF</li>
             </ul>
             <Link href="/plan" className="mt-8 block text-center bg-[#38b2ac] hover:bg-[#2c9a94] text-white font-semibold px-6 py-3 rounded-xl transition">
-              Get My Full Report — <span className="line-through text-white/50">$49</span> $29
+              Get My Full Report — $49
             </Link>
           </div>
         </div>

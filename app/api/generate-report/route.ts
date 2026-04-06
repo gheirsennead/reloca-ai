@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase';
 import { ABANDONED_CART_SEQUENCE } from '@/lib/email-sequences';
+import { detectLanguage, updateUserLanguage } from '@/lib/language-detection';
 import { PORTUGAL_KNOWLEDGE_BASE, formatKnowledgeForPrompt, type KnowledgeBaseEntry } from '@/lib/knowledge-base-schema';
 
 export const maxDuration = 300;
@@ -158,8 +159,14 @@ async function getLiveData(): Promise<string> {
   return data;
 }
 
-function buildSystemPrompt(knowledgeBase: string, liveData: string): string {
-  return `You are Reloca.ai's Relocation Intelligence Engine. Generate a comprehensive, personalized Strategic Relocation Analysis. We cover 23+ countries across Europe, Asia, Middle East, and Latin America: Portugal, Spain, Italy, Greece, Malta, Cyprus, Estonia, Andorra, Singapore, Dubai (UAE), Thailand, Malaysia, Brazil, Argentina, Chile, Uruguay, Paraguay, Mexico, Panama, Costa Rica, El Salvador, Colombia, Ecuador. Recommend the best matches from ANY of these regions based on the user's profile.
+function buildSystemPrompt(knowledgeBase: string, liveData: string, language: 'fr' | 'en' = 'en'): string {
+  const languageInstruction = language === 'fr' 
+    ? 'IMPORTANT: Generate the ENTIRE report in French. Use proper French grammar, currency symbols (€ for euros), and measurement units (meters, kilometers). Address the user as "vous" (formal). Use French country names (Espagne, Italie, etc.). All section titles, content, and recommendations must be in French.'
+    : 'Generate the report in English.';
+
+  return `You are Reloca.ai's Relocation Intelligence Engine. Generate a comprehensive, personalized Strategic Relocation Analysis.
+
+${languageInstruction} We cover 23+ countries across Europe, Asia, Middle East, and Latin America: Portugal, Spain, Italy, Greece, Malta, Cyprus, Estonia, Andorra, Singapore, Dubai (UAE), Thailand, Malaysia, Brazil, Argentina, Chile, Uruguay, Paraguay, Mexico, Panama, Costa Rica, El Salvador, Colombia, Ecuador. Recommend the best matches from ANY of these regions based on the user's profile.
 
 🚨 CRITICAL SCORING RULE: When assigning match percentages to countries, use scores between 50-98% ONLY. Never use scores outside this range. Be consistent - if you write "Argentina (75%)" in section 2, ensure ALL references to Argentina throughout the entire report use exactly 75%. Double-check your scores before finishing.
 
@@ -400,6 +407,25 @@ export async function processReport(reportId: string): Promise<{ success: boolea
 
     if (!report) return { success: false, error: 'Report not found or already processed' };
 
+    // Get user data for language detection
+    const { data: user } = await supabaseAdmin
+      .from('users')
+      .select('email, language')
+      .eq('id', report.user_id)
+      .single();
+    
+    // Detect user language if not already set
+    let userLanguage = (user as any)?.language || 'en';
+    if (!userLanguage || userLanguage === 'en') {
+      userLanguage = detectLanguage({ email: user?.email });
+      // Update user language in background if French detected
+      if (userLanguage === 'fr' && user) {
+        updateUserLanguage(supabaseAdmin, report.user_id, userLanguage);
+      }
+    }
+
+    if (!report) return { success: false, error: 'Report not found or already processed' };
+
     // Get questionnaire answers
     const { data: questionnaire } = await supabaseAdmin
       .from('questionnaire_responses')
@@ -435,7 +461,7 @@ export async function processReport(reportId: string): Promise<{ success: boolea
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
         max_tokens: 16000,
-        system: buildSystemPrompt(kb, liveData),
+        system: buildSystemPrompt(kb, liveData, userLanguage as 'fr' | 'en'),
         messages: [
           { role: 'user', content: buildUserPrompt(answers) },
         ],
