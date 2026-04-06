@@ -1,412 +1,202 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { BlogCTA } from '@/components/BlogCTA';
-import { DynamicTestimonials } from '@/components/DynamicTestimonials';
-import { FrenchBlogTracking } from '@/components/FrenchBlogTracking';
 
 export const metadata: Metadata = {
-  title: 'Reloca.ai - Votre Guide Personnalisé pour Déménager à l\'Étranger | Expatriation France',
-  description: 'Obtenez votre rapport personnalisé pour déménager à l\'étranger. Coût de la vie, impôts, visas et conseils d\'expatriés pour 195 pays. Déménagement facilité.',
-  keywords: ['déménager étranger', 'expatriation france', 'guide expatriation', 'vivre à l\'étranger', 'coût vie étranger', 'visa expatrié'],
-  openGraph: {
-    title: 'Reloca.ai - Votre Guide Personnalisé pour Déménager à l\'Étranger',
-    description: 'Rapport personnalisé expatriation pour 195 pays. Coût de la vie, impôts, visas et conseils pratiques.',
-    url: 'https://reloca.ai/fr',
-    type: 'website',
-    siteName: 'Reloca.ai',
-    images: [{ url: 'https://reloca.ai/images/og-image-fr.png', width: 1200, height: 630 }],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Reloca.ai - Guide Personnalisé Expatriation France',
-    description: 'Rapport personnalisé expatriation pour 195 pays avec coûts réels et conseils d\'experts.',
-    images: ['https://reloca.ai/images/og-image-fr.png'],
-  },
+  title: 'Reloca.ai — L\'App Indispensable pour Déménager à l\'Étranger',
+  description: 'L\'app indispensable pour toute personne envisageant de déménager à l\'étranger. Intelligence de relocalisation alimentée par l\'IA couvrant 23+ pays sur 3 continents. Construit par des expatriés, pour des expatriés. 🌍',
+  keywords: 'relocalisation,déménager étranger,expatrié,visa,coût vie,déménager Portugal,déménager Espagne,déménager Thaïlande,déménager Dubai,déménager Brésil,déménager Mexique,nomade digital,retraite étranger,relocalisation internationale,optimisation fiscale expatrié',
   alternates: {
     canonical: 'https://reloca.ai/fr',
     languages: {
       'en': 'https://reloca.ai',
-      'fr': 'https://reloca.ai/fr',
-    },
+      'fr': 'https://reloca.ai/fr'
+    }
   },
+  openGraph: {
+    title: 'Reloca.ai — L\'App Indispensable pour Déménager à l\'Étranger',
+    description: 'L\'app indispensable pour toute personne envisageant de déménager à l\'étranger. Intelligence de relocalisation alimentée par l\'IA couvrant 23+ pays sur 3 continents. Construit par des expatriés, pour des expatriés. 🌍',
+    url: 'https://reloca.ai/fr',
+    siteName: 'Reloca.ai',
+    locale: 'fr_FR',
+    type: 'website',
+  }
 };
 
 export default function FrenchHomePage() {
   return (
-    &lt;>
-      &lt;FrenchBlogTracking />
-      &lt;div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white">
       {/* Navigation */}
-      &lt;nav className="border-b border-gray-200 bg-white/90 backdrop-blur-sm sticky top-0 z-50">
-        &lt;div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          &lt;div className="flex justify-between items-center h-16">
-            &lt;div className="flex items-center">
-              &lt;Link href="/fr" className="flex items-center gap-2">
-                &lt;div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                  &lt;span className="text-white font-bold text-sm"&gt;R</span>
-                </div>
-                &lt;span className="font-bold text-xl text-gray-900"&gt;Reloca.ai</span>
-              </Link>
+      <header className="fixed top-0 w-full bg-white/80 backdrop-blur-md border-b border-gray-100 z-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+          <Link href="/fr" className="flex items-center">
+            <img src="/images/reloca-logo.png" alt="Reloca.ai" className="h-14 w-auto" />
+          </Link>
+          <nav className="hidden sm:flex items-center gap-6 text-sm">
+            <a href="#how-it-works" className="text-gray-600 hover:text-[#1a365d] transition">Comment ça marche</a>
+            <Link href="/about" className="text-gray-600 hover:text-[#1a365d] transition">À propos</Link>
+            <a href="#pricing" className="text-gray-600 hover:text-[#1a365d] transition">Tarifs</a>
+            <Link href="/fr/blog" className="text-gray-600 hover:text-[#1a365d] transition">Blog</Link>
+            <a href="#faq" className="text-gray-600 hover:text-[#1a365d] transition">FAQ</a>
+            <div className="flex items-center gap-2 text-xs">
+              <Link href="/" className="text-gray-400 hover:text-gray-600">EN</Link>
+              <span className="text-gray-300">|</span>
+              <span className="text-[#38b2ac] font-medium">FR</span>
             </div>
-            
-            &lt;div className="hidden md:flex items-center space-x-8">
-              &lt;Link href="/fr/blog" className="text-gray-600 hover:text-[#1a365d] transition">
-                Blog
-              </Link>
-              &lt;Link href="/blog" className="text-gray-600 hover:text-[#1a365d] transition">
-                Blog EN
-              </Link>
-              &lt;Link href="/fr/plan-36" className="bg-[#1a365d] text-white px-4 py-2 rounded-lg hover:bg-[#2d4a75] transition">
-                Obtenir mon rapport
-              </Link>
-            </div>
-
-            &lt;div className="md:hidden">
-              &lt;button className="text-gray-600">
-                &lt;svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  &lt;path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              </button>
-            </div>
-          </div>
+            <Link href="/auth/login" className="text-gray-600 hover:text-[#1a365d] transition">Connexion</Link>
+            <Link href="/fr/plan-36" className="bg-[#38b2ac] hover:bg-[#2c9a94] text-white px-4 py-2 rounded-lg font-medium transition">Commencer</Link>
+          </nav>
         </div>
-      </nav>
+      </header>
 
       {/* Hero Section */}
-      &lt;section className="relative bg-gradient-to-br from-blue-50 via-white to-purple-50 pt-16 pb-20">
-        &lt;div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          &lt;div className="text-center">
-            &lt;h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-              Déménagez à l'Étranger 
-              &lt;span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
-                {" "}en Toute Confiance
-              </span>
-            </h1>
-            
-            &lt;p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
-              Obtenez votre rapport personnalisé pour n'importe quel pays : coût de la vie réel, 
-              impôts, visas, conseils d'expatriés et plan d'action étape par étape.
-            </p>
-
-            &lt;div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-              &lt;Link 
-                href="/fr/plan-36" 
-                className="bg-[#1a365d] text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-[#2d4a75] transition-all duration-300 transform hover:scale-105"
-              >
-                Créer mon rapport gratuit
-              </Link>
-              &lt;Link 
-                href="/fr/blog" 
-                className="text-[#1a365d] border border-[#1a365d] px-8 py-4 rounded-lg text-lg font-semibold hover:bg-[#1a365d] hover:text-white transition-all duration-300"
-              >
-                Explorer les destinations
-              </Link>
-            </div>
-
-            &lt;div className="flex items-center justify-center gap-8 text-sm text-gray-500">
-              &lt;div className="flex items-center gap-2">
-                &lt;span className="text-green-500"&gt;✓</span>
-                &lt;span&gt;195 pays couverts</span>
-              </div>
-              &lt;div className="flex items-center gap-2">
-                &lt;span className="text-green-500"&gt;✓</span>
-                &lt;span&gt;Données 2026 vérifiées</span>
-              </div>
-              &lt;div className="flex items-center gap-2">
-                &lt;span className="text-green-500"&gt;✓</span>
-                &lt;span&gt;500+ expatriés consultés</span>
-              </div>
-            </div>
+      <section className="pt-28 pb-16 sm:pt-36 sm:pb-24 px-4 bg-[#fafaf9]">
+        <div className="max-w-3xl mx-auto text-center">
+          <div className="inline-flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-1.5 mb-6 text-sm text-gray-600">
+            <span>Approuvé par des expatriés de 42+ pays</span>
           </div>
-        </div>
-
-        {/* Background decoration */}
-        &lt;div className="absolute inset-0 overflow-hidden pointer-events-none">
-          &lt;div className="absolute -top-40 -right-32 w-80 h-80 rounded-full bg-gradient-to-br from-blue-400/20 to-purple-400/20 blur-3xl"></div>
-          &lt;div className="absolute -bottom-40 -left-32 w-80 h-80 rounded-full bg-gradient-to-br from-green-400/20 to-blue-400/20 blur-3xl"></div>
+          <h1 className="text-3xl sm:text-5xl font-bold leading-tight tracking-tight text-[#1a365d]">
+            Vous Pensez Déménager à l'Étranger? <span className="text-[#38b2ac]">Découvrez Où.</span>
+          </h1>
+          <p className="mt-5 text-base sm:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            Répondez à quelques questions sur votre style de vie, budget et objectifs. Notre IA analyse 23+ pays et vous dit exactement où aller — avec les étapes de visa, économies d'impôts et coûts réels.
+          </p>
+          <Link href="/fr/plan-36" className="mt-8 inline-flex items-center gap-2 bg-[#38b2ac] hover:bg-[#2c9a94] text-white text-lg sm:text-xl font-bold px-10 py-5 rounded-xl shadow-lg shadow-teal-500/25 transition hover:shadow-xl hover:shadow-teal-500/35 hover:scale-[1.02]">
+            Trouvez Votre Pays Idéal — Quiz Gratuit
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+            </svg>
+          </Link>
+          <div className="mt-3 flex flex-wrap items-center justify-center gap-4 text-xs text-gray-400">
+            <span className="flex items-center gap-1">⏱️ Prend 10 minutes</span>
+            <span className="flex items-center gap-1">🆓 Quiz gratuit + résultats instantanés</span>
+            <span className="flex items-center gap-1">🛡️ Garantie 30 jours satisfait ou remboursé</span>
+          </div>
+          <p className="mt-4 text-sm text-gray-500 font-medium">
+            Rapport complet: <span className="text-[#1a365d] font-bold">49€</span>
+          </p>
         </div>
       </section>
 
-      {/* Problem Section */}
-      &lt;section className="py-20 bg-gray-50">
-        &lt;div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          &lt;div className="text-center mb-16">
-            &lt;h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Pourquoi 80% des Projets d'Expatriation Échouent ?
-            </h2>
-            &lt;p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Parce que la plupart des gens sous-estiment la complexité et se basent sur des informations obsolètes ou incomplètes.
-            </p>
+      {/* Blog Preview Section */}
+      <section className="py-16 sm:py-24 px-4 bg-white">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#1a365d] mb-4">Ressources Expatriation en Français</h2>
+            <p className="text-gray-600">Guides complets sur l'optimisation fiscale, les visas, et le coût de la vie pour expatriés</p>
           </div>
-
-          &lt;div className="grid md:grid-cols-3 gap-8">
-            &lt;div className="bg-red-50 border border-red-200 rounded-xl p-6 text-center">
-              &lt;div className="text-4xl mb-4"&gt;💸</div>
-              &lt;h3 className="text-xl font-bold text-red-900 mb-3"&gt;Budgets Explosés</h3>
-              &lt;p className="text-red-700">
-                Coûts cachés, taxes inattendues, frais de visa sous-estimés. 
-                Le "coût de la vie" théorique vs la réalité du terrain.
-              </p>
-            </div>
-
-            &lt;div className="bg-orange-50 border border-orange-200 rounded-xl p-6 text-center">
-              &lt;div className="text-4xl mb-4"&gt;📋</div>
-              &lt;h3 className="text-xl font-bold text-orange-900 mb-3"&gt;Paperasse Incompréhensible</h3>
-              &lt;p className="text-orange-700">
-                Visa refusé, documents manquants, procédures mal comprises. 
-                Chaque pays a ses spécificités administratives.
-              </p>
-            </div>
-
-            &lt;div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 text-center">
-              &lt;div className="text-4xl mb-4"&gt;🎯</div>
-              &lt;h3 className="text-xl font-bold text-yellow-900 mb-3"&gt;Mauvais Choix de Destination</h3>
-              &lt;p className="text-yellow-700">
-                Climat décevant, culture incompatible, opportunités surestimées. 
-                Ce qui marche pour d'autres ne marchera pas forcément pour vous.
-              </p>
-            </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <Link href="/fr/blog" className="group block">
+              <article className="bg-[#fafaf9] rounded-xl p-6 h-full hover:shadow-lg transition group-hover:bg-[#38b2ac]/5">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-2xl">💰</span>
+                  <span className="bg-purple-100 text-purple-800 text-xs font-medium px-2 py-1 rounded-full">OPTIMISATION FISCALE</span>
+                </div>
+                <h3 className="font-bold text-[#1a365d] text-lg mb-2 group-hover:text-[#38b2ac] transition">
+                  Guides Fiscaux pour Expatriés
+                </h3>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  Portugal, Espagne, Dubai, Thaïlande, Costa Rica... Découvrez les stratégies d'optimisation fiscale pour chaque destination.
+                </p>
+              </article>
+            </Link>
+            <Link href="/fr/blog" className="group block">
+              <article className="bg-[#fafaf9] rounded-xl p-6 h-full hover:shadow-lg transition group-hover:bg-[#38b2ac]/5">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-2xl">🛂</span>
+                  <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded-full">VISAS</span>
+                </div>
+                <h3 className="font-bold text-[#1a365d] text-lg mb-2 group-hover:text-[#38b2ac] transition">
+                  Procédures de Visa Simplifiées
+                </h3>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  Golden Visa, visa de nomade digital, résidence par investissement... Toutes les options expliquées clairement.
+                </p>
+              </article>
+            </Link>
+            <Link href="/fr/blog" className="group block">
+              <article className="bg-[#fafaf9] rounded-xl p-6 h-full hover:shadow-lg transition group-hover:bg-[#38b2ac]/5">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-2xl">🏡</span>
+                  <span className="bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded-full">COÛT DE LA VIE</span>
+                </div>
+                <h3 className="font-bold text-[#1a365d] text-lg mb-2 group-hover:text-[#38b2ac] transition">
+                  Coûts Réels par Destination
+                </h3>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  Logement, nourriture, transport, santé, éducation... Données actualisées 2026 pour budgéter votre expatriation.
+                </p>
+              </article>
+            </Link>
+          </div>
+          <div className="text-center mt-8">
+            <Link href="/fr/blog" className="inline-flex items-center gap-2 bg-[#38b2ac] hover:bg-[#2c9a94] text-white font-semibold px-6 py-3 rounded-xl transition">
+              Voir Tous les Articles →
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Solution Section */}
-      &lt;section className="py-20 bg-white">
-        &lt;div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          &lt;div className="text-center mb-16">
-            &lt;h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Notre Solution : Votre Rapport Personnalisé d'Expatriation
-            </h2>
-            &lt;p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Basé sur vos critères spécifiques, vos revenus, votre situation familiale et vos objectifs. 
-              Pas de généralités, que des données concrètes pour VOTRE situation.
-            </p>
-          </div>
-
-          &lt;div className="grid lg:grid-cols-2 gap-12 items-center">
-            &lt;div>
-              &lt;h3 className="text-2xl font-bold text-gray-900 mb-6"&gt;Ce que contient votre rapport :</h3>
-              
-              &lt;div className="space-y-4">
-                &lt;div className="flex items-start gap-4">
-                  &lt;div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    &lt;span className="text-green-600 font-bold"&gt;💰</span>
-                  </div>
-                  &lt;div>
-                    &lt;h4 className="font-semibold text-gray-900"&gt;Budget Personnalisé Détaillé</h4>
-                    &lt;p className="text-gray-600 text-sm">
-                      Coût de la vie adapté à votre style, quartiers recommandés, comparaison avec votre ville actuelle, 
-                      frais cachés inclus.
-                    </p>
-                  </div>
-                </div>
-
-                &lt;div className="flex items-start gap-4">
-                  &lt;div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    &lt;span className="text-blue-600 font-bold"&gt;🏛️</span>
-                  </div>
-                  &lt;div>
-                    &lt;h4 className="font-semibold text-gray-900"&gt;Stratégie Fiscale Optimisée</h4>
-                    &lt;p className="text-gray-600 text-sm">
-                      Calcul d'impôts dans votre nouvelle destination, optimisation légale, 
-                      conventions de double imposition, régimes spéciaux expatriés.
-                    </p>
-                  </div>
-                </div>
-
-                &lt;div className="flex items-start gap-4">
-                  &lt;div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    &lt;span className="text-purple-600 font-bold"&gt;📋</span>
-                  </div>
-                  &lt;div>
-                    &lt;h4 className="font-semibold text-gray-900"&gt;Guide Visa & Résidence Étape par Étape</h4>
-                    &lt;p className="text-gray-600 text-sm">
-                      Type de visa recommandé pour votre profil, documents requis, délais réels, 
-                      procédure complète avec contacts officiels.
-                    </p>
-                  </div>
-                </div>
-
-                &lt;div className="flex items-start gap-4">
-                  &lt;div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    &lt;span className="text-orange-600 font-bold"&gt;🎯</span>
-                  </div>
-                  &lt;div>
-                    &lt;h4 className="font-semibold text-gray-900"&gt;Plan d'Action Personnalisé</h4>
-                    &lt;p className="text-gray-600 text-sm">
-                      Timeline de déménagement, check-lists, contacts locaux, conseils d'adaptation, 
-                      erreurs à éviter spécifiques à votre destination.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            &lt;div className="bg-gray-50 rounded-2xl p-8">
-              &lt;div className="text-center mb-6">
-                &lt;h3 className="text-2xl font-bold text-gray-900 mb-2"&gt;Exemple : Rapport Portugal</h3>
-                &lt;p className="text-gray-600"&gt;Pour un couple avec 2 enfants, revenus €4500/mois</p>
-              </div>
-
-              &lt;div className="space-y-4 text-sm">
-                &lt;div className="bg-white rounded p-4 border-l-4 border-green-500">
-                  &lt;strong&gt;Budget mensuel recommandé :</strong&gt; €2,850/mois&lt;br/>
-                  &lt;span className="text-green-600"&gt;↳ Économie vs France : €1,650/mois (37%)</span>
-                </div>
-
-                &lt;div className="bg-white rounded p-4 border-l-4 border-blue-500">
-                  &lt;strong&gt;Optimisation fiscale :</strong&gt; Régime IFICI&lt;br/>
-                  &lt;span className="text-blue-600"&gt;↳ 20% d'imposition vs 30% France = €9,000/an économisés</span>
-                </div>
-
-                &lt;div className="bg-white rounded p-4 border-l-4 border-purple-500">
-                  &lt;strong&gt;Visa recommandé :</strong&gt; D7 (Visa de retraité/indépendant)&lt;br/>
-                  &lt;span className="text-purple-600"&gt;↳ Délai : 6-8 mois, coût total : €1,200</span>
-                </div>
-
-                &lt;div className="bg-white rounded p-4 border-l-4 border-orange-500">
-                  &lt;strong&gt;Écoles enfants :</strong&gt; École française de Lisbonne&lt;br/>
-                  &lt;span className="text-orange-600"&gt;↳ €12,000/an/enfant, transport inclus</span>
-                </div>
-              </div>
-
-              &lt;div className="mt-6 text-center">
-                &lt;Link 
-                  href="/fr/plan-36"
-                  className="bg-[#1a365d] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#2d4a75] transition"
-                >
-                  Créer mon rapport personnalisé
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Destinations populaires */}
-      &lt;section className="py-20 bg-gray-50">
-        &lt;div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          &lt;div className="text-center mb-16">
-            &lt;h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Destinations Populaires pour les Français
-            </h2>
-            &lt;p className="text-xl text-gray-600">
-              Découvrez où s'installent les expatriés français et pourquoi
-            </p>
-          </div>
-
-          &lt;div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            &lt;Link href="/fr/blog/taxes-portugal-expatries" className="bg-white rounded-xl p-6 border hover:shadow-lg transition group">
-              &lt;div className="text-4xl mb-3"&gt;🇵🇹</div>
-              &lt;h3 className="font-bold text-gray-900 mb-2 group-hover:text-blue-600"&gt;Portugal</h3>
-              &lt;p className="text-sm text-gray-600 mb-3">
-                Régime IFICI, qualité de vie, UE. Budget couple : €2,200-3,500/mois.
-              </p>
-              &lt;div className="text-xs text-blue-600 font-semibold"&gt;En savoir plus →</div>
-            </Link>
-
-            &lt;Link href="/fr/blog/cout-vie-etranger-2026" className="bg-white rounded-xl p-6 border hover:shadow-lg transition group">
-              &lt;div className="text-4xl mb-3"&gt;🇪🇸</div>
-              &lt;h3 className="font-bold text-gray-900 mb-2 group-hover:text-blue-600"&gt;Espagne</h3>
-              &lt;p className="text-sm text-gray-600 mb-3">
-                Régime Beckham, climat, culture. Budget couple : €1,950-3,100/mois.
-              </p>
-              &lt;div className="text-xs text-blue-600 font-semibold"&gt;En savoir plus →</div>
-            </Link>
-
-            &lt;Link href="/fr/blog/taxes-mexique-expatries" className="bg-white rounded-xl p-6 border hover:shadow-lg transition group">
-              &lt;div className="text-4xl mb-3"&gt;🇲🇽</div>
-              &lt;h3 className="font-bold text-gray-900 mb-2 group-hover:text-blue-600"&gt;Mexique</h3>
-              &lt;p className="text-sm text-gray-600 mb-3">
-                Nomades digitaux, coût abordable. Budget couple : €1,600-2,800/mois.
-              </p>
-              &lt;div className="text-xs text-blue-600 font-semibold"&gt;En savoir plus →</div>
-            </Link>
-
-            &lt;Link href="/fr/blog/guide-fiscal-costa-rica-expatries" className="bg-white rounded-xl p-6 border hover:shadow-lg transition group">
-              &lt;div className="text-4xl mb-3"&gt;🇨🇷</div>
-              &lt;h3 className="font-bold text-gray-900 mb-2 group-hover:text-blue-600"&gt;Costa Rica</h3>
-              &lt;p className="text-sm text-gray-600 mb-3">
-                Pura Vida, fiscalité territoriale. Budget couple : €1,400-2,200/mois.
-              </p>
-              &lt;div className="text-xs text-blue-600 font-semibold"&gt;En savoir plus →</div>
-            </Link>
-          </div>
-
-          &lt;div className="text-center mt-8">
-            &lt;Link 
-              href="/fr/blog" 
-              className="text-[#1a365d] font-semibold hover:underline"
+      {/* Newsletter Section */}
+      <section className="py-16 sm:py-20 px-4 bg-[#1a365d]">
+        <div className="max-w-xl mx-auto text-center">
+          <h2 className="text-xl sm:text-2xl font-bold text-white mb-3">
+            Pas Prêt à Commencer? Recevez nos Conseils Expatriation.
+          </h2>
+          <p className="text-blue-300 text-sm mb-6">
+            Mises à jour gratuites sur les changements de visa, coût de la vie, et conseils de relocalisation. Pas de spam.
+          </p>
+          <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+            <input
+              type="email"
+              placeholder="votre@email.com"
+              className="flex-1 px-4 py-3 rounded-xl text-sm bg-white/10 border border-blue-400/30 text-white placeholder-blue-300/50 focus:outline-none focus:ring-2 focus:ring-[#38b2ac]"
+              required
+            />
+            <button
+              type="submit"
+              className="bg-[#38b2ac] hover:bg-[#2c9a94] text-white font-semibold px-6 py-3 rounded-xl transition disabled:opacity-50 whitespace-nowrap"
             >
-              Explorer toutes les destinations →
-            </Link>
-          </div>
+              S'abonner
+            </button>
+          </form>
         </div>
       </section>
-
-      {/* Social Proof */}
-      &lt;DynamicTestimonials />
-
-      {/* CTA Final */}
-      &lt;BlogCTA 
-        title="Prêt à Déménager à l'Étranger ?"
-        description="Obtenez votre rapport personnalisé en 5 minutes. Coût de la vie, impôts, visas et plan d'action pour votre destination idéale."
-        buttonText="Créer mon rapport gratuit"
-        buttonUrl="/fr/plan-36"
-        language="fr"
-      />
 
       {/* Footer */}
-      &lt;footer className="bg-gray-900 text-white py-12">
-        &lt;div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          &lt;div className="grid md:grid-cols-4 gap-8">
-            &lt;div>
-              &lt;div className="flex items-center gap-2 mb-4">
-                &lt;div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                  &lt;span className="text-white font-bold text-sm"&gt;R</span>
-                </div>
-                &lt;span className="font-bold text-xl"&gt;Reloca.ai</span>
+      <footer className="bg-[#1a365d] text-blue-200 py-12 px-4">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex flex-col sm:flex-row justify-between gap-8">
+            <div className="max-w-sm">
+              <div className="mb-2">
+                <img src="/images/reloca-logo.png" alt="Reloca.ai" className="h-12 w-auto brightness-0 invert" />
               </div>
-              &lt;p className="text-gray-400 text-sm">
-                Votre guide personnalisé pour une expatriation réussie.
+              <p className="text-sm text-blue-300 leading-relaxed">
+                Construit par une famille internationale avec une expérience d'expatrié sur 3 continents.
               </p>
             </div>
-
-            &lt;div>
-              &lt;h3 className="font-semibold mb-4"&gt;Destinations</h3>
-              &lt;ul className="space-y-2 text-sm text-gray-400">
-                &lt;li&gt;&lt;Link href="/fr/blog/taxes-portugal-expatries" className="hover:text-white"&gt;Portugal</Link></li>
-                &lt;li&gt;&lt;Link href="/fr/blog/taxes-mexique-expatries" className="hover:text-white"&gt;Mexique</Link></li>
-                &lt;li&gt;&lt;Link href="/fr/blog/guide-fiscal-costa-rica-expatries" className="hover:text-white"&gt;Costa Rica</Link></li>
-                &lt;li&gt;&lt;Link href="/fr/blog" className="hover:text-white"&gt;Toutes les destinations</Link></li>
-              </ul>
-            </div>
-
-            &lt;div>
-              &lt;h3 className="font-semibold mb-4"&gt;Guides</h3>
-              &lt;ul className="space-y-2 text-sm text-gray-400">
-                &lt;li&gt;&lt;Link href="/fr/blog/cout-vie-etranger-2026" className="hover:text-white"&gt;Coût de la vie</Link></li>
-                &lt;li&gt;&lt;Link href="/fr/blog/comparaison-visa-nomade-digital-2026" className="hover:text-white"&gt;Visas nomades</Link></li>
-                &lt;li&gt;&lt;Link href="/fr/blog/demenager-etranger-enfants-2026" className="hover:text-white"&gt;Familles expatriées</Link></li>
-                &lt;li&gt;&lt;Link href="/fr/plan-36" className="hover:text-white"&gt;Rapport personnalisé</Link></li>
-              </ul>
-            </div>
-
-            &lt;div>
-              &lt;h3 className="font-semibold mb-4"&gt;Langues</h3>
-              &lt;ul className="space-y-2 text-sm text-gray-400">
-                &lt;li&gt;&lt;Link href="/" className="hover:text-white"&gt;English</Link></li>
-                &lt;li&gt;&lt;Link href="/fr" className="hover:text-white text-white"&gt;Français</Link></li>
-              </ul>
+            <div className="flex gap-8 text-sm">
+              <div className="flex flex-col gap-2">
+                <Link href="/privacy" className="hover:text-white transition">Politique de Confidentialité</Link>
+                <Link href="/terms" className="hover:text-white transition">Conditions d'Utilisation</Link>
+                <a href="mailto:support@reloca.ai" className="hover:text-white transition">Contact</a>
+              </div>
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center gap-2 text-xs">
+                  <Link href="/" className="text-blue-400 hover:text-white">English</Link>
+                  <span className="text-gray-300">|</span>
+                  <span className="text-white font-medium">Français</span>
+                </div>
+              </div>
             </div>
           </div>
-
-          &lt;div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-400">
-            &lt;p&gt;&copy; 2026 Reloca.ai. Tous droits réservés.</p>
+          <div className="mt-8 pt-6 border-t border-blue-800">
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+              <p className="text-xs text-blue-400">© 2026 Reloca.ai. Tous droits réservés.</p>
+              <p className="text-xs text-blue-400">Construit par des expatriés, pour des expatriés. 🌍</p>
+            </div>
           </div>
         </div>
       </footer>
-      </div>
-    </>
+    </div>
   );
 }

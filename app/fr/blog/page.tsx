@@ -1,224 +1,243 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { BreadcrumbSchema } from '@/components/StructuredData';
-import { FrenchBlogTracking } from '@/components/FrenchBlogTracking';
 
 export const metadata: Metadata = {
-  title: 'Guides Fiscaux pour Expatriés | Blog Reloca.ai',
-  description: 'Guides fiscaux experts pour expatriés relocalisés à l\'étranger. Portugal, Mexique, Costa Rica, Thaïlande, UAE — stratégies fiscales 2026 mises à jour.',
-  openGraph: {
-    title: 'Guides Fiscaux pour Expatriés | Blog Reloca.ai',
-    description: 'Guides fiscaux experts pour expatriés relocalisés à l\'étranger. Stratégies fiscales 2026 mises à jour.',
-    url: 'https://reloca.ai/fr/blog',
-    type: 'website',
-    siteName: 'Reloca.ai',
-    images: [{ url: 'https://reloca.ai/images/og-image.png', width: 1200, height: 630 }],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Guides Fiscaux pour Expatriés | Blog Reloca.ai',
-    description: 'Guides fiscaux experts pour expatriés relocalisés à l\'étranger. Stratégies fiscales 2026 mises à jour.',
-    images: ['https://reloca.ai/images/og-image.png'],
-  },
+  title: 'Blog Expatriation — Guides et Conseils pour Déménager à l\'Étranger | Reloca.ai',
+  description: 'Guides complets en français sur l\'expatriation : optimisation fiscale, visas, coût de la vie, et stratégies de relocalisation pour 23+ pays. Expert en expatriation depuis 25+ ans.',
+  keywords: 'blog expatriation,guide expatrié,optimisation fiscale,visa étranger,coût vie étranger,déménager Portugal,impôts expatrié,nomade digital,Golden Visa,résidence fiscale',
+  alternates: {
+    canonical: 'https://reloca.ai/fr/blog',
+    languages: {
+      'en': 'https://reloca.ai/blog',
+      'fr': 'https://reloca.ai/fr/blog'
+    }
+  }
 };
-
-const articles = [
-  {
-    slug: 'demenager-etranger-enfants-2026',
-    flag: '👨‍👩‍👧‍👦',
-    title: 'Déménager à l\'Étranger avec des Enfants en 2026 : Le Guide Complet de Relocalisation Familiale',
-    excerpt: 'Vous planifiez un déménagement familial à l\'étranger ? Données réelles sur les écoles, coûts, soins de santé et visas pour les 7 meilleurs pays en 2026.',
-    readTime: '12 min de lecture',
-  },
-  {
-    slug: 'cout-vie-etranger-2026',
-    flag: '💰',
-    title: 'Coût de la Vie à l\'Étranger 2026 : Chiffres Réels de 15 Pays (Pas les Trucs Dépassés)',
-    excerpt: 'Données vérifiées de coût de la vie 2026 pour 15 pays. Budgets mensuels pour célibataires, couples et familles — pas des moyennes Numbeo.',
-    readTime: '14 min de lecture',
-  },
-  {
-    slug: 'taxes-portugal-expatries',
-    flag: '🇵🇹',
-    title: 'Guide Complet des Taxes au Portugal pour les Expatriés (Mise à Jour 2026)',
-    excerpt: 'Le système fiscal portugais a changé dramatiquement en 2024 quand NHR a été remplacé par IFICI. Découvrez le nouveau régime, taux d\'imposition et stratégies d\'optimisation.',
-    readTime: '10 min de lecture',
-  },
-  {
-    slug: 'taxes-mexique-expatries',
-    flag: '🇲🇽',
-    title: 'Taxes au Mexique pour les Retraités Expatriés — Guide Complet 2026',
-    excerpt: 'Le Mexique reste l\'un des pays les plus favorables fiscalement pour les retraités expatriés. Découvrez les taux d\'imposition, avantages de traité et stratégies.',
-    readTime: '9 min de lecture',
-  },
-  {
-    slug: 'guide-fiscal-costa-rica-expatries',
-    flag: '🇨🇷',
-    title: 'Guide Fiscal du Costa Rica pour les Expatriés 2026',
-    excerpt: 'Le Costa Rica offre un système fiscal territorial — vous ne payez que sur les revenus locaux. Guide complet des taux, exemptions et stratégies d\'optimisation.',
-    readTime: '8 min de lecture',
-  },
-  {
-    slug: 'regles-fiscales-thailande-expatries',
-    flag: '🇹🇭',
-    title: 'Règles Fiscales de la Thaïlande pour les Expatriés (Mise à Jour 2026)',
-    excerpt: 'La Thaïlande a introduit de nouvelles règles fiscales en 2024. Découvrez comment les changements affectent les expatriés et les stratégies d\'optimisation.',
-    readTime: '11 min de lecture',
-  },
-  {
-    slug: 'regles-residency-paraguay-2026',
-    flag: '🇵🇾',
-    title: 'Règles de Résidence au Paraguay 2026 : Le Guide de l\'Expatrié',
-    excerpt: 'Le Paraguay offre un chemin de résidence simple et 0% d\'impôt sur les revenus étrangers. Guide mis à jour des exigences, processus et avantages.',
-    readTime: '7 min de lecture',
-  },
-  {
-    slug: 'taxes-uae-dubai-expatries',
-    flag: '🇦🇪',
-    title: 'Taxes UAE/Dubai pour les Expatriés — Guide Fiscal Complet 2026',
-    excerpt: 'Les EAU maintiennent 0% d\'impôt sur le revenu personnel, mais ont introduit la TVA et l\'impôt sur les sociétés. Guide complet pour les expatriés.',
-    readTime: '9 min de lecture',
-  },
-  {
-    slug: 'moyen-orient-uae-bahrein-qatar-expatries',
-    flag: '🏜️',
-    title: 'Moyen-Orient pour les Expatriés : UAE vs Bahreïn vs Qatar (Comparaison 2026)',
-    excerpt: 'Comparaison complète des trois destinations du Golfe. Taxes, visas, coût de la vie et qualité de vie pour les expatriés.',
-    readTime: '13 min de lecture',
-  },
-  {
-    slug: 'comparaison-visa-nomade-digital-2026',
-    flag: '💻',
-    title: 'Comparaison des Visas de Nomade Digital 2026 : 12 Pays Analysés',
-    excerpt: 'Analyse complète des visas de nomade digital. Exigences, coûts, avantages fiscaux et qualité de vie pour 12 destinations populaires.',
-    readTime: '15 min de lecture',
-  },
-  {
-    slug: 'argentine-zero-taxe-revenus-etrangers',
-    flag: '🇦🇷',
-    title: 'Argentine : Comment Obtenir 0% de Taxe sur les Revenus Étrangers',
-    excerpt: 'L\'Argentine offre un régime fiscal territorial avec 0% d\'impôt sur les revenus étrangers. Guide des exigences, processus et pièges à éviter.',
-    readTime: '8 min de lecture',
-  },
-  {
-    slug: 'paradis-fiscaux-retraites-2026',
-    flag: '🏖️',
-    title: 'Paradis Fiscaux pour la Retraite 2026 : 8 Destinations Analysées',
-    excerpt: 'Les meilleurs pays à faible imposition pour les retraités. Taux d\'imposition réels, traités fiscaux et coût de la vie pour 8 destinations.',
-    readTime: '12 min de lecture',
-  },
-  {
-    slug: 'quit-travail-demenage-etranger-25-ans-expatrie',
-    flag: '✈️',
-    title: 'J\'ai Quitté Mon Travail et Déménagé à l\'Étranger : 25 Ans d\'Expérience d\'Expatrié',
-    excerpt: 'Réflexions personnelles de 25 ans de vie d\'expatrié. Les erreurs, les succès et les leçons apprises en vivant dans 12 pays.',
-    readTime: '10 min de lecture',
-  },
-];
 
 export default function BlogHomeFR() {
   return (
-    &lt;>
-      &lt;FrenchBlogTracking />
-      &lt;BreadcrumbSchema
-        items={[
-          { name: 'Accueil', url: 'https://reloca.ai/fr' },
-          { name: 'Blog', url: 'https://reloca.ai/fr/blog' },
-        ]}
-      />
-      
-      &lt;div className="min-h-screen bg-[#fafaf9]">
-        {/* Header */}
-        &lt;div className="bg-white border-b border-gray-100">
-          &lt;div className="max-w-4xl mx-auto px-4 py-16">
-            &lt;div className="text-center">
-              &lt;h1 className="text-4xl font-bold text-[#1a365d] mb-4">
-                Blog Reloca.ai 🇫🇷
-              </h1>
-              &lt;p className="text-xl text-gray-600 mb-8">
-                Guides d'experts sur les taxes, visas et relocalisation pour les expatriés
+    <div className="min-h-screen bg-white">
+      {/* Navigation */}
+      <header className="fixed top-0 w-full bg-white/80 backdrop-blur-md border-b border-gray-100 z-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+          <Link href="/fr" className="flex items-center">
+            <img src="/images/reloca-logo.png" alt="Reloca.ai" className="h-14 w-auto" />
+          </Link>
+          <nav className="hidden sm:flex items-center gap-6 text-sm">
+            <Link href="/fr" className="text-gray-600 hover:text-[#1a365d] transition">Accueil</Link>
+            <Link href="/about" className="text-gray-600 hover:text-[#1a365d] transition">À propos</Link>
+            <span className="text-[#38b2ac] font-medium">Blog</span>
+            <div className="flex items-center gap-2 text-xs">
+              <Link href="/blog" className="text-gray-400 hover:text-gray-600">EN</Link>
+              <span className="text-gray-300">|</span>
+              <span className="text-[#38b2ac] font-medium">FR</span>
+            </div>
+            <Link href="/auth/login" className="text-gray-600 hover:text-[#1a365d] transition">Connexion</Link>
+            <Link href="/fr/plan-36" className="bg-[#38b2ac] hover:bg-[#2c9a94] text-white px-4 py-2 rounded-lg font-medium transition">Commencer</Link>
+          </nav>
+        </div>
+      </header>
+
+      <main className="pt-24 pb-16">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          {/* Header */}
+          <div className="text-center mb-12">
+            <h1 className="text-4xl sm:text-5xl font-bold text-[#1a365d] mb-6">
+              Blog Expatriation 🌍
+            </h1>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              Guides complets en français pour votre expatriation : optimisation fiscale, visas, coût de la vie, et stratégies de relocalisation. 
+              <span className="text-[#38b2ac] font-semibold"> 25+ ans d'expérience d'expatrié.</span>
+            </p>
+          </div>
+
+          {/* Featured Articles Grid */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            
+            {/* Optimisation Fiscale Category */}
+            <article className="bg-purple-50 border border-purple-200 rounded-xl p-6 hover:shadow-lg transition">
+              <div className="flex items-center gap-2 mb-4">
+                <span className="text-2xl">💰</span>
+                <span className="bg-purple-100 text-purple-800 text-xs font-medium px-3 py-1 rounded-full">OPTIMISATION FISCALE</span>
+              </div>
+              <h2 className="text-xl font-bold text-[#1a365d] mb-3">
+                Guides Fiscaux pour Expatriés
+              </h2>
+              <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+                Portugal NHR, Espagne Beckham Law, 0% impôts Dubai, optimisation Thaïlande, Costa Rica... 
+                Stratégies fiscales légales pour réduire vos impôts jusqu'à 80%.
               </p>
-              &lt;div className="flex items-center justify-center gap-4 text-sm text-gray-500">
-                &lt;span className="flex items-center gap-2">
-                  &lt;span className="w-2 h-2 bg-green-500 rounded-full"></span>
-                  Mis à jour pour 2026
-                </span>
-                &lt;span className="flex items-center gap-2">
-                  &lt;span className="w-2 h-2 bg-blue-500 rounded-full"></span>
-                  Écrit par des expatriés
-                </span>
-                &lt;span className="flex items-center gap-2">
-                  &lt;span className="w-2 h-2 bg-purple-500 rounded-full"></span>
-                  Données vérifiées
-                </span>
+              <div className="space-y-2 text-sm">
+                <div className="text-purple-800">• Portugal - Régime NHR et résidence fiscale</div>
+                <div className="text-purple-800">• Espagne - Beckham Law pour nouveaux résidents</div>
+                <div className="text-purple-800">• Dubai/UAE - 0% d'impôts sur le revenu</div>
+                <div className="text-purple-800">• Thaïlande - Nouvelles règles fiscales 2024</div>
+              </div>
+            </article>
+
+            {/* Visa & Résidence Category */}
+            <article className="bg-blue-50 border border-blue-200 rounded-xl p-6 hover:shadow-lg transition">
+              <div className="flex items-center gap-2 mb-4">
+                <span className="text-2xl">🛂</span>
+                <span className="bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full">VISAS & RÉSIDENCE</span>
+              </div>
+              <h2 className="text-xl font-bold text-[#1a365d] mb-3">
+                Procédures de Visa Simplifiées
+              </h2>
+              <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+                Golden Visa, visa nomade digital, résidence par investissement, visa retraité... 
+                Toutes les procédures expliquées étape par étape avec les coûts réels 2026.
+              </p>
+              <div className="space-y-2 text-sm">
+                <div className="text-blue-800">• Golden Visa Portugal/Espagne/Grèce</div>
+                <div className="text-blue-800">• Visa Nomade Digital - Comparatif complet</div>
+                <div className="text-blue-800">• Résidence par investissement</div>
+                <div className="text-blue-800">• Visa retraité - Conditions et avantages</div>
+              </div>
+            </article>
+
+            {/* Coût de la Vie Category */}
+            <article className="bg-green-50 border border-green-200 rounded-xl p-6 hover:shadow-lg transition">
+              <div className="flex items-center gap-2 mb-4">
+                <span className="text-2xl">🏡</span>
+                <span className="bg-green-100 text-green-800 text-xs font-medium px-3 py-1 rounded-full">COÛT DE LA VIE</span>
+              </div>
+              <h2 className="text-xl font-bold text-[#1a365d] mb-3">
+                Budget Réel par Destination
+              </h2>
+              <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+                Logement, alimentation, transport, santé, éducation, loisirs... 
+                Budgets détaillés 2026 avec comparaisons France vs destinations populaires.
+              </p>
+              <div className="space-y-2 text-sm">
+                <div className="text-green-800">• Coûts détaillés par catégorie</div>
+                <div className="text-green-800">• Comparaisons France vs étranger</div>
+                <div className="text-green-800">• Budgets famille avec enfants</div>
+                <div className="text-green-800">• Coûts cachés de l'expatriation</div>
+              </div>
+            </article>
+
+            {/* Guide Pratique Category */}
+            <article className="bg-orange-50 border border-orange-200 rounded-xl p-6 hover:shadow-lg transition">
+              <div className="flex items-center gap-2 mb-4">
+                <span className="text-2xl">📋</span>
+                <span className="bg-orange-100 text-orange-800 text-xs font-medium px-3 py-1 rounded-full">GUIDES PRATIQUES</span>
+              </div>
+              <h2 className="text-xl font-bold text-[#1a365d] mb-3">
+                Déménagement avec Enfants
+              </h2>
+              <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+                Écoles internationales, systèmes de santé, adaptation culturelle... 
+                Guide complet pour expatrier votre famille en toute sérénité.
+              </p>
+              <div className="space-y-2 text-sm">
+                <div className="text-orange-800">• Choix écoles internationales</div>
+                <div className="text-orange-800">• Couverture santé famille</div>
+                <div className="text-orange-800">• Adaptation enfants/adolescents</div>
+                <div className="text-orange-800">• Activités et intégration sociale</div>
+              </div>
+            </article>
+
+            {/* Success Stories Category */}
+            <article className="bg-teal-50 border border-teal-200 rounded-xl p-6 hover:shadow-lg transition">
+              <div className="flex items-center gap-2 mb-4">
+                <span className="text-2xl">🌟</span>
+                <span className="bg-teal-100 text-teal-800 text-xs font-medium px-3 py-1 rounded-full">TÉMOIGNAGES</span>
+              </div>
+              <h2 className="text-xl font-bold text-[#1a365d] mb-3">
+                25 Ans d'Expérience d'Expatrié
+              </h2>
+              <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+                Du premier déménagement aux multiples relocalisations : erreurs à éviter, 
+                leçons apprises, et conseils pratiques d'un expert en expatriation.
+              </p>
+              <div className="space-y-2 text-sm">
+                <div className="text-teal-800">• Chronique d'un parcours d'expatrié</div>
+                <div className="text-teal-800">• Erreurs courantes et solutions</div>
+                <div className="text-teal-800">• Évolution des destinations</div>
+                <div className="text-teal-800">• Conseils pour différents profils</div>
+              </div>
+            </article>
+
+            {/* Stratégies Avancées Category */}
+            <article className="bg-red-50 border border-red-200 rounded-xl p-6 hover:shadow-lg transition">
+              <div className="flex items-center gap-2 mb-4">
+                <span className="text-2xl">🎯</span>
+                <span className="bg-red-100 text-red-800 text-xs font-medium px-3 py-1 rounded-full">STRATÉGIES AVANCÉES</span>
+              </div>
+              <h2 className="text-xl font-bold text-[#1a365d] mb-3">
+                Optimisation Multi-Pays
+              </h2>
+              <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+                Structures offshore, nomadisme fiscal, arbitrages géographiques... 
+                Stratégies avancées pour entrepreneurs et investisseurs internationaux.
+              </p>
+              <div className="space-y-2 text-sm">
+                <div className="text-red-800">• Structures holding internationales</div>
+                <div className="text-red-800">• Arbitrages fiscaux légaux</div>
+                <div className="text-red-800">• Gestion patrimoine multi-devises</div>
+                <div className="text-red-800">• Planification succession internationale</div>
+              </div>
+            </article>
+
+          </div>
+
+          {/* Newsletter Signup */}
+          <div className="bg-[#1a365d] rounded-2xl p-8 text-center text-white">
+            <h2 className="text-2xl font-bold mb-4">
+              Recevez nos Guides Expatriation 📧
+            </h2>
+            <p className="text-blue-200 mb-6">
+              Nouveaux articles, analyses fiscales, et opportunités de visa directement dans votre boîte mail. 
+              <span className="text-[#38b2ac]">Gratuit et sans spam.</span>
+            </p>
+            <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+              <input
+                type="email"
+                placeholder="votre@email.com"
+                className="flex-1 px-4 py-3 rounded-xl text-sm bg-white/10 border border-blue-400/30 text-white placeholder-blue-300/50 focus:outline-none focus:ring-2 focus:ring-[#38b2ac]"
+                required
+              />
+              <button
+                type="submit"
+                className="bg-[#38b2ac] hover:bg-[#2c9a94] text-white font-semibold px-6 py-3 rounded-xl transition"
+              >
+                S'abonner Gratuitement
+              </button>
+            </form>
+          </div>
+
+        </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="bg-[#1a365d] text-blue-200 py-12 px-4">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex flex-col sm:flex-row justify-between gap-8">
+            <div className="max-w-sm">
+              <div className="mb-2">
+                <img src="/images/reloca-logo.png" alt="Reloca.ai" className="h-12 w-auto brightness-0 invert" />
+              </div>
+              <p className="text-sm text-blue-300 leading-relaxed">
+                Construit par une famille internationale avec une expérience d'expatrié sur 3 continents.
+              </p>
+            </div>
+            <div className="flex gap-8 text-sm">
+              <div className="flex flex-col gap-2">
+                <Link href="/privacy" className="hover:text-white transition">Politique de Confidentialité</Link>
+                <Link href="/terms" className="hover:text-white transition">Conditions d'Utilisation</Link>
+                <a href="mailto:support@reloca.ai" className="hover:text-white transition">Contact</a>
               </div>
             </div>
           </div>
-        </div>
-
-        {/* Articles Grid */}
-        &lt;div className="max-w-6xl mx-auto px-4 py-16">
-          &lt;div className="grid lg:grid-cols-2 gap-8">
-            {articles.map((article) =&gt; (
-              &lt;article
-                key={article.slug}
-                className="bg-white rounded-2xl border border-gray-100 p-8 hover:shadow-lg transition-shadow group"
-              >
-                &lt;div className="flex items-start gap-4 mb-4">
-                  &lt;div className="text-3xl"&gt;{article.flag}</div>
-                  &lt;div className="flex-1">
-                    &lt;Link 
-                      href={`/fr/blog/${article.slug}`}
-                      className="group-hover:text-[#38b2ac] transition-colors"
-                    >
-                      &lt;h2 className="text-xl font-bold text-[#1a365d] mb-3 leading-tight">
-                        {article.title}
-                      </h2>
-                    </Link>
-                    &lt;p className="text-gray-600 leading-relaxed mb-4">
-                      {article.excerpt}
-                    </p>
-                    &lt;div className="flex items-center justify-between">
-                      &lt;span className="text-sm text-gray-400"&gt;{article.readTime}</span>
-                      &lt;Link 
-                        href={`/fr/blog/${article.slug}`}
-                        className="text-[#38b2ac] hover:text-[#2c9a94] font-medium text-sm transition-colors"
-                      >
-                        Lire l'article →
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-
-        {/* Newsletter CTA */}
-        &lt;div className="bg-[#1a365d] py-16">
-          &lt;div className="max-w-4xl mx-auto px-4 text-center">
-            &lt;h2 className="text-3xl font-bold text-white mb-4">
-              Restez informé des dernières stratégies d'expatriation
-            </h2>
-            &lt;p className="text-blue-200 mb-8 text-lg">
-              Recevez nos guides d'experts et les mises à jour fiscales directement dans votre boîte mail.
-            </p>
-            &lt;div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              &lt;input
-                type="email"
-                placeholder="votre@email.com"
-                className="flex-1 px-4 py-3 rounded-xl text-gray-900 border-0 focus:outline-none focus:ring-2 focus:ring-[#38b2ac]"
-              />
-              &lt;button className="bg-[#38b2ac] hover:bg-[#2c9a94] text-white font-semibold px-6 py-3 rounded-xl transition">
-                S'abonner
-              </button>
+          <div className="mt-8 pt-6 border-t border-blue-800">
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+              <p className="text-xs text-blue-400">© 2026 Reloca.ai. Tous droits réservés.</p>
+              <p className="text-xs text-blue-400">Construit par des expatriés, pour des expatriés. 🌍</p>
             </div>
-            &lt;p className="text-xs text-blue-300 mt-4">
-              Pas de spam. Désabonnez-vous à tout moment.
-            </p>
           </div>
         </div>
-      </div>
-    </>
+      </footer>
+    </div>
   );
 }
